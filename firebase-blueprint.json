@@ -1,0 +1,265 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the application",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string", "enum": ["principal", "teacher", "student", "parent", "admin"] },
+        "phoneNumber": { "type": "string" },
+        "country": { "type": "string" },
+        "city": { "type": "string" },
+        "district": { "type": "string" },
+        "school": { "type": "string" },
+        "grade": { "type": "string" },
+        "gender": { "type": "string" },
+        "province": { "type": "string" },
+        "specialization": { "type": "string" },
+        "academicYear": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "needsOnboarding": { "type": "boolean" },
+        "parentId": { "type": "string" },
+        "status": { "type": "string" }
+      },
+      "required": ["uid", "email", "name", "role", "createdAt"]
+    },
+    "School": {
+      "title": "School",
+      "description": "A school in the system",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "country": { "type": "string" },
+        "city": { "type": "string" },
+        "district": { "type": "string" },
+        "system": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "createdAt"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "A class taught by a teacher",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "students": { "type": "array", "items": { "type": "string" } },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "name", "teacherId", "students", "createdAt"]
+    },
+    "Book": {
+      "title": "Book",
+      "description": "A book in the library",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "grade": { "type": "string" },
+        "subject": { "type": "string" },
+        "uploaderId": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "title", "grade", "subject", "uploaderId", "createdAt"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "An exam created by a teacher",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "questions": { "type": "array", "items": { "type": "object" } },
+        "classId": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "duration": { "type": "number" },
+        "totalMarks": { "type": "number" },
+        "type": { "type": "string" },
+        "status": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "questions", "classId", "teacherId", "school", "createdAt"]
+    },
+    "Submission": {
+      "title": "Submission",
+      "description": "A student's submission for an exam",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "examId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "answers": { "type": "array", "items": { "type": "object" } },
+        "score": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "examId", "studentId", "answers", "score", "createdAt"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "A chat message",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "text": { "type": "string" },
+        "senderId": { "type": "string" },
+        "receiverId": { "type": "string" },
+        "senderName": { "type": "string" },
+        "senderRole": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["text", "senderId", "createdAt"]
+    },
+    "Competition": {
+      "title": "Competition",
+      "description": "A school competition",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "description", "date", "type", "school", "createdAt"]
+    },
+    "Curriculum": {
+      "title": "Curriculum",
+      "description": "A curriculum document",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "grade": { "type": "string" },
+        "subject": { "type": "string" },
+        "link": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "grade", "subject", "link", "school", "createdAt"]
+    },
+    "Event": {
+      "title": "Event",
+      "description": "A calendar event",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "date", "type", "school", "createdAt"]
+    },
+    "Alert": {
+      "title": "Alert",
+      "description": "A system alert or notification",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string" },
+        "target": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "message", "type", "target", "school", "createdAt"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "A financial transaction",
+      "type": "object",
+      "properties": {
+        "description": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string" },
+        "date": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["description", "amount", "type", "date", "school", "createdAt"]
+    },
+    "Tracking": {
+      "title": "Tracking",
+      "description": "Student tracking record",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "date": { "type": "string" },
+        "status": { "type": "string" },
+        "notes": { "type": "string" },
+        "school": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "date", "status", "school", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "Users collection"
+    },
+    "schools": {
+      "schema": { "$ref": "#/entities/School" },
+      "description": "Schools collection"
+    },
+    "classes": {
+      "schema": { "$ref": "#/entities/Class" },
+      "description": "Classes collection"
+    },
+    "books": {
+      "schema": { "$ref": "#/entities/Book" },
+      "description": "Library books collection"
+    },
+    "exams": {
+      "schema": { "$ref": "#/entities/Exam" },
+      "description": "Exams collection"
+    },
+    "submissions": {
+      "schema": { "$ref": "#/entities/Submission" },
+      "description": "Exam submissions collection"
+    },
+    "messages": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Direct messages collection"
+    },
+    "classes/{classId}/messages": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Class chatroom messages"
+    },
+    "competitions": {
+      "schema": { "$ref": "#/entities/Competition" },
+      "description": "Competitions collection"
+    },
+    "curriculums": {
+      "schema": { "$ref": "#/entities/Curriculum" },
+      "description": "Curriculums collection"
+    },
+    "events": {
+      "schema": { "$ref": "#/entities/Event" },
+      "description": "Events collection"
+    },
+    "alerts": {
+      "schema": { "$ref": "#/entities/Alert" },
+      "description": "Alerts collection"
+    },
+    "transactions": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "Financial transactions collection"
+    },
+    "tracking": {
+      "schema": { "$ref": "#/entities/Tracking" },
+      "description": "Student tracking collection"
+    }
+  }
+}
