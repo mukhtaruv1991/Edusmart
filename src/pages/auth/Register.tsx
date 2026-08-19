@@ -46,13 +46,25 @@ export default function Register() {
   };
 
   const handleGoogleSignIn = async () => {
+    if (loading) return;
     setError('');
     setLoading(true);
     const provider = new GoogleAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
     try {
       await signInWithPopup(auth, provider);
     } catch (err: any) {
-      setError(err.message || 'Failed to sign up with Google');
+      console.warn('Google sign-in error:', err);
+      if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
+        // User closed or cancelled popup, no error needed
+      } else if (err.code === 'auth/popup-blocked') {
+        setError(language === 'en' ? 'Popup was blocked by your browser. Please allow popups.' : 'تم حظر النافذة المنبثقة من قبل المتصفح. يرجى السماح بالنوافذ المنبثقة.');
+      } else if (err.message && (err.message.includes('INTERNAL ASSERTION FAILED') || err.message.includes('Pending promise was never set'))) {
+        console.warn('Caught Firebase Auth internal assertion during popup auth.');
+      } else {
+        setError(err.message || 'Failed to sign up with Google');
+      }
+    } finally {
       setLoading(false);
     }
   };

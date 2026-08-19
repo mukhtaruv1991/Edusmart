@@ -1,5 +1,8 @@
 {
-  "name": "Remix: Remix: EduSmart AI Connect",
-  "description": "A comprehensive AI-driven educational platform with LMS, advanced RAG for PDF textbooks, and interactive services for Students, Teachers, and Principals.",
-  "requestFramePermissions": []
+  "name": "EduSmart AI Connect",
+  "description": "منصة تعليمية ذكية متكاملة لإدارة المدارس (LMS) مع ميزات الذكاء الاصطناعي، والكتب التفاعلية، وإدارة الامتحانات والفصول للطلاب والمعلمين ومدراء المدارس وأولياء الأمور.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
