@@ -1,126 +1,363 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
-import { BookOpen, Plus, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyAIItem, StudyQuiz } from '../../../types/curriculum';
+import { getCurriculumBooksForGrade, SAMPLE_CURRICULUM_DATABASE } from '../../../lib/curriculumData';
+import { getLocalStudyItems, getLocalQuizzes, getCustomUnits } from '../../../lib/studyStorage';
+import UnitsLessonsTree from '../../../components/curriculum/UnitsLessonsTree';
+import InteractiveReader from '../../../components/curriculum/InteractiveReader';
+import StudyNotesView from '../../../components/curriculum/StudyNotesView';
+import StudyQuizzesView from '../../../components/curriculum/StudyQuizzesView';
+import StudentExams from '../../../components/dashboard/StudentExams';
+import {
+  BookOpen, Search, Sparkles, Brain, FileText, ArrowRight,
+  Bookmark, CheckCircle2, Award, DownloadCloud, Layers, ArrowLeft
+} from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function StudentCurriculums() {
-  const { language } = useStore();
-  const [showRequestModal, setShowRequestModal] = useState(false);
+  const { user, language } = useStore();
+  const [selectedGrade, setSelectedGrade] = useState<string>(user?.grade || 'الصف الثالث الثانوي (العلمي)');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  
+  // Selected Curriculum Detail View
+  const [selectedBook, setSelectedBook] = useState<CurriculumBook | null>(null);
+  const [activeTab, setActiveTab] = useState<'units' | 'reader' | 'notes' | 'quizzes' | 'exams'>('units');
+  
+  // Active reader target
+  const [readerUnit, setReaderUnit] = useState<CurriculumUnit | undefined>();
+  const [readerLesson, setReaderLesson] = useState<CurriculumLesson | undefined>();
+  const [readerStartPage, setReaderStartPage] = useState<number>(1);
+  const [targetQuizLesson, setTargetQuizLesson] = useState<CurriculumLesson | undefined>();
 
-  // Mock data for now
-  const curriculums = [
-    { id: 1, title: 'Mathematics 101', titleAr: 'الرياضيات 101', teacher: 'Mr. Ahmed', status: 'active' },
-    { id: 2, title: 'Physics Basics', titleAr: 'أساسيات الفيزياء', teacher: 'Mr. Khalid', status: 'active' },
-  ];
+  // Stored items
+  const [studyItems, setStudyItems] = useState<StudyAIItem[]>([]);
+  const [studyQuizzes, setStudyQuizzes] = useState<StudyQuiz[]>([]);
 
-  const requests = [
-    { id: 1, title: 'Advanced Chemistry', titleAr: 'كيمياء متقدمة', status: 'pending', date: '2026-03-28' },
+  // Load books for the selected grade and apply custom overrides if saved
+  const baseBooks = getCurriculumBooksForGrade(selectedGrade);
+  const books = baseBooks.map(b => {
+    const custom = getCustomUnits(b.id);
+    if (custom && custom.length > 0) {
+      return { ...b, units: custom };
+    }
+    return b;
+  });
+
+  // Load local items on mount or user change
+  useEffect(() => {
+    if (user?.uid) {
+      const items = getLocalStudyItems(user.uid);
+      setStudyItems(items);
+      const quizzes = getLocalQuizzes(user.uid);
+      setStudyQuizzes(quizzes);
+    }
+  }, [user?.uid]);
+
+  const filteredBooks = books.filter(b => {
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase();
+      return b.title.toLowerCase().includes(q) || b.subject.toLowerCase().includes(q);
+    }
+    return true;
+  });
+
+  const handleOpenLessonInReader = (unit: CurriculumUnit, lesson: CurriculumLesson, startPage: number) => {
+    setReaderUnit(unit);
+    setReaderLesson(lesson);
+    setReaderStartPage(startPage);
+    setActiveTab('reader');
+  };
+
+  const handleStartQuizForLesson = (unit: CurriculumUnit, lesson: CurriculumLesson) => {
+    setTargetQuizLesson(lesson);
+    setActiveTab('quizzes');
+  };
+
+  const handleUnitsUpdated = (updatedUnits: CurriculumUnit[]) => {
+    if (selectedBook) {
+      setSelectedBook({ ...selectedBook, units: updatedUnits });
+    }
+  };
+
+  const gradeOptions = [
+    'الصف الثالث الثانوي (العلمي)',
+    'الصف الثالث الثانوي (الأدبي)',
+    'الصف التاسع الأساسي',
+    'الصف السابع الأساسي',
+    'الصف الأول الثانوي',
   ];
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          {language === 'en' ? 'My Curriculums' : 'مناهجي'}
-        </h1>
-        <button
-          onClick={() => setShowRequestModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-        >
-          <Plus className="w-5 h-5" />
-          {language === 'en' ? 'Request Curriculum' : 'طلب إضافة منهج'}
-        </button>
-      </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {curriculums.map((curr) => (
-          <div key={curr.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg flex items-center justify-center mb-4">
-              <BookOpen className="w-6 h-6" />
-            </div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-              {language === 'en' ? curr.title : curr.titleAr}
-            </h3>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              {language === 'en' ? 'Teacher: ' : 'المعلم: '} {curr.teacher}
-            </p>
-            <div className="mt-4 flex justify-end">
-              <button className="text-blue-600 dark:text-blue-400 text-sm font-medium hover:underline">
-                {language === 'en' ? 'View Details' : 'عرض التفاصيل'}
+      {/* ------------------------------------------------------------- */}
+      {/* VIEW A: Subject Detail & Interactive Workspace                 */}
+      {/* ------------------------------------------------------------- */}
+      {selectedBook ? (
+        <div className="space-y-6">
+          {/* Breadcrumb & Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-5 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setSelectedBook(null)}
+                className="p-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 rounded-xl text-gray-700 dark:text-gray-200 transition-colors"
+                title={language === 'en' ? 'Back to All Subjects' : 'الرجوع لجميع المواد'}
+              >
+                <ArrowLeft className="w-5 h-5 rtl:rotate-180" />
               </button>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                    {selectedBook.title}
+                  </h1>
+                  <span className="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300">
+                    {selectedBook.grade}
+                  </span>
+                </div>
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
+                  {selectedBook.units.length} وحدات • {selectedBook.units.reduce((acc, u) => acc + u.lessons.length, 0)} درساً • {selectedBook.totalPageCount} صفحة
+                </p>
+              </div>
+            </div>
+
+            {/* Offline ready badge */}
+            <div className="flex items-center gap-2 self-end sm:self-center">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-900/50">
+                <DownloadCloud className="w-3.5 h-3.5 text-emerald-600" />
+                {language === 'en' ? 'Offline Ready' : 'جاهز للمذاكرة بدون نت'}
+              </span>
             </div>
           </div>
-        ))}
-      </div>
 
-      {requests.length > 0 && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-            {language === 'en' ? 'Pending Requests' : 'الطلبات المعلقة'}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
-            <ul className="divide-y divide-gray-100 dark:divide-gray-700">
-              {requests.map((req) => (
-                <li key={req.id} className="p-4 flex items-center justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
-                      {language === 'en' ? req.title : req.titleAr}
-                    </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">{req.date}</p>
-                  </div>
-                  <div className="flex items-center gap-2 text-yellow-600 dark:text-yellow-500 bg-yellow-50 dark:bg-yellow-900/20 px-3 py-1 rounded-full text-sm font-medium">
-                    <Clock className="w-4 h-4" />
-                    {language === 'en' ? 'Pending Approval' : 'قيد الانتظار'}
-                  </div>
-                </li>
-              ))}
-            </ul>
+          {/* Navigation Tabs */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none border-b border-gray-200 dark:border-gray-700">
+            <button
+              onClick={() => setActiveTab('units')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+                activeTab === 'units'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+              }`}
+            >
+              <Layers className="w-4 h-4" />
+              <span>{language === 'en' ? 'Units & Lessons' : 'فهرس الوحدات والدروس'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('reader')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+                activeTab === 'reader'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+              }`}
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>{language === 'en' ? 'Interactive Reader' : 'القارئ التفاعلي الذكي'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('notes')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+                activeTab === 'notes'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+              }`}
+            >
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>{language === 'en' ? 'My AI Notes' : 'شروحاتي وتلاخيصي'}</span>
+              <span className="text-[10px] bg-amber-100 dark:bg-amber-900/40 text-amber-800 dark:text-amber-300 px-1.5 py-0.2 rounded-full">
+                {studyItems.filter(i => i.curriculumId === selectedBook.id).length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('quizzes')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+                activeTab === 'quizzes'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+              }`}
+            >
+              <Brain className="w-4 h-4 text-purple-500" />
+              <span>{language === 'en' ? 'Practice Quizzes' : 'بنك الأسئلة واختباراتي'}</span>
+              <span className="text-[10px] bg-purple-100 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 px-1.5 py-0.2 rounded-full">
+                {studyQuizzes.filter(q => q.curriculumId === selectedBook.id).length}
+              </span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('exams')}
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-2xl text-xs font-bold transition-all whitespace-nowrap ${
+                activeTab === 'exams'
+                  ? 'bg-blue-600 text-white shadow-md'
+                  : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700'
+              }`}
+            >
+              <FileText className="w-4 h-4 text-emerald-500" />
+              <span>{language === 'en' ? 'Class Exams' : 'اختبارات الفصل الرسمية'}</span>
+            </button>
           </div>
+
+          {/* Tab Body */}
+          {activeTab === 'units' && (
+            <UnitsLessonsTree
+              book={selectedBook}
+              onSelectLesson={handleOpenLessonInReader}
+              onStartQuizForLesson={handleStartQuizForLesson}
+              onUnitsUpdated={handleUnitsUpdated}
+            />
+          )}
+
+          {activeTab === 'reader' && (
+            <InteractiveReader
+              book={selectedBook}
+              initialUnit={readerUnit}
+              initialLesson={readerLesson}
+              initialPage={readerStartPage}
+              onOpenQuizzes={() => setActiveTab('quizzes')}
+              onOpenNotes={() => setActiveTab('notes')}
+              onSavedNewItem={(item) => setStudyItems([item, ...studyItems])}
+            />
+          )}
+
+          {activeTab === 'notes' && (
+            <StudyNotesView
+              book={selectedBook}
+              items={studyItems}
+              onItemsChange={setStudyItems}
+            />
+          )}
+
+          {activeTab === 'quizzes' && (
+            <StudyQuizzesView
+              book={selectedBook}
+              quizzes={studyQuizzes}
+              onQuizzesChange={setStudyQuizzes}
+              targetLesson={targetQuizLesson}
+            />
+          )}
+
+          {activeTab === 'exams' && (
+            <StudentExams />
+          )}
         </div>
-      )}
+      ) : (
+        /* ------------------------------------------------------------- */
+        /* VIEW B: Subjects Catalog Grid                                  */
+        /* ------------------------------------------------------------- */
+        <div className="space-y-6">
+          {/* Header & Grade Selector */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white dark:bg-gray-800 p-6 rounded-3xl border border-gray-200 dark:border-gray-700 shadow-sm">
+            <div>
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {language === 'en' ? 'Official Curriculums & Subjects' : 'المناهج والمقررات الدراسية الرسمية'}
+                </h1>
+                <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+                  {filteredBooks.length} مواد
+                </span>
+              </div>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                {language === 'en'
+                  ? 'Access interactive textbooks, unit breakdowns, AI lesson explainers, and customized offline study tools.'
+                  : 'استعرض الكتب المدرسية التفاعلية، فهرس الوحدات والدروس، المساعد الذكي للشرح، وبنك الاختبارات التدريبية بدون نت.'}
+              </p>
+            </div>
 
-      {/* Request Modal */}
-      {showRequestModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-md p-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-              {language === 'en' ? 'Request New Curriculum' : 'طلب منهج جديد'}
-            </h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  {language === 'en' ? 'Curriculum Code or Name' : 'رمز أو اسم المنهج'}
-                </label>
-                <input 
-                  type="text" 
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
-                  placeholder={language === 'en' ? 'Enter code...' : 'أدخل الرمز...'}
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  {language === 'en' ? 'Teacher (Optional)' : 'المعلم (اختياري)'}
-                </label>
-                <input 
-                  type="text" 
-                  className="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-4 py-2 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none"
-                  placeholder={language === 'en' ? 'Search teacher...' : 'ابحث عن معلم...'}
+            <div className="flex flex-wrap items-center gap-3">
+              {/* Grade Selector */}
+              <select
+                value={selectedGrade}
+                onChange={(e) => setSelectedGrade(e.target.value)}
+                className="px-4 py-2 text-xs font-semibold rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-xs"
+              >
+                {gradeOptions.map(g => (
+                  <option key={g} value={g}>{g}</option>
+                ))}
+              </select>
+
+              {/* Search */}
+              <div className="relative">
+                <Search className="w-4 h-4 text-gray-400 absolute right-3 top-2.5 rtl:right-3 rtl:left-auto ltr:left-3 ltr:right-auto" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder={language === 'en' ? 'Search subject...' : 'بحث في المواد...'}
+                  className="pl-9 pr-9 py-2 text-xs rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-750 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </div>
             </div>
-            <div className="mt-6 flex justify-end gap-3">
-              <button 
-                onClick={() => setShowRequestModal(false)}
-                className="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-              >
-                {language === 'en' ? 'Cancel' : 'إلغاء'}
-              </button>
-              <button 
-                onClick={() => setShowRequestModal(false)}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-              >
-                {language === 'en' ? 'Send Request' : 'إرسال الطلب'}
-              </button>
-            </div>
+          </div>
+
+          {/* Subjects Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filteredBooks.map((book) => {
+              const bookNotesCount = studyItems.filter(i => i.curriculumId === book.id).length;
+              const bookQuizzesCount = studyQuizzes.filter(q => q.curriculumId === book.id).length;
+
+              return (
+                <div
+                  key={book.id}
+                  onClick={() => {
+                    setSelectedBook(book);
+                    setActiveTab('units');
+                  }}
+                  className="group bg-white dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-600 transition-all cursor-pointer flex flex-col justify-between space-y-4"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+                        <BookOpen className="w-6 h-6" />
+                      </div>
+
+                      <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300">
+                        {book.subject}
+                      </span>
+                    </div>
+
+                    <div>
+                      <h3 className="font-extrabold text-base text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {book.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                        {book.grade} • {book.semester || 'الفصل الدراسي الأول'}
+                      </p>
+                    </div>
+
+                    {/* Stats pills */}
+                    <div className="grid grid-cols-3 gap-2 pt-2 border-t border-gray-100 dark:border-gray-700/60 text-[11px]">
+                      <div className="bg-gray-50 dark:bg-gray-750 p-2 rounded-xl text-center">
+                        <span className="block font-bold text-gray-800 dark:text-gray-200">{book.units.length}</span>
+                        <span className="text-[10px] text-gray-400">وحدات</span>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-gray-750 p-2 rounded-xl text-center">
+                        <span className="block font-bold text-gray-800 dark:text-gray-200">
+                          {book.units.reduce((acc, u) => acc + u.lessons.length, 0)}
+                        </span>
+                        <span className="text-[10px] text-gray-400">دروس</span>
+                      </div>
+                      <div className="bg-gray-50 dark:bg-gray-750 p-2 rounded-xl text-center">
+                        <span className="block font-bold text-gray-800 dark:text-gray-200">{book.totalPageCount}</span>
+                        <span className="text-[10px] text-gray-400">صفحة</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Footer Action */}
+                  <div className="flex items-center justify-between pt-2 text-xs font-semibold text-blue-600 dark:text-blue-400 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">
+                    <span className="flex items-center gap-1">
+                      {bookNotesCount > 0 && (
+                        <span className="text-[10px] text-amber-600 font-normal bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded-md">
+                          {bookNotesCount} شروحات
+                        </span>
+                      )}
+                      <span>فتح المنهج والدروس</span>
+                    </span>
+                    <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}

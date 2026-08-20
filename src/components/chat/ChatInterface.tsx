@@ -49,16 +49,22 @@ export default function ChatInterface() {
       q = query(usersRef); // Fallback
     }
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetchedUsers: ChatUser[] = [];
-      snapshot.forEach((doc) => {
-        if (doc.id !== user.uid) {
-          fetchedUsers.push({ uid: doc.id, ...doc.data() } as ChatUser);
-        }
-      });
-      setUsers(fetchedUsers);
-      setFilteredUsers(fetchedUsers);
-    });
+    const unsubscribe = onSnapshot(
+      q, 
+      (snapshot) => {
+        const fetchedUsers: ChatUser[] = [];
+        snapshot.forEach((doc) => {
+          if (doc.id !== user.uid) {
+            fetchedUsers.push({ uid: doc.id, ...doc.data() } as ChatUser);
+          }
+        });
+        setUsers(fetchedUsers);
+        setFilteredUsers(fetchedUsers);
+      },
+      (error) => {
+        console.warn('Chat users snapshot notice:', error);
+      }
+    );
 
     return () => unsubscribe();
   }, [user]);
@@ -84,14 +90,26 @@ export default function ChatInterface() {
 
     // In a real app, you'd combine these queries or structure data differently
     // For this demo, we'll listen to both and merge
-    const unsubscribe1 = onSnapshot(q1, (snapshot) => {
-      // Handle sent messages
-    });
+    const unsubscribe1 = onSnapshot(
+      q1, 
+      (snapshot) => {
+        // Handle sent messages
+      },
+      (error) => {
+        console.warn('Sent messages snapshot notice:', error);
+      }
+    );
 
-    const unsubscribe2 = onSnapshot(q2, (snapshot) => {
-      // Handle received messages
-      // Mark as read
-    });
+    const unsubscribe2 = onSnapshot(
+      q2, 
+      (snapshot) => {
+        // Handle received messages
+        // Mark as read
+      },
+      (error) => {
+        console.warn('Received messages snapshot notice:', error);
+      }
+    );
 
     // Simplified message fetching for demo purposes
     // A better approach is a 'chats' collection with subcollections of messages

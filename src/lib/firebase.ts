@@ -1,16 +1,27 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { initializeFirestore } from 'firebase/firestore';
+import { 
+  initializeFirestore, 
+  persistentLocalCache, 
+  persistentMultipleTabManager,
+  setLogLevel
+} from 'firebase/firestore';
 import firebaseConfig from '../../firebase-applet-config.json';
 
 // Initialize Firebase SDK
 const app = initializeApp(firebaseConfig);
-console.log('Firebase initialized with project:', firebaseConfig.projectId);
 
-// Use initializeFirestore with long polling to bypass potential WebSocket blocks
+// Initialize Firestore with auto-detect long polling and persistent local caching
 export const db = initializeFirestore(app, {
-  experimentalForceLongPolling: true
-});
+  experimentalAutoDetectLongPolling: true,
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager()
+  })
+}, (firebaseConfig as any).firestoreDatabaseId);
 
 export const auth = getAuth(app);
+
+// Set log level to avoid repetitive timeout warnings in sandboxed network environments
+setLogLevel('error');
+
 

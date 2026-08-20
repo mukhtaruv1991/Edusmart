@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from './lib/firebase';
 import { useStore, UserProfile } from './lib/store';
 import Login from './pages/auth/Login';
@@ -54,7 +54,14 @@ export default function App() {
   }, [language]);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+    let unsubscribeDoc: (() => void) | null = null;
+
+    const unsubscribeAuth = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (unsubscribeDoc) {
+        unsubscribeDoc();
+        unsubscribeDoc = null;
+      }
+
       if (firebaseUser) {
         // Check email verification for password providers
         const isPasswordProvider = firebaseUser.providerData.some(p => p.providerId === 'password');
@@ -65,58 +72,53 @@ export default function App() {
           return;
         }
 
-        try {
-          console.log('Fetching user profile for:', firebaseUser.uid, 'using db:', db);
-          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-          console.log('userDoc fetched:', userDoc);
-          if (userDoc.exists()) {
-            const data = userDoc.data();
-            // If the user exists but somehow doesn't have a role, force onboarding
-            if (!data.role) {
-              setUser({ ...data, uid: firebaseUser.uid, needsOnboarding: true } as any);
+        // Set initial fallback user state so UI is never blocked
+        setUser({ 
+          uid: firebaseUser.uid, 
+          email: firebaseUser.email || '', 
+          name: firebaseUser.displayName || '', 
+          needsOnboarding: true 
+        } as any);
+
+        // Real-time listener on the user's Firestore document
+        unsubscribeDoc = onSnapshot(
+          doc(db, 'users', firebaseUser.uid),
+          (userDoc) => {
+            if (userDoc.exists()) {
+              const data = userDoc.data();
+              if (!data.role) {
+                setUser({ ...data, uid: firebaseUser.uid, needsOnboarding: true } as any);
+              } else {
+                setUser(data as UserProfile);
+              }
             } else {
-              setUser(data as UserProfile);
+              setUser({ 
+                uid: firebaseUser.uid, 
+                email: firebaseUser.email || '', 
+                name: firebaseUser.displayName || '', 
+                needsOnboarding: true 
+              } as any);
             }
-          } else {
-            // User authenticated but no profile -> needs onboarding
-            setUser({ 
-              uid: firebaseUser.uid, 
-              email: firebaseUser.email || '', 
-              name: firebaseUser.displayName || '', 
-              needsOnboarding: true 
-            } as any);
+            setAuthReady(true);
+          },
+          (error) => {
+            console.warn('User profile onSnapshot event:', error);
+            // Even if offline, keep auth state ready
+            setAuthReady(true);
           }
-        } catch (error: any) {
-          console.error('Error fetching user profile:', error);
-          
-          if (error.message?.toLowerCase().includes('offline')) {
-            toast.error(
-              language === 'en' 
-                ? 'Connection Error: Please check your device date/time, disable your AdBlocker/Brave Shields, or open the app in a new tab.' 
-                : 'خطأ في الاتصال: يرجى التحقق من إعدادات التاريخ والوقت بجهازك، أو إيقاف مانع الإعلانات (AdBlocker) أو متصفح Brave، أو فتح التطبيق في نافذة جديدة.',
-              { duration: 10000 }
-            );
-            // Allow them to proceed to onboarding anyway, with a flag indicating offline mode
-             setUser({ 
-              uid: firebaseUser.uid, 
-              email: firebaseUser.email || '', 
-              name: firebaseUser.displayName || '', 
-              needsOnboarding: true,
-              isOffline: true
-            } as any);
-          } else {
-            toast.error(language === 'en' ? 'Error fetching profile: ' + error.message : 'حدث خطأ أثناء جلب بيانات المستخدم: ' + error.message);
-            await signOut(auth);
-            setUser(null);
-          }
-        }
+        );
       } else {
         setUser(null);
+        setAuthReady(true);
       }
-      setAuthReady(true);
     });
 
-    return () => unsubscribe();
+    return () => {
+      unsubscribeAuth();
+      if (unsubscribeDoc) {
+        unsubscribeDoc();
+      }
+    };
   }, [setUser, setAuthReady]);
 
   return (
