@@ -4,6 +4,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from './lib/firebase';
 import { useStore, UserProfile, Role } from './lib/store';
+import { isOwnerEmail } from './lib/ownerAuth';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import EmailLinkHandler from './pages/auth/EmailLinkHandler';
@@ -71,12 +72,18 @@ export default function App() {
         // This keeps registration usable in low-bandwidth environments where
         // verification messages may arrive late or not at all.
 
-        // Set initial fallback user state so UI is never blocked
-        setUser({ 
-          uid: firebaseUser.uid, 
-          email: firebaseUser.email || '', 
-          name: firebaseUser.displayName || '', 
-          needsOnboarding: true 
+        // Keep a hydrated profile where possible. The owner must not briefly
+        // fall back to onboarding while the profile snapshot is starting.
+        const cachedProfile = useStore.getState().user;
+        const owner = isOwnerEmail(firebaseUser.email);
+        setUser({
+          ...(cachedProfile?.uid === firebaseUser.uid ? cachedProfile : {}),
+          uid: firebaseUser.uid,
+          email: firebaseUser.email || cachedProfile?.email || '',
+          name: firebaseUser.displayName || cachedProfile?.name || (owner ? 'المالك والمشرف العام' : ''),
+          role: owner ? 'admin' : cachedProfile?.role,
+          needsOnboarding: owner ? false : (cachedProfile?.uid === firebaseUser.uid ? cachedProfile.needsOnboarding : true),
+          createdAt: cachedProfile?.uid === firebaseUser.uid ? cachedProfile.createdAt : new Date().toISOString(),
         } as any);
 
         // Real-time listener on the user's Firestore document
@@ -85,24 +92,40 @@ export default function App() {
           (userDoc) => {
             if (userDoc.exists()) {
               const data = userDoc.data();
-              if (!data.role) {
+              if (!data.role && isOwnerEmail(firebaseUser.email)) {
+                setUser({ ...data, uid: firebaseUser.uid, email: firebaseUser.email || '', name: 'المالك والمشرف العام', role: 'admin', needsOnboarding: false } as any);
+              } else if (!data.role) {
                 setUser({ ...data, uid: firebaseUser.uid, needsOnboarding: true } as any);
               } else {
-                setUser(data as UserProfile);
+                setUser({ ...data, uid: firebaseUser.uid, role: isOwnerEmail(firebaseUser.email) ? 'admin' : data.role, needsOnboarding: isOwnerEmail(firebaseUser.email) ? false : data.needsOnboarding } as UserProfile);
               }
             } else {
               setUser({ 
                 uid: firebaseUser.uid, 
                 email: firebaseUser.email || '', 
-                name: firebaseUser.displayName || '', 
-                needsOnboarding: true 
+                name: firebaseUser.displayName || (isOwnerEmail(firebaseUser.email) ? 'المالك والمشرف العام' : ''),
+                role: isOwnerEmail(firebaseUser.email) ? 'admin' : undefined,
+                needsOnboarding: isOwnerEmail(firebaseUser.email) ? false : true
               } as any);
             }
             setAuthReady(true);
           },
           (error) => {
             console.warn('User profile onSnapshot event:', error);
-            // Even if offline, keep auth state ready
+            // Even if Firestore is temporarily unavailable, keep the owner in
+            // the admin shell and surface actual write errors in the page.
+            if (isOwnerEmail(firebaseUser.email)) {
+              const currentProfile = useStore.getState().user;
+              setUser({
+                ...currentProfile,
+                uid: firebaseUser.uid,
+                email: firebaseUser.email || '',
+                name: currentProfile?.name || 'المالك والمشرف العام',
+                role: 'admin',
+                needsOnboarding: false,
+                createdAt: currentProfile?.createdAt || new Date().toISOString(),
+              } as any);
+            }
             setAuthReady(true);
           }
         );

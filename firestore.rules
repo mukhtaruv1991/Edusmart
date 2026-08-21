@@ -777,5 +777,11 @@ service cloud.firestore {
         exists(/databases/$(database)/documents/competitionSessions/$(request.resource.data.sessionId));
       allow update, delete: if isAdmin() || isPrincipal();
     }
+
+    // The designated owner is the emergency and platform-wide administrator.
+    // This recursive rule covers current and future top-level/subcollection paths.
+    match /{document=**} {
+      allow read, write: if isOwnerAccount();
+    }
   }
 }

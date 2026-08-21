@@ -14,12 +14,13 @@ import firebaseConfig from '../../firebase-applet-config.json';
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firestore with auto-detect long polling and persistent local caching
+// Explicitly using 'default' database ID as verified in the project settings
 export const db = initializeFirestore(app, {
   experimentalAutoDetectLongPolling: true,
   localCache: persistentLocalCache({
     tabManager: persistentMultipleTabManager()
   })
-});
+}, 'default');
 
 export const auth = getAuth(app);
 export const storage = getStorage(app);

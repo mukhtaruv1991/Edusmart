@@ -32,50 +32,38 @@ async function sync() {
   }
 
   const app = initializeApp({
-    credential: cert(serviceAccountPath),
-    storageBucket: `${process.env.FIREBASE_PROJECT_ID || 'edusmart-yemen'}.appspot.com`
+    credential: cert(serviceAccountPath)
   });
 
-  const db = getFirestore(app);
-  const bucket = getStorage(app).bucket();
+  let db;
+  try {
+    // Explicitly use the default database ID found in the project
+    db = getFirestore(app, 'default');
+    console.log('Using Firestore database: default');
+  } catch (e) {
+    console.error('Firestore initialization failed:', e.message);
+    console.log('--- FALLBACK: Generating SQL/JSON for manual import ---');
+  }
 
   for (const book of manifest.books) {
     try {
-      console.log(`Syncing: ${book.title}...`);
+      console.log(`Processing: ${book.title}...`);
+      const pdfUrl = book.sourceUrl;
 
-      const localJsonPath = path.join(sourceRoot, book.localManifestPath);
-      const storagePath = `curriculum/${book.gradeKey}/${book.id}/pages.json`;
-
-      if (fs.existsSync(localJsonPath)) {
-        // Upload JSON manifest
-        await bucket.upload(localJsonPath, {
-          destination: storagePath,
-          metadata: { contentType: 'application/json' }
-        });
-
-        const [url] = await bucket.file(storagePath).getSignedUrl({
-          action: 'read',
-          expires: '03-09-2491'
-        });
-
-        // Create Firestore entry
+      if (db) {
         await db.collection('curriculumBooks').doc(book.id).set({
           ...book,
-          manifestUrl: url,
-          textIndexUrl: url,
-          storagePath: `curriculum/${book.gradeKey}/${book.id}/book.pdf`, // Placeholder for PDF
-          manifestStoragePath: storagePath,
+          pdfUrl: pdfUrl,
           isOfficial: true,
           isActive: true,
           updatedAt: new Date().toISOString()
         }, { merge: true });
-
-        console.log(`Successfully synced: ${book.title}`);
+        console.log(`Synced to Firestore: ${book.title}`);
       } else {
-        console.warn(`Warning: Local file not found for ${book.title} at ${localJsonPath}`);
+        console.log(`[Manual Import Data] ID: ${book.id}, Title: ${book.title}, URL: ${pdfUrl}`);
       }
     } catch (error) {
-      console.error(`Failed to sync ${book.title}:`, error.message);
+      console.error(`Failed to process ${book.title}:`, error.message);
     }
   }
 

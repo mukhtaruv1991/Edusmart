@@ -1,5 +1,6 @@
 import {
   EmailAuthProvider,
+  createUserWithEmailAndPassword,
   reauthenticateWithCredential,
   sendPasswordResetEmail,
   signInWithEmailAndPassword,
@@ -26,7 +27,7 @@ export async function ensureOwnerProfile(user: User) {
   await setDoc(doc(db, 'users', user.uid), {
     uid: user.uid,
     email: OWNER_EMAIL,
-    name: 'مالك EduSmart',
+    name: 'المالك والمشرف العام',
     role: 'admin',
     needsOnboarding: false,
     schoolStatus: 'none',
@@ -56,7 +57,21 @@ export async function signInOwner(email: string, password: string) {
     throw error;
   }
 
-  return signInWithEmailAndPassword(auth, normalizedEmail, password);
+  try {
+    return await signInWithEmailAndPassword(auth, normalizedEmail, password);
+  } catch (error) {
+    const code = typeof error === 'object' && error && 'code' in error
+      ? String((error as { code?: string }).code || '')
+      : '';
+
+    // Bootstrap creates a real Firebase Auth user, so Firestore rules can
+    // recognize the owner through request.auth.token.email.
+    if (code === 'auth/user-not-found' && password === '123123') {
+      return createUserWithEmailAndPassword(auth, normalizedEmail, password);
+    }
+
+    throw error;
+  }
 }
 
 export async function changeOwnerPassword(user: User, currentPassword: string, nextPassword: string) {

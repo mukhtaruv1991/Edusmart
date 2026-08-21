@@ -189,6 +189,7 @@ export default function Onboarding() {
       let finalSchoolId = formData.schoolId || '';
       let assignedStudentData: Record<string, any> | null = null;
       let roleInvitationData: Record<string, any> | null = null;
+      let assignedSchoolData: Record<string, any> | null = null;
       if (formData.role === 'student') {
         assignedStudentIdentifier = formData.studentIdentifier.trim().toUpperCase();
         const identifierSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'studentIds', assignedStudentIdentifier)));
@@ -200,10 +201,14 @@ export default function Onboarding() {
         finalSchoolId = String(assignedStudentData.schoolId || '');
         const assignedSchool = availableSchools.find((school) => school.id === finalSchoolId);
         if (assignedSchool) {
+          assignedSchoolData = assignedSchool;
           finalSchoolName = normalizePersonName(String(assignedSchool.name || ''));
         } else if (finalSchoolId) {
           const assignedSchoolSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'schools', finalSchoolId)));
-          if (assignedSchoolSnapshot.exists()) finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+          if (assignedSchoolSnapshot.exists()) {
+            assignedSchoolData = { id: assignedSchoolSnapshot.id, ...assignedSchoolSnapshot.data() };
+            finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+          }
         }
         if (!finalSchoolId || !finalSchoolName) throw new Error('STUDENT_SCHOOL_NOT_FOUND');
       }
@@ -217,18 +222,22 @@ export default function Onboarding() {
         finalSchoolId = String(roleInvitationData.schoolId || '');
         const assignedSchool = availableSchools.find((school) => school.id === finalSchoolId);
         if (assignedSchool) {
+          assignedSchoolData = assignedSchool;
           finalSchoolName = normalizePersonName(String(assignedSchool.name || ''));
         } else if (finalSchoolId) {
           const assignedSchoolSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'schools', finalSchoolId)));
-          if (assignedSchoolSnapshot.exists()) finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+          if (assignedSchoolSnapshot.exists()) {
+            assignedSchoolData = { id: assignedSchoolSnapshot.id, ...assignedSchoolSnapshot.data() };
+            finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+          }
         }
         if (!finalSchoolId || !finalSchoolName) throw new Error('ROLE_SCHOOL_NOT_FOUND');
       }
       const linkedAssignmentData = assignedStudentData || roleInvitationData;
-      const effectiveCountry = String(linkedAssignmentData?.country || formData.country);
-      const effectiveCity = String(linkedAssignmentData?.city || formData.city);
-      const effectiveDistrict = String(linkedAssignmentData?.district || formData.district);
-      const effectiveSchoolSystem = String(linkedAssignmentData?.schoolSystem || formData.schoolSystem);
+      const effectiveCountry = String(linkedAssignmentData?.country || assignedSchoolData?.country || formData.country);
+      const effectiveCity = String(linkedAssignmentData?.city || assignedSchoolData?.city || assignedSchoolData?.governorate || formData.city);
+      const effectiveDistrict = String(linkedAssignmentData?.district || assignedSchoolData?.district || formData.district);
+      const effectiveSchoolSystem = String(linkedAssignmentData?.schoolSystem || assignedSchoolData?.system || formData.schoolSystem);
       const selectedGovernorate = effectiveCountry === 'اليمن'
         ? yemenGovernorates.find((governorate) => governorate.nameAr === effectiveCity)
         : undefined;
