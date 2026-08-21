@@ -38,6 +38,7 @@ import CompetitionsView from './components/dashboard/CompetitionsView';
 import CalendarView from './components/dashboard/CalendarView';
 import AlertsView from './components/dashboard/AlertsView';
 import Settings from './pages/dashboard/Settings';
+import PwaInstallPrompt from './components/pwa/PwaInstallPrompt';
 import { Toaster, toast } from 'sonner';
 import { 
   BookOpen, Users, FileText, Settings as SettingsIcon, MessageSquare, Trophy, 
@@ -185,6 +186,7 @@ export default function App() {
         </Route>
       </Routes>
       <Toaster position={language === 'ar' ? 'top-left' : 'top-right'} dir={language === 'ar' ? 'rtl' : 'ltr'} richColors />
+      <PwaInstallPrompt />
     </Router>
   );
 }
