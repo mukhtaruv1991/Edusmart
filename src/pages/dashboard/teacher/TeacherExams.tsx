@@ -14,7 +14,7 @@ interface Exam {
   duration: number;
   totalMarks: number;
   status: 'upcoming' | 'ongoing' | 'completed';
-  type: 'quiz' | 'midterm' | 'final';
+  type: 'quiz' | 'monthly' | 'midterm' | 'final';
 }
 
 export default function TeacherExams() {
@@ -32,14 +32,16 @@ export default function TeacherExams() {
   const [date, setDate] = useState('');
   const [duration, setDuration] = useState(60);
   const [totalMarks, setTotalMarks] = useState(100);
-  const [type, setType] = useState<'quiz' | 'midterm' | 'final'>('quiz');
+  const [type, setType] = useState<'quiz' | 'monthly' | 'midterm' | 'final'>('quiz');
 
   useEffect(() => {
-    if (!user?.uid || !user?.school) return;
+    if (!user?.uid || (!user?.schoolId && !user?.school)) return;
 
+    const schoolField = user.schoolId ? 'schoolId' : 'school';
+    const schoolValue = user.schoolId || user.school;
     const q = query(
       collection(db, 'exams'),
-      where('school', '==', user.school),
+      where(schoolField, '==', schoolValue),
       where('teacherId', '==', user.uid)
     );
 
@@ -61,7 +63,7 @@ export default function TeacherExams() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user?.uid || !user?.school) return;
+    if (!user?.uid || (!user?.schoolId && !user?.school)) return;
 
     try {
       const examData = {
@@ -74,7 +76,9 @@ export default function TeacherExams() {
         type,
         status: 'upcoming',
         teacherId: user.uid,
-        school: user.school,
+        school: user.school || '',
+        schoolId: user.schoolId || '',
+        questions: [],
         updatedAt: serverTimestamp(),
       };
 
@@ -299,6 +303,7 @@ export default function TeacherExams() {
                     className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
                   >
                     <option value="quiz">{language === 'en' ? 'Quiz' : 'اختبار قصير'}</option>
+                    <option value="monthly">{language === 'en' ? 'Monthly' : 'شهري'}</option>
                     <option value="midterm">{language === 'en' ? 'Midterm' : 'نصفي'}</option>
                     <option value="final">{language === 'en' ? 'Final' : 'نهائي'}</option>
                   </select>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
-import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyAIItem, StudyQuiz } from '../../../types/curriculum';
-import { subscribeToCurriculumBooks } from '../../../lib/curriculumService';
+import { CurriculumBook, CurriculumContentOverride, CurriculumUnit, CurriculumLesson, StudyAIItem, StudyQuiz } from '../../../types/curriculum';
+import { subscribeToContentOverrides, subscribeToCurriculumBooks } from '../../../lib/curriculumService';
 import { YEMEN_GRADE_OPTIONS } from '../../../lib/gradeCatalog';
 import { getLocalStudyItems, getLocalQuizzes, getCustomUnits } from '../../../lib/studyStorage';
 import UnitsLessonsTree from '../../../components/curriculum/UnitsLessonsTree';
@@ -14,6 +14,28 @@ import {
   DownloadCloud, Layers, ArrowLeft
 } from 'lucide-react';
 
+function applyCurriculumOverrides(book: CurriculumBook, overrides: CurriculumContentOverride[]): CurriculumBook {
+  const subjectKeys = new Set([book.subjectKey, book.subject].filter(Boolean));
+  const bookOverrides = overrides.filter((override) => override.gradeKey === book.gradeKey && subjectKeys.has(override.subjectKey));
+  if (bookOverrides.length === 0) return book;
+
+  return {
+    ...book,
+    units: book.units.map((unit) => ({
+      ...unit,
+      lessons: unit.lessons.map((lesson) => {
+        const override = bookOverrides.find((item) => item.lessonKey === lesson.id || item.lessonKey === lesson.title || item.lessonTitle === lesson.title);
+        return override ? {
+          ...lesson,
+          contentStatus: override.status,
+          contentOverrideId: override.id,
+          contentOverrideNote: override.note,
+        } : lesson;
+      }),
+    })),
+  };
+}
+
 export default function StudentCurriculums() {
   const { user, language } = useStore();
   const [selectedGrade, setSelectedGrade] = useState<string>(user?.grade || YEMEN_GRADE_OPTIONS[0].labelAr);
@@ -24,6 +46,7 @@ export default function StudentCurriculums() {
   
   // Selected Curriculum Detail View
   const [selectedBook, setSelectedBook] = useState<CurriculumBook | null>(null);
+  const [contentOverrides, setContentOverrides] = useState<CurriculumContentOverride[]>([]);
   const [activeTab, setActiveTab] = useState<'units' | 'reader' | 'notes' | 'quizzes' | 'exams'>('units');
   
   // Active reader target
@@ -31,6 +54,23 @@ export default function StudentCurriculums() {
   const [readerLesson, setReaderLesson] = useState<CurriculumLesson | undefined>();
   const [readerStartPage, setReaderStartPage] = useState<number>(1);
   const [targetQuizLesson, setTargetQuizLesson] = useState<CurriculumLesson | undefined>();
+
+  useEffect(() => {
+    if (!selectedBook) {
+      setContentOverrides([]);
+      return;
+    }
+    const unsubscribe = subscribeToContentOverrides(
+      selectedBook,
+      { uid: user?.uid, schoolId: user?.schoolId, school: user?.school, grade: selectedGrade },
+      (nextOverrides) => {
+        setContentOverrides(nextOverrides);
+        setSelectedBook((currentBook) => currentBook ? applyCurriculumOverrides(currentBook, nextOverrides) : currentBook);
+      },
+      (error) => console.error('Content override subscription failed:', error),
+    );
+    return unsubscribe;
+  }, [selectedBook?.id, selectedBook?.gradeKey, selectedBook?.subject, user?.uid, user?.schoolId, user?.school, selectedGrade]);
 
   // Stored items
   const [studyItems, setStudyItems] = useState<StudyAIItem[]>([]);
@@ -65,6 +105,7 @@ export default function StudentCurriculums() {
     const custom = getCustomUnits(book.id);
     return custom && custom.length > 0 ? { ...book, units: custom } : book;
   });
+
 
   // Load local items on mount or user change
   useEffect(() => {
@@ -329,7 +370,7 @@ export default function StudentCurriculums() {
                 <div
                   key={book.id}
                   onClick={() => {
-                    setSelectedBook(book);
+                    setSelectedBook(applyCurriculumOverrides(book, contentOverrides));
                     setActiveTab('units');
                   }}
                   className="group bg-white dark:bg-gray-800 rounded-3xl border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-xl hover:border-blue-400 dark:hover:border-blue-600 transition-all cursor-pointer flex flex-col justify-between space-y-4"

@@ -6,7 +6,7 @@ import { signOut } from 'firebase/auth';
 import { 
   BookOpen, Users, FileText, Settings, LogOut, Globe, LayoutDashboard, 
   Menu, X, MessageSquare, Trophy, User, Calendar, Bell, MapPin, 
-  DollarSign, CreditCard, GraduationCap, UsersRound, BookMarked, Building2
+  DollarSign, CreditCard, GraduationCap, UsersRound, BookMarked, Building2, ShieldCheck
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
@@ -83,6 +83,7 @@ export default function DashboardLayout() {
         break;
       case 'admin':
         items.push(
+          { name: language === 'en' ? 'Control Center' : 'مركز التحكم', path: '/admin/control-center', icon: ShieldCheck },
           { name: language === 'en' ? 'Schools' : 'المدارس', path: '/admin/schools', icon: Building2 },
           { name: language === 'en' ? 'Users' : 'المستخدمين', path: '/admin/users', icon: Users },
           { name: language === 'en' ? 'Settings' : 'الضبط', path: '/admin/settings', icon: Settings }

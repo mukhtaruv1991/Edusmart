@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../../lib/store';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
-import { Settings as SettingsIcon, Save, User, Bell, Shield, Globe } from 'lucide-react';
+import { db, auth } from '../../lib/firebase';
+import { changeOwnerPassword, ownerAuthErrorMessage, isOwnerEmail } from '../../lib/ownerAuth';
+import { Settings as SettingsIcon, Save, User, Bell, Shield, Globe, KeyRound } from 'lucide-react';
 import { toast } from 'sonner';
 
 export default function Settings() {
   const { user, language } = useStore();
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [passwordSaving, setPasswordSaving] = useState(false);
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [nextPassword, setNextPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [settings, setSettings] = useState({
     notificationsEnabled: true,
     emailAlerts: true,
@@ -57,6 +62,32 @@ export default function Settings() {
 
   const handleChange = (key: string, value: any) => {
     setSettings(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleOwnerPasswordChange = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (!auth.currentUser || !isOwnerEmail(auth.currentUser.email)) return;
+    if (nextPassword.length < 8) {
+      toast.error(language === 'en' ? 'Use at least 8 characters.' : 'استخدم 8 أحرف على الأقل.');
+      return;
+    }
+    if (nextPassword !== confirmPassword) {
+      toast.error(language === 'en' ? 'Passwords do not match.' : 'كلمتا المرور غير متطابقتين.');
+      return;
+    }
+
+    setPasswordSaving(true);
+    try {
+      await changeOwnerPassword(auth.currentUser, currentPassword, nextPassword);
+      setCurrentPassword('');
+      setNextPassword('');
+      setConfirmPassword('');
+      toast.success(language === 'en' ? 'Owner password changed.' : 'تم تغيير كلمة مرور المالك.');
+    } catch (error) {
+      toast.error(ownerAuthErrorMessage(error, language));
+    } finally {
+      setPasswordSaving(false);
+    }
   };
 
   if (loading) {
@@ -112,6 +143,26 @@ export default function Settings() {
             </h3>
             
             <div className="space-y-6">
+              {isOwnerEmail(user?.email) && (
+                <form onSubmit={handleOwnerPasswordChange} className="rounded-xl border border-amber-200 bg-amber-50/60 p-5 dark:border-amber-900 dark:bg-amber-950/20">
+                  <div className="mb-4 flex items-start gap-3">
+                    <KeyRound className="mt-1 h-5 w-5 text-amber-700" />
+                    <div>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{language === 'en' ? 'Owner account security' : 'أمان حساب المالك'}</h4>
+                      <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{language === 'en' ? 'Change the Firebase password. It is never stored in the application.' : 'غيّر كلمة مرور Firebase؛ لا يتم تخزينها داخل التطبيق.'}</p>
+                    </div>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-3">
+                    <input type="password" required minLength={6} value={currentPassword} onChange={(event) => setCurrentPassword(event.target.value)} placeholder={language === 'en' ? 'Current password' : 'كلمة المرور الحالية'} autoComplete="current-password" className="input-field" />
+                    <input type="password" required minLength={8} value={nextPassword} onChange={(event) => setNextPassword(event.target.value)} placeholder={language === 'en' ? 'New password (8+)' : 'كلمة المرور الجديدة (8+)'} autoComplete="new-password" className="input-field" />
+                    <input type="password" required minLength={8} value={confirmPassword} onChange={(event) => setConfirmPassword(event.target.value)} placeholder={language === 'en' ? 'Confirm new password' : 'تأكيد كلمة المرور الجديدة'} autoComplete="new-password" className="input-field" />
+                  </div>
+                  <button type="submit" disabled={passwordSaving} className="mt-4 inline-flex items-center gap-2 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700 disabled:opacity-60">
+                    <KeyRound className="h-4 w-4" />{passwordSaving ? (language === 'en' ? 'Updating...' : 'جاري التحديث...') : (language === 'en' ? 'Change password' : 'تغيير كلمة المرور')}
+                  </button>
+                </form>
+              )}
+
               <div className="flex items-center justify-between">
                 <div>
                   <h4 className="font-medium text-gray-900 dark:text-white">{language === 'en' ? 'Push Notifications' : 'إشعارات الدفع'}</h4>

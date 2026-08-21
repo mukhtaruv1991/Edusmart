@@ -1,256 +1,111 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../../lib/firebase';
+import { useEffect, useState, type FormEvent, type ReactNode } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AlertCircle, BookOpen, CheckCircle2, Loader2, Mail, Phone, Send, UserRound } from 'lucide-react';
+import { authErrorMessage, sendEmailLink, saveRegistrationDraft } from '../../lib/emailLinkAuth';
 import { useStore } from '../../lib/store';
-import { BookOpen, AlertCircle, CheckCircle } from 'lucide-react';
-import { isFourPartName, normalizePersonName } from '../../lib/utils';
 
 export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const [error, setError] = useState('');
+  const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [verificationSent, setVerificationSent] = useState(false);
   const navigate = useNavigate();
   const { language, user, isAuthReady } = useStore();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (user) {
-      if (user.needsOnboarding) {
-        navigate('/onboarding');
-      } else {
-        navigate('/');
-      }
+      navigate(user.needsOnboarding ? '/onboarding' : '/', { replace: true });
     } else if (isAuthReady) {
       setLoading(false);
     }
   }, [user, isAuthReady, navigate]);
 
-  const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleRegister = async (event: FormEvent) => {
+    event.preventDefault();
     setError('');
-    const normalizedName = normalizePersonName(name);
-    if (!isFourPartName(normalizedName)) {
-      setError(language === 'en'
-        ? 'Please enter your full four-part name (four words).'
-        : 'يرجى إدخال الاسم الرباعي كاملاً (أربع كلمات).');
+    const trimmedName = name.trim().replace(/\s+/g, ' ');
+    const trimmedEmail = email.trim().toLowerCase();
+    const trimmedPhone = phoneNumber.trim();
+    if (trimmedName.split(' ').filter(Boolean).length < 2) {
+      setError(language === 'ar' ? 'يرجى إدخال الاسم الأول واسم العائلة على الأقل.' : 'Enter at least your first and family names.');
       return;
     }
-    setLoading(true);
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: normalizedName });
-      await sendEmailVerification(userCredential.user);
-      setVerificationSent(true);
-      setLoading(false);
-      // We don't navigate yet, wait for them to verify email
-    } catch (err: any) {
-      setError(err.message || 'Failed to create account');
-      setLoading(false);
+    if (!trimmedPhone) {
+      setError(language === 'ar' ? 'يرجى إدخال رقم الهاتف.' : 'Enter your phone number.');
+      return;
     }
-  };
 
-  const handleGoogleSignIn = async () => {
-    if (loading) return;
-    setError('');
     setLoading(true);
-    const provider = new GoogleAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
     try {
-      await signInWithPopup(auth, provider);
-    } catch (err: any) {
-      console.warn('Google sign-in error:', err);
-      if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
-        // User closed or cancelled popup, no error needed
-      } else if (err.code === 'auth/popup-blocked') {
-        setError(language === 'en' ? 'Popup was blocked by your browser. Please allow popups.' : 'تم حظر النافذة المنبثقة من قبل المتصفح. يرجى السماح بالنوافذ المنبثقة.');
-      } else if (err.message && (err.message.includes('INTERNAL ASSERTION FAILED') || err.message.includes('Pending promise was never set'))) {
-        console.warn('Caught Firebase Auth internal assertion during popup auth.');
+      saveRegistrationDraft({ name: trimmedName, email: trimmedEmail, phoneNumber: trimmedPhone });
+      await sendEmailLink(trimmedEmail);
+      setSent(true);
+    } catch (authError: any) {
+      const rawMessage = authError?.message || '';
+      if (rawMessage.includes('unauthorized-domain')) {
+        setError(language === 'ar'
+          ? `خطأ: النطاق الحالي غير مصرح به في Firebase. يرجى إضافة النطاق ${window.location.hostname} إلى Authorized Domains في إعدادات Firebase.`
+          : `Error: Current domain is not authorized. Please add ${window.location.hostname} to Authorized Domains in Firebase Settings.`);
       } else {
-        setError(err.message || 'Failed to sign up with Google');
+        setError(authErrorMessage(authError, language));
       }
+      console.error('Auth Error:', authError);
     } finally {
       setLoading(false);
     }
   };
 
-  if (verificationSent) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 text-center">
-            <CheckCircle className="mx-auto h-12 w-12 text-green-500 mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
-              {language === 'en' ? 'Check your email' : 'تحقق من بريدك الإلكتروني'}
-            </h2>
-            <p className="text-gray-600 mb-6">
-              {language === 'en' 
-                ? `We've sent a verification link to ${email}. Please verify your email to continue.` 
-                : `لقد أرسلنا رابط تحقق إلى ${email}. يرجى تأكيد بريدك الإلكتروني للمتابعة.`}
-            </p>
-            <Link
-              to="/login"
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700"
-            >
-              {language === 'en' ? 'Return to login' : 'العودة لتسجيل الدخول'}
-            </Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="flex justify-center">
-          <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-white">
-            <BookOpen className="w-8 h-8" />
-          </div>
+    <div className="min-h-screen bg-slate-50 px-4 py-10 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-md">
+        <div className="text-center">
+          <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white"><BookOpen className="h-7 w-7" /></div>
+          <h1 className="mt-5 text-3xl font-extrabold text-gray-900">{language === 'en' ? 'Create your account' : 'إنشاء حساب جديد'}</h1>
+          <p className="mt-2 text-sm text-gray-600">{language === 'en' ? 'Start with three details. We will verify your email before the rest of your profile.' : 'ابدأ بثلاثة بيانات فقط، ثم نتحقق من بريدك قبل إكمال ملفك.'}</p>
         </div>
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {language === 'en' ? 'Create your account' : 'إنشاء حساب جديد'}
-        </h2>
-      </div>
 
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" onSubmit={handleRegister}>
-            {error && (
-              <div className="bg-red-50 border-s-4 border-red-400 p-4 flex">
-                <AlertCircle className="h-5 w-5 text-red-400" />
-                <p className="ms-3 text-sm text-red-700">{error}</p>
-              </div>
-            )}
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {language === 'en' ? 'Full Name' : 'الاسم الكامل'}
-              </label>
-              <div className="mt-1">
-                <input
-                  type="text"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={language === 'en' ? 'First Father Grandfather Family' : 'الاسم الأول اسم الأب اسم الجد اسم العائلة'}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-              <p className="mt-1 text-xs text-gray-500">
-                {language === 'en' ? 'Use four name parts so your school can identify you correctly.' : 'استخدم أربعة أجزاء للاسم حتى تتمكن المدرسة من التعرف عليك بشكل صحيح.'}
-              </p>
+        <div className="mt-8 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 sm:p-8">
+          {sent ? (
+            <div className="text-center" role="status" aria-live="polite">
+              <CheckCircle2 className="mx-auto h-14 w-14 text-emerald-500" />
+              <h2 className="mt-4 text-xl font-bold text-gray-900">{language === 'ar' ? 'تم إرسال رابط التحقق' : 'Verification link sent'}</h2>
+              <p className="mt-3 text-sm leading-6 text-gray-600">{language === 'ar' ? <>افتح رسالة التحقق المرسلة إلى <strong className="text-gray-900">{email}</strong> واضغط الرابط. بعد ذلك ستعود تلقائياً لإكمال المدرسة والصف والدور.</> : <>Open the verification email sent to <strong className="text-gray-900">{email}</strong>. The link will return you to complete your school, grade, and role.</>}</p>
+              <div className="mt-5 rounded-xl bg-blue-50 p-4 text-start text-xs leading-5 text-blue-800">{language === 'ar' ? 'إذا لم تصل الرسالة خلال دقائق، افحص مجلد الرسائل غير المرغوب فيها. يمكنك إعادة الإرسال بعد التأكد من البريد.' : 'If the email does not arrive within a few minutes, check your spam folder. You can resend it after confirming the address.'}</div>
+              <button type="button" onClick={() => setSent(false)} className="mt-6 text-sm font-semibold text-blue-700 hover:text-blue-800">{language === 'ar' ? 'تغيير البيانات أو إعادة الإرسال' : 'Change details or resend'}</button>
             </div>
+          ) : (
+            <form className="space-y-5" onSubmit={handleRegister}>
+              {error && <div className="flex items-start gap-3 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert"><AlertCircle className="mt-0.5 h-5 w-5 shrink-0" /><p>{error}</p></div>}
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {language === 'en' ? 'Email address' : 'البريد الإلكتروني'}
-              </label>
-              <div className="mt-1">
-                <input
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
+              <Field icon={<UserRound className="h-4 w-4" />} label={language === 'en' ? 'Name' : 'الاسم'}>
+                <input type="text" required value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder={language === 'en' ? 'First and family names' : 'الاسم الأول واسم العائلة'} className="input-field" />
+              </Field>
+              <Field icon={<Mail className="h-4 w-4" />} label={language === 'en' ? 'Email address' : 'البريد الإلكتروني'}>
+                <input type="email" required value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" placeholder="name@example.com" className="input-field" />
+              </Field>
+              <Field icon={<Phone className="h-4 w-4" />} label={language === 'en' ? 'Phone number' : 'رقم الهاتف'}>
+                <input type="tel" required value={phoneNumber} onChange={(event) => setPhoneNumber(event.target.value)} autoComplete="tel" placeholder={language === 'en' ? '+967 7xx xxx xxx' : '+967 7xx xxx xxx'} className="input-field" />
+              </Field>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                {language === 'en' ? 'Password' : 'كلمة المرور'}
-              </label>
-              <div className="mt-1">
-                <input
-                  type="password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  minLength={6}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                />
-              </div>
-            </div>
-
-            <div>
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-              >
-                {loading ? '...' : (language === 'en' ? 'Create account' : 'إنشاء حساب')}
+              <button type="submit" disabled={loading} className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60">
+                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : <Send className="h-4 w-4" />}
+                {loading ? (language === 'ar' ? 'جاري الإرسال...' : 'Sending...') : (language === 'ar' ? 'إرسال رابط التحقق' : 'Send verification link')}
               </button>
-            </div>
-          </form>
+            </form>
+          )}
 
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  {language === 'en' ? 'Or continue with' : 'أو المتابعة باستخدام'}
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <button
-                onClick={handleGoogleSignIn}
-                disabled={loading}
-                className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-              >
-                <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
-                  <path
-                    fill="currentColor"
-                    d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
-                  />
-                  <path
-                    fill="#34A853"
-                    d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
-                  />
-                  <path
-                    fill="#FBBC05"
-                    d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                  />
-                  <path
-                    fill="#EA4335"
-                    d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                  />
-                </svg>
-                {language === 'en' ? 'Google' : 'جوجل'}
-              </button>
-            </div>
-          </div>
-
-          <div className="mt-6">
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-300" />
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white text-gray-500">
-                  {language === 'en' ? 'Already have an account?' : 'لديك حساب بالفعل؟'}
-                </span>
-              </div>
-            </div>
-
-            <div className="mt-6">
-              <Link
-                to="/login"
-                className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-              >
-                {language === 'en' ? 'Sign in' : 'تسجيل الدخول'}
-              </Link>
-            </div>
+          <div className="mt-7 border-t border-gray-100 pt-5 text-center text-sm text-gray-500">
+            {language === 'en' ? 'Already have an account?' : 'لديك حساب بالفعل؟'}{' '}
+            <Link to="/login" className="font-semibold text-blue-700 hover:text-blue-800">{language === 'en' ? 'Sign in with email link' : 'الدخول برابط البريد'}</Link>
           </div>
         </div>
       </div>
     </div>
   );
+}
+
+function Field({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
+  return <label className="block"><span className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700">{icon}{label}</span>{children}</label>;
 }

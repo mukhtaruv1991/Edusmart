@@ -1,34 +1,38 @@
 import { useState, useEffect } from 'react';
 import { collection, query, where, getDocs } from 'firebase/firestore';
-import { db, auth } from '../../lib/firebase';
+import { db } from '../../lib/firebase';
 import { useStore } from '../../lib/store';
-import { BookOpen, Users, Loader2, BarChart } from 'lucide-react';
+import { BookOpen, Users, Loader2, BarChart, Settings2 } from 'lucide-react';
 import LibraryManagement from '../../components/dashboard/LibraryManagement';
 import TeacherReports from '../../components/dashboard/TeacherReports';
+import PrincipalSchoolManagement from '../../components/dashboard/PrincipalSchoolManagement';
+import PrincipalAcademicControls from '../../components/dashboard/PrincipalAcademicControls';
 
 export default function PrincipalDashboard() {
   const { user, language } = useStore();
   const [stats, setStats] = useState({ teachers: 0, students: 0, books: 0 });
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'library' | 'reports'>('library');
+  const [activeTab, setActiveTab] = useState<'library' | 'reports' | 'management' | 'academic'>('management');
 
   useEffect(() => {
     fetchStats();
   }, [user]);
 
   const fetchStats = async () => {
-    if (!user || !user.school) {
+    if (!user || (!user.schoolId && !user.school)) {
       setLoading(false);
       return;
     }
 
     try {
       // Fetch teachers in the same school
-      const teachersQ = query(collection(db, 'users'), where('school', '==', user.school), where('role', '==', 'teacher'));
+      const schoolField = user.schoolId ? 'schoolId' : 'school';
+      const schoolValue = user.schoolId || user.school;
+      const teachersQ = query(collection(db, 'users'), where(schoolField, '==', schoolValue), where('role', '==', 'teacher'));
       const teachersSnapshot = await getDocs(teachersQ);
       
       // Fetch students in the same school
-      const studentsQ = query(collection(db, 'users'), where('school', '==', user.school), where('role', '==', 'student'));
+      const studentsQ = query(collection(db, 'users'), where(schoolField, '==', schoolValue), where('role', '==', 'student'));
       const studentsSnapshot = await getDocs(studentsQ);
 
       // Fetch books (all books for now, or could be filtered by school if books had a school field)
@@ -95,6 +99,38 @@ export default function PrincipalDashboard() {
       {/* Tabs */}
       <div className="flex gap-4 border-b border-gray-200 dark:border-gray-700">
         <button
+          onClick={() => setActiveTab('academic')}
+          className={`pb-4 px-2 text-sm font-medium transition-colors relative ${
+            activeTab === 'academic'
+              ? 'text-blue-600 dark:text-blue-400'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <BookOpen className="w-4 h-4" />
+            {language === 'en' ? 'Academic Control' : 'التحكم الأكاديمي'}
+          </div>
+          {activeTab === 'academic' && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-t-full" />
+          )}
+        </button>
+        <button
+          onClick={() => setActiveTab('management')}
+          className={`pb-4 px-2 text-sm font-medium transition-colors relative ${
+            activeTab === 'management'
+              ? 'text-blue-600 dark:text-blue-400'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            <Settings2 className="w-4 h-4" />
+            {language === 'en' ? 'School Management' : 'إدارة المدرسة'}
+          </div>
+          {activeTab === 'management' && (
+            <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 dark:bg-blue-400 rounded-t-full" />
+          )}
+        </button>
+        <button
           onClick={() => setActiveTab('library')}
           className={`pb-4 px-2 text-sm font-medium transition-colors relative ${
             activeTab === 'library'
@@ -128,7 +164,7 @@ export default function PrincipalDashboard() {
         </button>
       </div>
 
-      {activeTab === 'library' ? <LibraryManagement /> : <TeacherReports />}
+      {activeTab === 'management' ? <PrincipalSchoolManagement schoolId={user?.schoolId || ''} /> : activeTab === 'academic' ? <PrincipalAcademicControls schoolId={user?.schoolId || ''} /> : activeTab === 'library' ? <LibraryManagement /> : <TeacherReports />}
     </div>
   );
 }

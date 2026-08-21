@@ -1,3 +1,18 @@
+export type CurriculumContentStatus = 'included' | 'excluded' | 'required';
+
+export interface CurriculumContentOverride {
+  id: string;
+  schoolId: string;
+  gradeKey: string;
+  subjectKey: string;
+  lessonKey: string;
+  lessonTitle?: string;
+  status: CurriculumContentStatus;
+  decidedBy?: string;
+  decidedAt?: string;
+  note?: string;
+}
+
 export interface CurriculumLesson {
   id: string;
   title: string;
@@ -6,6 +21,9 @@ export interface CurriculumLesson {
   endPage: number;
   description?: string;
   sampleContent?: string;
+  contentStatus?: CurriculumContentStatus;
+  contentOverrideId?: string;
+  contentOverrideNote?: string;
 }
 
 export interface CurriculumUnit {
@@ -29,6 +47,7 @@ export interface CurriculumBook {
   grade: string;
   gradeKey?: string;
   subject: string;
+  subjectKey?: string;
   totalPageCount: number;
   pdfUrl?: string;
   manifestUrl?: string;
@@ -43,6 +62,12 @@ export interface CurriculumBook {
   publisher?: string;
   isOfficial?: boolean;
   isActive?: boolean;
+  approvalStatus?: 'pending' | 'approved' | 'rejected' | 'superseded' | string;
+  approvedBy?: string;
+  approvedAt?: string;
+  reviewedBy?: string;
+  reviewedAt?: string;
+  replacedBy?: string;
   contentVersion?: string;
   units: CurriculumUnit[];
   coverColor?: string;

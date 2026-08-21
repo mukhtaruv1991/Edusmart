@@ -323,24 +323,32 @@ export default function UnitsLessonsTree({
                 {/* Lessons list */}
                 {isExpanded && (
                   <div className="divide-y divide-gray-100 dark:divide-gray-700/60 bg-white dark:bg-gray-800/50 border-t border-gray-100 dark:border-gray-700">
-                    {unit.lessons.map((lesson) => (
+                    {unit.lessons.map((lesson) => {
+                      const isExcluded = lesson.contentStatus === 'excluded';
+                      const isRequired = lesson.contentStatus === 'required';
+                      return (
                       <div
                         key={lesson.id}
-                        className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:bg-blue-50/30 dark:hover:bg-gray-750 transition-colors"
+                        className={`p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 transition-colors ${isExcluded ? 'opacity-50 bg-gray-50/70 dark:bg-slate-900/40' : 'hover:bg-blue-50/30 dark:hover:bg-gray-750'}`}
                       >
                         <div className="flex items-start gap-3">
                           <div className="p-2 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-xl shrink-0 mt-0.5">
                             <BookOpen className="w-4 h-4" />
                           </div>
                           <div>
-                            <h5 className="font-semibold text-gray-800 dark:text-gray-200 text-xs sm:text-sm">
-                              {lesson.title}
-                            </h5>
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h5 className={`font-semibold text-xs sm:text-sm ${isExcluded ? 'text-gray-500 dark:text-gray-500 line-through' : 'text-gray-800 dark:text-gray-200'}`}>
+                                {lesson.title}
+                              </h5>
+                              {isExcluded && <span className="text-[10px] rounded-full bg-gray-200 px-2 py-0.5 text-gray-500 dark:bg-gray-700 dark:text-gray-400">{language === 'en' ? 'Excluded' : 'مستبعد من الخطة'}</span>}
+                              {isRequired && <span className="text-[10px] rounded-full bg-emerald-100 px-2 py-0.5 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-300">{language === 'en' ? 'Required' : 'مقرر إلزامي'}</span>}
+                            </div>
                             {lesson.description && (
                               <p className="text-xs text-gray-500 dark:text-gray-400 line-clamp-1 mt-0.5">
                                 {lesson.description}
                               </p>
                             )}
+                            {lesson.contentOverrideNote && <p className="text-[11px] text-amber-700 dark:text-amber-300 mt-1">{lesson.contentOverrideNote}</p>}
                             <span className="inline-block mt-1 text-[11px] text-blue-600 dark:text-blue-400 font-medium bg-blue-50 dark:bg-blue-900/30 px-2 py-0.5 rounded">
                               {language === 'en'
                                 ? `Pages ${lesson.startPage} - ${lesson.endPage}`
@@ -369,7 +377,8 @@ export default function UnitsLessonsTree({
                           </button>
                         </div>
                       </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 )}
               </div>

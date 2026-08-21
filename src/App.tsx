@@ -1,11 +1,12 @@
-import { useEffect } from 'react';
+import React, { ReactNode, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from './lib/firebase';
-import { useStore, UserProfile } from './lib/store';
+import { useStore, UserProfile, Role } from './lib/store';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
+import EmailLinkHandler from './pages/auth/EmailLinkHandler';
 import Onboarding from './pages/auth/Onboarding';
 import DashboardLayout from './components/layout/DashboardLayout';
 import PrincipalDashboard from './pages/dashboard/PrincipalDashboard';
@@ -30,6 +31,7 @@ import ParentDashboard from './pages/dashboard/ParentDashboard';
 import ParentChildren from './pages/dashboard/parent/ParentChildren';
 import ParentTracking from './pages/dashboard/parent/ParentTracking';
 import AdminDashboard from './pages/dashboard/AdminDashboard';
+import AdminControlCenter from './pages/dashboard/AdminControlCenter';
 import SchoolManagement from './components/dashboard/SchoolManagement';
 import UsersManagement from './pages/dashboard/admin/UsersManagement';
 import TeacherClasses from './pages/dashboard/teacher/TeacherClasses';
@@ -65,14 +67,9 @@ export default function App() {
       }
 
       if (firebaseUser) {
-        // Check email verification for password providers
-        const isPasswordProvider = firebaseUser.providerData.some(p => p.providerId === 'password');
-        if (isPasswordProvider && !firebaseUser.emailVerified) {
-          await signOut(auth);
-          setUser(null);
-          setAuthReady(true);
-          return;
-        }
+        // Email verification is encouraged but does not block onboarding.
+        // This keeps registration usable in low-bandwidth environments where
+        // verification messages may arrive late or not at all.
 
         // Set initial fallback user state so UI is never blocked
         setUser({ 
@@ -128,67 +125,78 @@ export default function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/auth/email-link" element={<EmailLinkHandler />} />
         <Route path="/onboarding" element={<Onboarding />} />
         <Route path="/" element={<DashboardLayout />}>
           <Route index element={<RoleBasedRedirect />} />
           
           {/* Principal Routes */}
-          <Route path="principal" element={<PrincipalDashboard />} />
-          <Route path="principal/add-teachers" element={<Navigate to="/principal/teachers" replace />} />
-          <Route path="principal/add-curriculums" element={<CurriculumsManagement />} />
-          <Route path="principal/competitions" element={<CompetitionsManagement />} />
-          <Route path="principal/classes" element={<ClassesManagement />} />
-          <Route path="principal/teachers" element={<TeachersList />} />
-          <Route path="principal/calendar" element={<CalendarManagement />} />
-          <Route path="principal/chats" element={<ChatInterface />} />
-          <Route path="principal/alerts" element={<AlertsManagement />} />
-          <Route path="principal/parents" element={<ParentsList />} />
-          <Route path="principal/notifications" element={<Navigate to="/principal/alerts" replace />} />
-          <Route path="principal/tracking" element={<TrackingManagement />} />
-          <Route path="principal/settings" element={<Settings />} />
-          <Route path="principal/financials" element={<FinancialsManagement />} />
-          <Route path="principal/expenses" element={<Navigate to="/principal/financials" replace />} />
+          <Route path="principal" element={<RoleGuard roles={['principal']}><PrincipalDashboard /></RoleGuard>} />
+          <Route path="principal/add-teachers" element={<RoleGuard roles={['principal']}><Navigate to="/principal/teachers" replace /></RoleGuard>} />
+          <Route path="principal/add-curriculums" element={<RoleGuard roles={['principal']}><CurriculumsManagement /></RoleGuard>} />
+          <Route path="principal/competitions" element={<RoleGuard roles={['principal']}><CompetitionsManagement /></RoleGuard>} />
+          <Route path="principal/classes" element={<RoleGuard roles={['principal']}><ClassesManagement /></RoleGuard>} />
+          <Route path="principal/teachers" element={<RoleGuard roles={['principal']}><TeachersList /></RoleGuard>} />
+          <Route path="principal/calendar" element={<RoleGuard roles={['principal']}><CalendarManagement /></RoleGuard>} />
+          <Route path="principal/chats" element={<RoleGuard roles={['principal']}><ChatInterface /></RoleGuard>} />
+          <Route path="principal/alerts" element={<RoleGuard roles={['principal']}><AlertsManagement /></RoleGuard>} />
+          <Route path="principal/parents" element={<RoleGuard roles={['principal']}><ParentsList /></RoleGuard>} />
+          <Route path="principal/notifications" element={<RoleGuard roles={['principal']}><Navigate to="/principal/alerts" replace /></RoleGuard>} />
+          <Route path="principal/tracking" element={<RoleGuard roles={['principal']}><TrackingManagement /></RoleGuard>} />
+          <Route path="principal/settings" element={<RoleGuard roles={['principal']}><Settings /></RoleGuard>} />
+          <Route path="principal/financials" element={<RoleGuard roles={['principal']}><FinancialsManagement /></RoleGuard>} />
+          <Route path="principal/expenses" element={<RoleGuard roles={['principal']}><Navigate to="/principal/financials" replace /></RoleGuard>} />
 
           {/* Teacher Routes */}
-          <Route path="teacher" element={<TeacherDashboard />} />
-          <Route path="teacher/classes" element={<TeacherClasses />} />
-          <Route path="teacher/students" element={<StudentsList />} />
-          <Route path="teacher/competitions" element={<CompetitionsView />} />
-          <Route path="teacher/exams" element={<TeacherExams />} />
-          <Route path="teacher/alerts" element={<AlertsView />} />
-          <Route path="teacher/notifications" element={<Navigate to="/teacher/alerts" replace />} />
-          <Route path="teacher/calendar" element={<CalendarView />} />
-          <Route path="teacher/chats" element={<ChatInterface />} />
+          <Route path="teacher" element={<RoleGuard roles={['teacher']}><TeacherDashboard /></RoleGuard>} />
+          <Route path="teacher/classes" element={<RoleGuard roles={['teacher']}><TeacherClasses /></RoleGuard>} />
+          <Route path="teacher/students" element={<RoleGuard roles={['teacher']}><StudentsList /></RoleGuard>} />
+          <Route path="teacher/competitions" element={<RoleGuard roles={['teacher']}><CompetitionsView /></RoleGuard>} />
+          <Route path="teacher/exams" element={<RoleGuard roles={['teacher']}><TeacherExams /></RoleGuard>} />
+          <Route path="teacher/alerts" element={<RoleGuard roles={['teacher']}><AlertsView /></RoleGuard>} />
+          <Route path="teacher/notifications" element={<RoleGuard roles={['teacher']}><Navigate to="/teacher/alerts" replace /></RoleGuard>} />
+          <Route path="teacher/calendar" element={<RoleGuard roles={['teacher']}><CalendarView /></RoleGuard>} />
+          <Route path="teacher/chats" element={<RoleGuard roles={['teacher']}><ChatInterface /></RoleGuard>} />
 
           {/* Student Routes */}
-          <Route path="student" element={<StudentDashboard />} />
-          <Route path="student/curriculums" element={<StudentCurriculums />} />
-          <Route path="student/private-exams" element={<StudentExams type="private" />} />
-          <Route path="student/school-exams" element={<StudentExams type="school" />} />
-          <Route path="student/competitions" element={<CompetitionsView />} />
-          <Route path="student/competitions/:competitionId" element={<CompetitionPlay />} />
-          <Route path="student/profile" element={<StudentProfile />} />
-          <Route path="student/chats" element={<ChatInterface />} />
+          <Route path="student" element={<RoleGuard roles={['student']}><StudentDashboard /></RoleGuard>} />
+          <Route path="student/curriculums" element={<RoleGuard roles={['student']}><StudentCurriculums /></RoleGuard>} />
+          <Route path="student/private-exams" element={<RoleGuard roles={['student']}><StudentExams type="private" /></RoleGuard>} />
+          <Route path="student/school-exams" element={<RoleGuard roles={['student']}><StudentExams type="school" /></RoleGuard>} />
+          <Route path="student/competitions" element={<RoleGuard roles={['student']}><CompetitionsView /></RoleGuard>} />
+          <Route path="student/competitions/:competitionId" element={<RoleGuard roles={['student']}><CompetitionPlay /></RoleGuard>} />
+          <Route path="student/profile" element={<RoleGuard roles={['student']}><StudentProfile /></RoleGuard>} />
+          <Route path="student/chats" element={<RoleGuard roles={['student']}><ChatInterface /></RoleGuard>} />
 
           {/* Parent Routes */}
-          <Route path="parent" element={<ParentDashboard />} />
-          <Route path="parent/children" element={<ParentChildren />} />
-          <Route path="parent/chats" element={<ChatInterface />} />
-          <Route path="parent/alerts" element={<AlertsView />} />
-          <Route path="parent/notifications" element={<Navigate to="/parent/alerts" replace />} />
-          <Route path="parent/tracking" element={<ParentTracking />} />
+          <Route path="parent" element={<RoleGuard roles={['parent']}><ParentDashboard /></RoleGuard>} />
+          <Route path="parent/children" element={<RoleGuard roles={['parent']}><ParentChildren /></RoleGuard>} />
+          <Route path="parent/chats" element={<RoleGuard roles={['parent']}><ChatInterface /></RoleGuard>} />
+          <Route path="parent/alerts" element={<RoleGuard roles={['parent']}><AlertsView /></RoleGuard>} />
+          <Route path="parent/notifications" element={<RoleGuard roles={['parent']}><Navigate to="/parent/alerts" replace /></RoleGuard>} />
+          <Route path="parent/tracking" element={<RoleGuard roles={['parent']}><ParentTracking /></RoleGuard>} />
 
           {/* Admin Routes */}
-          <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/schools" element={<SchoolManagement />} />
-          <Route path="admin/users" element={<UsersManagement />} />
-          <Route path="admin/settings" element={<Settings />} />
+          <Route path="admin" element={<RoleGuard roles={['admin']}><AdminDashboard /></RoleGuard>} />
+          <Route path="admin/control-center" element={<RoleGuard roles={['admin']}><AdminControlCenter /></RoleGuard>} />
+          <Route path="admin/schools" element={<RoleGuard roles={['admin']}><SchoolManagement /></RoleGuard>} />
+          <Route path="admin/users" element={<RoleGuard roles={['admin']}><UsersManagement /></RoleGuard>} />
+          <Route path="admin/settings" element={<RoleGuard roles={['admin']}><Settings /></RoleGuard>} />
         </Route>
       </Routes>
       <Toaster position={language === 'ar' ? 'top-left' : 'top-right'} dir={language === 'ar' ? 'rtl' : 'ltr'} richColors />
       <PwaInstallPrompt />
     </Router>
   );
+}
+
+function RoleGuard({ roles, children }: { roles: Role[]; children: ReactNode }) {
+  const { user, isAuthReady } = useStore();
+  if (!isAuthReady) return <div className="flex h-screen items-center justify-center">Loading...</div>;
+  if (!user) return <Navigate to="/login" replace />;
+  if (user.needsOnboarding) return <Navigate to="/onboarding" replace />;
+  if (!roles.includes(user.role)) return <Navigate to={`/${user.role}`} replace />;
+  return <>{children}</>;
 }
 
 function RoleBasedRedirect() {

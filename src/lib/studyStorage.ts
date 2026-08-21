@@ -171,30 +171,73 @@ export function saveCustomUnits(curriculumId: string, units: CurriculumUnit[]): 
 
 export interface LastReadProgress {
   curriculumId: string;
+  studentId?: string;
   unitId?: string;
   lessonId?: string;
   pageNumber: number;
   lastReadAt: string;
 }
 
+function progressStorageKey(progress: Pick<LastReadProgress, 'curriculumId' | 'studentId'>): string {
+  return `${progress.studentId || 'anonymous'}:${progress.curriculumId}`;
+}
+
 export function saveLastReadProgress(progress: LastReadProgress): void {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.STUDY_PROGRESS);
     const map = raw ? JSON.parse(raw) : {};
-    map[progress.curriculumId] = progress;
+    map[progressStorageKey(progress)] = progress;
     localStorage.setItem(STORAGE_KEYS.STUDY_PROGRESS, JSON.stringify(map));
   } catch (e) {
     console.error('Failed to save progress:', e);
   }
 }
 
-export function getLastReadProgress(curriculumId: string): LastReadProgress | null {
+export function getLastReadProgress(curriculumId: string, studentId?: string): LastReadProgress | null {
   try {
     const raw = localStorage.getItem(STORAGE_KEYS.STUDY_PROGRESS);
     if (!raw) return null;
     const map = JSON.parse(raw);
-    return map[curriculumId] || null;
+    return map[progressStorageKey({ curriculumId, studentId })]
+      || (!studentId ? map[curriculumId] : null)
+      || null;
   } catch (e) {
     return null;
+  }
+}
+
+// -------------------------------------------------------------
+// 5. Reader Preferences (per student and curriculum)
+// -------------------------------------------------------------
+
+export interface ReaderPreferences {
+  nightMode: boolean;
+  zoom: number;
+}
+
+const DEFAULT_READER_PREFERENCES: ReaderPreferences = {
+  nightMode: false,
+  zoom: 100,
+};
+
+export function getReaderPreferences(scope: string): ReaderPreferences {
+  try {
+    const raw = localStorage.getItem('edusmart_reader_preferences');
+    if (!raw) return DEFAULT_READER_PREFERENCES;
+    const map = JSON.parse(raw);
+    return { ...DEFAULT_READER_PREFERENCES, ...(map[scope] || {}) };
+  } catch (e) {
+    return DEFAULT_READER_PREFERENCES;
+  }
+}
+
+export function saveReaderPreferences(scope: string, preferences: ReaderPreferences): void {
+  try {
+    const raw = localStorage.getItem('edusmart_reader_preferences');
+    const map = raw ? JSON.parse(raw) : {};
+    map[scope] = preferences;
+    localStorage.setItem('edusmart_reader_preferences', JSON.stringify(map));
+  } catch (e) {
+    console.error('Failed to save reader preferences:', e);
   }
 }

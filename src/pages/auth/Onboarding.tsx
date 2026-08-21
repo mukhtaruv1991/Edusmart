@@ -1,13 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, collection, getDocs, deleteDoc, runTransaction } from 'firebase/firestore';
+import { doc, setDoc, collection, getDocs, getDoc, deleteDoc, deleteField, runTransaction } from 'firebase/firestore';
 import { auth, db } from '../../lib/firebase';
 import { useStore, Role } from '../../lib/store';
 import { BookOpen, AlertCircle } from 'lucide-react';
 import { ARAB_COUNTRIES, SCHOOL_SYSTEMS, GRADES } from '../../lib/constants';
 import { yemenGovernorates } from '../../lib/yemenData';
-import { getGradeKey, YEMEN_GRADE_OPTIONS } from '../../lib/gradeCatalog';
+import { getGradeKey, getGradeLabelAr, YEMEN_GRADE_OPTIONS } from '../../lib/gradeCatalog';
 import { createStableKey, isFourPartName, normalizePersonName } from '../../lib/utils';
+import { clearRegistrationDraft, readRegistrationDraft } from '../../lib/emailLinkAuth';
+
+const FIRESTORE_OPERATION_TIMEOUT_MS = 10000;
+
+function firebaseErrorCode(error: unknown): string {
+  if (typeof error !== 'object' || error === null || !('code' in error)) return '';
+  const code = (error as { code?: unknown }).code;
+  return typeof code === 'string' ? code : '';
+}
+
+function isFirestoreDatabaseUnavailable(error: unknown): boolean {
+  const code = firebaseErrorCode(error);
+  const message = error instanceof Error ? error.message : String(error || '');
+  return (
+    code === 'not-found' ||
+    (code === 'failed-precondition' && /database|firestore/i.test(message)) ||
+    /database.*(does not exist|not found|not enabled)/i.test(message)
+  );
+}
+
+function withFirestoreTimeout<T>(operation: Promise<T>): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => reject(new Error('FIRESTORE_TIMEOUT')), FIRESTORE_OPERATION_TIMEOUT_MS);
+    operation.then(
+      (value) => {
+        clearTimeout(timeoutId);
+        resolve(value);
+      },
+      (reason) => {
+        clearTimeout(timeoutId);
+        reject(reason);
+      },
+    );
+  });
+}
 
 export default function Onboarding() {
   const { user, setUser, language, isAuthReady } = useStore();
@@ -16,6 +51,7 @@ export default function Onboarding() {
   const [error, setError] = useState('');
   const [availableSchools, setAvailableSchools] = useState<any[]>([]);
   const [schoolsLoaded, setSchoolsLoaded] = useState(false);
+  const [firestoreUnavailable, setFirestoreUnavailable] = useState(false);
   const [schoolMode, setSchoolMode] = useState<'registered' | 'new'>('registered');
 
   const [formData, setFormData] = useState({
@@ -29,25 +65,45 @@ export default function Onboarding() {
     schoolId: '',
     grade: YEMEN_GRADE_OPTIONS[0].labelAr,
     schoolSystem: SCHOOL_SYSTEMS[0],
+    studentIdentifier: '',
   });
 
   useEffect(() => {
     if (!isAuthReady) return;
     if (!user || !user.needsOnboarding) {
       navigate('/');
-    } else if (user.name) {
-      setFormData(prev => ({ ...prev, name: user.name }));
+    } else {
+      const draft = readRegistrationDraft();
+      const sameEmail = draft?.email && user?.email && draft.email.toLowerCase() === user.email.toLowerCase();
+      if (sameEmail) {
+        setFormData(prev => ({ ...prev, name: draft.name || prev.name, phoneNumber: draft.phoneNumber || prev.phoneNumber }));
+      } else if (user.name) {
+        setFormData(prev => ({ ...prev, name: user.name }));
+      }
     }
     fetchSchools();
   }, [user, isAuthReady, navigate]);
 
   const fetchSchools = async () => {
+    setError('');
+    setFirestoreUnavailable(false);
     try {
-      const snapshot = await getDocs(collection(db, 'schools'));
+      const snapshot = await withFirestoreTimeout(getDocs(collection(db, 'schools')));
       const schools = snapshot.docs.map(schoolDoc => ({ id: schoolDoc.id, ...schoolDoc.data() }));
       setAvailableSchools(schools);
     } catch (err) {
       console.error('Error fetching schools:', err);
+      const timedOut = err instanceof Error && err.message === 'FIRESTORE_TIMEOUT';
+      if (isFirestoreDatabaseUnavailable(err) || timedOut) {
+        setFirestoreUnavailable(true);
+        setError(language === 'en'
+          ? 'Firestore is unavailable. Create the default Firestore database, deploy firestore.rules, then retry.'
+          : 'قاعدة Firestore غير متاحة. أنشئ قاعدة Firestore الافتراضية، وانشر firestore.rules، ثم أعد المحاولة.');
+      } else {
+        setError(language === 'en'
+          ? 'Unable to load schools. Check your connection and retry.'
+          : 'تعذر تحميل المدارس. تحقق من اتصال الإنترنت ثم أعد المحاولة.');
+      }
     } finally {
       setSchoolsLoaded(true);
     }
@@ -81,7 +137,20 @@ export default function Onboarding() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!auth.currentUser) return;
+    if (!auth.currentUser) {
+      setError(language === 'en'
+        ? 'Your session has expired. Please sign in again.'
+        : 'انتهت جلسة الدخول. يرجى تسجيل الدخول مرة أخرى.');
+      navigate('/login', { replace: true });
+      return;
+    }
+
+    if (firestoreUnavailable) {
+      setError(language === 'en'
+        ? 'Firestore is not configured for this Firebase project. Create the default Firestore database, deploy the rules, then try again.'
+        : 'قاعدة Firestore غير مهيأة في مشروع Firebase. أنشئ قاعدة Firestore الافتراضية، ثم انشر القواعد وحاول مرة أخرى.');
+      return;
+    }
 
     setError('');
     const normalizedName = normalizePersonName(formData.name || auth.currentUser.displayName || '');
@@ -92,25 +161,91 @@ export default function Onboarding() {
       return;
     }
 
+    if (formData.role === 'student' && !formData.studentIdentifier.trim()) {
+      setError(language === 'en'
+        ? 'Enter the student ID issued by your school administrator.'
+        : 'أدخل معرف الطالب الذي أصدرته إدارة مدرستك.');
+      return;
+    }
+
+    if (isYemen && formData.role === 'parent' && !formData.district) {
+      setError(language === 'en' ? 'Please select your district.' : 'يرجى اختيار المديرية قبل المتابعة.');
+      return;
+    }
+
+    if (formData.role === 'student' && !formData.grade) {
+      setError(language === 'en' ? 'Please select your grade.' : 'يرجى اختيار الصف قبل المتابعة.');
+      return;
+    }
+
     setLoading(true);
     let createdSchoolId: string | null = null;
     let createdClaimId: string | null = null;
+    let assignedStudentIdentifier = '';
     let profileSaved = false;
 
     try {
       let finalSchoolName = normalizePersonName(formData.school);
       let finalSchoolId = formData.schoolId || '';
-      const selectedGovernorate = isYemen
-        ? yemenGovernorates.find((governorate) => governorate.nameAr === formData.city)
+      let assignedStudentData: Record<string, any> | null = null;
+      let roleInvitationData: Record<string, any> | null = null;
+      if (formData.role === 'student') {
+        assignedStudentIdentifier = formData.studentIdentifier.trim().toUpperCase();
+        const identifierSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'studentIds', assignedStudentIdentifier)));
+        if (!identifierSnapshot.exists()) throw new Error('INVALID_STUDENT_IDENTIFIER');
+        assignedStudentData = identifierSnapshot.data();
+        if (assignedStudentData.status !== 'available') throw new Error('USED_STUDENT_IDENTIFIER');
+        const assignedNameKey = assignedStudentData.nameKey || createStableKey(normalizePersonName(String(assignedStudentData.studentName || '')));
+        if (assignedNameKey !== createStableKey(normalizedName)) throw new Error('STUDENT_IDENTIFIER_NAME_MISMATCH');
+        finalSchoolId = String(assignedStudentData.schoolId || '');
+        const assignedSchool = availableSchools.find((school) => school.id === finalSchoolId);
+        if (assignedSchool) {
+          finalSchoolName = normalizePersonName(String(assignedSchool.name || ''));
+        } else if (finalSchoolId) {
+          const assignedSchoolSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'schools', finalSchoolId)));
+          if (assignedSchoolSnapshot.exists()) finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+        }
+        if (!finalSchoolId || !finalSchoolName) throw new Error('STUDENT_SCHOOL_NOT_FOUND');
+      }
+      if (formData.role === 'teacher' || formData.role === 'principal') {
+        const accountEmail = String(auth.currentUser.email || '').trim().toLowerCase();
+        const invitationSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'roleInvitationsByEmail', accountEmail)));
+        if (!invitationSnapshot.exists()) throw new Error('ROLE_INVITATION_REQUIRED');
+        roleInvitationData = invitationSnapshot.data();
+        if (roleInvitationData.email !== accountEmail || roleInvitationData.role !== formData.role) throw new Error('ROLE_INVITATION_MISMATCH');
+        if (roleInvitationData.status !== 'approved') throw new Error('ROLE_INVITATION_PENDING');
+        finalSchoolId = String(roleInvitationData.schoolId || '');
+        const assignedSchool = availableSchools.find((school) => school.id === finalSchoolId);
+        if (assignedSchool) {
+          finalSchoolName = normalizePersonName(String(assignedSchool.name || ''));
+        } else if (finalSchoolId) {
+          const assignedSchoolSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'schools', finalSchoolId)));
+          if (assignedSchoolSnapshot.exists()) finalSchoolName = normalizePersonName(String(assignedSchoolSnapshot.data().name || ''));
+        }
+        if (!finalSchoolId || !finalSchoolName) throw new Error('ROLE_SCHOOL_NOT_FOUND');
+      }
+      const linkedAssignmentData = assignedStudentData || roleInvitationData;
+      const effectiveCountry = String(linkedAssignmentData?.country || formData.country);
+      const effectiveCity = String(linkedAssignmentData?.city || formData.city);
+      const effectiveDistrict = String(linkedAssignmentData?.district || formData.district);
+      const effectiveSchoolSystem = String(linkedAssignmentData?.schoolSystem || formData.schoolSystem);
+      const selectedGovernorate = effectiveCountry === 'اليمن'
+        ? yemenGovernorates.find((governorate) => governorate.nameAr === effectiveCity)
         : undefined;
-      const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === formData.district);
-      const selectedSchool = registeredSchools.find((school) => school.id === formData.schoolId);
+      const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === effectiveDistrict);
+      const selectedSchool = filteredSchools.find((school) => school.id === formData.schoolId);
 
       let schoolApprovalStatus: 'pending' | 'approved' | 'rejected' = 'approved';
       let schoolStatus: 'pending' | 'active' | 'rejected' | 'none' = 'none';
 
       if (['student', 'teacher', 'principal'].includes(formData.role)) {
-        if (schoolMode === 'registered' && selectedSchool) {
+        if (formData.role === 'student' && assignedStudentData) {
+          schoolApprovalStatus = 'approved';
+          schoolStatus = 'active';
+        } else if ((formData.role === 'teacher' || formData.role === 'principal') && roleInvitationData) {
+          schoolApprovalStatus = 'approved';
+          schoolStatus = 'active';
+        } else if (schoolMode === 'registered' && selectedSchool) {
           finalSchoolId = selectedSchool.id;
           finalSchoolName = normalizePersonName(String(selectedSchool.name || ''));
           schoolApprovalStatus = selectedSchool.status === 'pending' ? 'pending' : 'approved';
@@ -122,11 +257,12 @@ export default function Onboarding() {
               : 'أدخل اسم مدرسة صحيحاً (ثلاثة أحرف على الأقل).');
           }
 
-          finalSchoolId = `school_${auth.currentUser.uid}`;
+          const schoolKey = createStableKey(formData.country, formData.city, formData.district, finalSchoolName, formData.schoolSystem);
+          finalSchoolId = `school_pending_${schoolKey}`;
           createdSchoolId = finalSchoolId;
           schoolApprovalStatus = 'pending';
           schoolStatus = 'pending';
-          await setDoc(doc(db, 'schools', finalSchoolId), {
+          await withFirestoreTimeout(setDoc(doc(db, 'schools', finalSchoolId), {
             id: finalSchoolId,
             name: finalSchoolName,
             country: formData.country,
@@ -143,7 +279,7 @@ export default function Onboarding() {
             createdByRole: formData.role,
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
-          });
+          }));
         } else {
           throw new Error(language === 'en'
             ? 'Select a registered school or choose “My school is not listed” to submit a new school for approval.'
@@ -151,75 +287,131 @@ export default function Onboarding() {
         }
       }
 
-      const gradeKey = getGradeKey(formData.grade);
+      const gradeKey = formData.role === 'student' && assignedStudentData?.gradeKey
+        ? String(assignedStudentData.gradeKey)
+        : getGradeKey(formData.grade);
       const registrationKey = formData.role === 'student'
-        ? createStableKey(formData.country, formData.city, formData.district, finalSchoolId, gradeKey, normalizedName)
+        ? createStableKey(effectiveCountry, effectiveCity, effectiveDistrict, finalSchoolId, gradeKey, normalizedName)
         : '';
 
       if (formData.role === 'student' && finalSchoolId) {
         const claimId = `student_${registrationKey}`;
         const claimRef = doc(db, 'studentRegistrationClaims', claimId);
-        await runTransaction(db, async (transaction) => {
+        await withFirestoreTimeout(runTransaction(db, async (transaction) => {
           const claimSnapshot = await transaction.get(claimRef);
+          const identifierRef = doc(db, 'studentIds', assignedStudentIdentifier);
+          const identifierSnapshot = await transaction.get(identifierRef);
           if (claimSnapshot.exists()) {
             throw new Error('DUPLICATE_STUDENT');
           }
+          if (!identifierSnapshot.exists() || identifierSnapshot.data().status !== 'available') {
+            throw new Error('USED_STUDENT_IDENTIFIER');
+          }
+          transaction.update(identifierRef, {
+            status: 'assigned',
+            linkedUserId: auth.currentUser?.uid,
+            linkedAt: new Date().toISOString(),
+          });
           transaction.set(claimRef, {
             uid: auth.currentUser?.uid,
             role: 'student',
-            country: formData.country,
-            city: formData.city,
-            district: formData.district,
+            country: effectiveCountry,
+            city: effectiveCity,
+            district: effectiveDistrict,
             districtId: selectedDistrict?.id || '',
             schoolId: finalSchoolId,
             gradeKey,
             nameKey: createStableKey(normalizedName),
             createdAt: new Date().toISOString(),
           });
-        });
+        }));
         createdClaimId = claimId;
       }
 
       const userData = {
         uid: auth.currentUser.uid,
-        email: auth.currentUser.email || '',
+        email: String(auth.currentUser.email || '').trim().toLowerCase(),
         name: normalizedName,
         nameKey: createStableKey(normalizedName),
         role: formData.role,
         phoneNumber: formData.phoneNumber,
-        country: formData.country,
-        city: formData.city,
-        district: formData.district,
+        country: effectiveCountry,
+        city: effectiveCity,
+        district: effectiveDistrict,
         districtId: selectedDistrict?.id || '',
-        governorate: formData.city,
+        governorate: effectiveCity,
         governorateId: selectedGovernorate?.id || '',
         school: finalSchoolName,
         schoolId: finalSchoolId,
-        schoolSystem: formData.schoolSystem,
+        schoolSystem: effectiveSchoolSystem,
+        classId: formData.role === 'student' ? String(assignedStudentData?.classId || '') : '',
+        teacherIds: formData.role === 'student' && Array.isArray(assignedStudentData?.teacherIds) ? assignedStudentData.teacherIds : [],
+        curriculumIds: formData.role === 'student' && Array.isArray(assignedStudentData?.curriculumIds) ? assignedStudentData.curriculumIds : [],
+        parentId: formData.role === 'student' ? String(assignedStudentData?.parentId || '') : '',
+        subjectKey: (formData.role === 'teacher' && roleInvitationData?.subjectKey) ? String(roleInvitationData.subjectKey) : '',
+        invitationId: roleInvitationData?.invitationId || '',
         schoolApprovalStatus,
         schoolStatus,
-        grade: formData.grade,
+        grade: formData.role === 'student' ? getGradeLabelAr(gradeKey) : formData.grade,
         gradeKey,
-        studentRegistrationKey: registrationKey,
+        studentRegistrationKey: formData.role === 'student' ? (createdClaimId || '') : '',
+        studentIdentifier: formData.role === 'student' ? assignedStudentIdentifier : '',
         createdAt: new Date().toISOString(),
       };
 
-      await setDoc(doc(db, 'users', auth.currentUser.uid), userData);
+      await withFirestoreTimeout(setDoc(doc(db, 'users', auth.currentUser.uid), userData));
       profileSaved = true;
       setUser({ ...userData, needsOnboarding: false } as any);
+      clearRegistrationDraft();
       navigate(`/${formData.role}`, { replace: true });
     } catch (err: any) {
+      // Cleanup runs in the background so a rejected delete cannot keep the submit button spinning.
       if (createdClaimId && !profileSaved) {
-        await deleteDoc(doc(db, 'studentRegistrationClaims', createdClaimId)).catch(() => undefined);
+        void deleteDoc(doc(db, 'studentRegistrationClaims', createdClaimId)).catch(() => undefined);
+      }
+      if (assignedStudentIdentifier && !profileSaved) {
+        void setDoc(doc(db, 'studentIds', assignedStudentIdentifier), {
+          status: 'available',
+          linkedUserId: deleteField(),
+          linkedAt: deleteField(),
+        }, { merge: true }).catch(() => undefined);
       }
       if (createdSchoolId && !profileSaved) {
-        await deleteDoc(doc(db, 'schools', createdSchoolId)).catch(() => undefined);
+        void deleteDoc(doc(db, 'schools', createdSchoolId)).catch(() => undefined);
       }
-
-      if (err.message === 'DUPLICATE_STUDENT') {
+      if (err.message === 'INVALID_STUDENT_IDENTIFIER') {
+        setError(language === 'en' ? 'This student ID does not exist. Ask your school administrator for a valid ID.' : 'معرف الطالب غير موجود. اطلب من إدارة المدرسة معرفاً صحيحاً.');
+      } else if (err.message === 'USED_STUDENT_IDENTIFIER') {
+        setError(language === 'en' ? 'This student ID has already been linked to an account.' : 'معرف الطالب هذا مرتبط بحساب آخر بالفعل.');
+      } else if (err.message === 'STUDENT_IDENTIFIER_NAME_MISMATCH') {
+        setError(language === 'en' ? 'The four-part name does not match the name assigned to this student ID.' : 'الاسم الرباعي لا يطابق الاسم المسجل على معرف الطالب.');
+      } else if (err.message === 'STUDENT_SCHOOL_NOT_FOUND') {
+        setError(language === 'en' ? 'The school linked to this student ID is unavailable. Contact the administrator.' : 'المدرسة المرتبطة بهذا المعرف غير متاحة. تواصل مع الأدمن.');
+      } else if (err.message === 'ROLE_INVITATION_REQUIRED') {
+        setError(language === 'en' ? 'This role is assigned by the platform administrator. Ask your administrator to issue an invitation for this email.' : 'هذا الدور يمنحه الأدمن فقط. اطلب من إدارة المنصة إصدار دعوة لهذا البريد الإلكتروني.');
+      } else if (err.message === 'ROLE_INVITATION_PENDING') {
+        setError(language === 'en' ? 'Your administrator invitation is still pending approval.' : 'دعوة الأدمن الخاصة بك ما زالت قيد المراجعة ولم تعتمد بعد.');
+      } else if (err.message === 'ROLE_INVITATION_MISMATCH') {
+        setError(language === 'en' ? 'This account is not authorized for the selected role. Use the invited email and role.' : 'هذا الحساب غير مخول بالدور المحدد. استخدم البريد والدور الواردين في دعوة الأدمن.');
+      } else if (err.message === 'ROLE_SCHOOL_NOT_FOUND') {
+        setError(language === 'en' ? 'The school assigned by the administrator is unavailable.' : 'المدرسة التي ربطها الأدمن بهذا الحساب غير متاحة.');
+      } else if (err.message === 'DUPLICATE_STUDENT') {
         setError(language === 'en'
           ? 'This four-part name is already registered in the selected school and grade.'
           : 'هذا الاسم الرباعي مسجل مسبقاً في المدرسة والصف المحددين.');
+      } else if (isFirestoreDatabaseUnavailable(err)) {
+        setFirestoreUnavailable(true);
+        setError(language === 'en'
+          ? 'Firestore is not configured for this Firebase project. Create the default Firestore database, deploy the rules, then try again.'
+          : 'قاعدة Firestore غير مهيأة في مشروع Firebase. أنشئ قاعدة Firestore الافتراضية، ثم انشر القواعد وحاول مرة أخرى.');
+      } else if (err.message === 'FIRESTORE_TIMEOUT') {
+        setError(language === 'en'
+          ? 'The save request timed out. Deploy the latest Firestore rules and check your internet connection before trying again.'
+          : 'انتهت مهلة الحفظ. يرجى نشر أحدث قواعد Firestore والتحقق من اتصال الإنترنت ثم المحاولة مرة أخرى.');
+      } else if (firebaseErrorCode(err) === 'permission-denied') {
+        setError(language === 'en'
+          ? 'Firebase rejected the save. Deploy firestore.rules and verify that the signed-in account has permission.'
+          : 'رفض Firebase عملية الحفظ. انشر ملف firestore.rules وتأكد من أن الحساب المسجل يملك الصلاحية.');
       } else if (err.message?.toLowerCase().includes('offline')) {
         setError(language === 'en'
           ? 'Network Error: Cannot save profile. Please check your device date/time, disable your AdBlocker, or open in a new tab.'
@@ -259,7 +451,7 @@ export default function Onboarding() {
     .sort((a, b) => String(a.name || '').localeCompare(String(b.name || ''), 'ar'));
 
   useEffect(() => {
-    if (schoolsLoaded && formData.role !== 'principal' && filteredSchools.length === 0) {
+    if (schoolsLoaded && formData.role !== 'principal' && formData.role !== 'teacher' && filteredSchools.length === 0) {
       setSchoolMode('new');
     }
   }, [schoolsLoaded, formData.role, formData.country, formData.city, formData.district, filteredSchools.length]);
@@ -283,6 +475,23 @@ export default function Onboarding() {
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-2xl">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
+            {firestoreUnavailable && (
+              <div className="rounded-md border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
+                <p className="font-semibold">{language === 'en' ? 'Firebase setup is incomplete' : 'إعداد Firebase غير مكتمل'}</p>
+                <p className="mt-1">
+                  {language === 'en'
+                    ? 'The app is connected to project mukhtaruv, but its default Firestore database was not found. Create Firestore Database in Firebase Console, deploy firestore.rules, then retry.'
+                    : 'التطبيق متصل بمشروع mukhtaruv، لكن قاعدة Firestore الافتراضية غير موجودة. أنشئ قاعدة Firestore من Firebase Console، وانشر firestore.rules، ثم أعد المحاولة.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={fetchSchools}
+                  className="mt-3 rounded-md bg-amber-700 px-3 py-2 text-xs font-semibold text-white hover:bg-amber-800"
+                >
+                  {language === 'en' ? 'Retry Firebase connection' : 'إعادة محاولة الاتصال بـ Firebase'}
+                </button>
+              </div>
+            )}
             {error && (
               <div className="bg-red-50 border-s-4 border-red-400 p-4 flex">
                 <AlertCircle className="h-5 w-5 text-red-400" />
@@ -325,6 +534,26 @@ export default function Onboarding() {
                   <option value="parent">{language === 'en' ? 'Parent' : 'ولي أمر'}</option>
                 </select>
               </div>
+
+              {formData.role === 'student' && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700">
+                    {language === 'en' ? 'Student ID' : 'معرف الطالب'}
+                  </label>
+                  <input
+                    type="text"
+                    name="studentIdentifier"
+                    required
+                    value={formData.studentIdentifier}
+                    onChange={handleChange}
+                    placeholder={language === 'en' ? 'Issued by the school administrator' : 'يصدره مدير المدرسة أو الأدمن'}
+                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 uppercase focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    {language === 'en' ? 'Your ID automatically links you to your school, class, teachers and curriculum.' : 'يربطك المعرف تلقائياً بمدرستك وصفك ومعلميك ومنهجك.'}
+                  </p>
+                </div>
+              )}
 
               <div>
                 <label className="block text-sm font-medium text-gray-700">
@@ -417,10 +646,11 @@ export default function Onboarding() {
                     </select>
                   </div>
 
-                  <div className="sm:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700">
-                      {language === 'en' ? 'School/University' : 'المدرسة/الجامعة'}
-                    </label>
+                  {formData.role !== 'student' && (
+                    <div className="sm:col-span-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        {language === 'en' ? 'School/University' : 'المدرسة/الجامعة'}
+                      </label>
 
                     {formData.role !== 'principal' && (
                       <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label={language === 'en' ? 'School selection mode' : 'طريقة اختيار المدرسة'}>
@@ -487,14 +717,15 @@ export default function Onboarding() {
                           : 'سيتم حفظ المدرسة كطلب قيد الاعتماد ومراجعتها من قبل مدير التطبيق. يمكنك إكمال إنشاء حسابك الآن.'}
                       </p>
                     )}
-                    {formData.role !== 'principal' && schoolMode === 'registered' && filteredSchools.length === 0 && (
-                      <p className="mt-2 text-xs text-amber-700">
-                        {language === 'en'
-                          ? 'No approved school was found for this location. Choose “My school is not listed” to submit a request.'
-                          : 'لا توجد مدرسة معتمدة في هذا الموقع. اختر «مدرستي غير موجودة» لإرسال طلب إضافة مدرسة.'}
-                      </p>
-                    )}
-                  </div>
+                      {formData.role !== 'principal' && schoolMode === 'registered' && filteredSchools.length === 0 && (
+                        <p className="mt-2 text-xs text-amber-700">
+                          {language === 'en'
+                            ? 'No approved school was found for this location. Choose “My school is not listed” to submit a request.'
+                            : 'لا توجد مدرسة معتمدة في هذا الموقع. اختر «مدرستي غير موجودة» لإرسال طلب إضافة مدرسة.'}
+                        </p>
+                      )}
+                    </div>
+                  )}
                 </>
               )}
 

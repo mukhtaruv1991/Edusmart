@@ -8,7 +8,7 @@ import {
   type Unsubscribe,
 } from 'firebase/firestore';
 import { db } from './firebase';
-import { CurriculumBook, CurriculumLesson, CurriculumUnit } from '../types/curriculum';
+import { CurriculumBook, CurriculumContentOverride, CurriculumLesson, CurriculumUnit } from '../types/curriculum';
 import { getGradeKey, getGradeLabelAr } from './gradeCatalog';
 
 export const CURRICULUM_COLLECTION = 'curriculumBooks';
@@ -66,6 +66,7 @@ export function normalizeCurriculumBook(id: string, data: DocumentData): Curricu
     grade: String(data.grade || getGradeLabelAr(gradeKey) || ''),
     gradeKey,
     subject: String(data.subject || 'مادة دراسية'),
+    subjectKey: data.subjectKey ? String(data.subjectKey) : undefined,
     totalPageCount,
     pdfUrl: data.pdfUrl ? String(data.pdfUrl) : undefined,
     manifestUrl: data.manifestUrl ? String(data.manifestUrl) : undefined,
@@ -80,6 +81,12 @@ export function normalizeCurriculumBook(id: string, data: DocumentData): Curricu
     publisher: data.publisher ? String(data.publisher) : undefined,
     isOfficial: Boolean(data.isOfficial),
     isActive: data.isActive !== false,
+    approvalStatus: data.approvalStatus ? String(data.approvalStatus) : undefined,
+    approvedBy: data.approvedBy ? String(data.approvedBy) : undefined,
+    approvedAt: data.approvedAt ? String(data.approvedAt) : undefined,
+    reviewedBy: data.reviewedBy ? String(data.reviewedBy) : undefined,
+    reviewedAt: data.reviewedAt ? String(data.reviewedAt) : undefined,
+    replacedBy: data.replacedBy ? String(data.replacedBy) : undefined,
     contentVersion: data.contentVersion ? String(data.contentVersion) : undefined,
     academicYear: data.academicYear ? String(data.academicYear) : undefined,
     coverColor: data.coverColor ? String(data.coverColor) : undefined,
@@ -90,6 +97,7 @@ export function normalizeCurriculumBook(id: string, data: DocumentData): Curricu
 
 function isVisibleToUser(book: CurriculumBook, context: CurriculumViewerContext): boolean {
   if (book.isActive === false) return false;
+  if (book.approvalStatus && book.approvalStatus !== 'approved') return false;
   if (!book.schoolId) return true;
   return Boolean(context.schoolId && book.schoolId === context.schoolId);
 }
@@ -140,7 +148,61 @@ export async function getCurriculumBooks(
   );
 }
 
+function normalizeContentOverride(id: string, data: DocumentData): CurriculumContentOverride | null {
+  const status = String(data.status || 'included') as CurriculumContentOverride['status'];
+  if (!['included', 'excluded', 'required'].includes(status)) return null;
+  if (!data.schoolId || !data.gradeKey || !data.subjectKey || !data.lessonKey) return null;
+  return {
+    id,
+    schoolId: String(data.schoolId),
+    gradeKey: String(data.gradeKey),
+    subjectKey: String(data.subjectKey),
+    lessonKey: String(data.lessonKey),
+    lessonTitle: data.lessonTitle ? String(data.lessonTitle) : undefined,
+    status,
+    decidedBy: data.decidedBy ? String(data.decidedBy) : undefined,
+    decidedAt: data.decidedAt ? String(data.decidedAt) : undefined,
+    note: data.note ? String(data.note) : undefined,
+  };
+}
+
+/**
+ * Reads school curriculum decisions without broadening the curriculum-book
+ * query. Students can only see overrides belonging to their own school under
+ * the Firestore sameSchool rule.
+ */
+export function subscribeToContentOverrides(
+  book: Pick<CurriculumBook, 'gradeKey' | 'subject' | 'subjectKey'>,
+  context: CurriculumViewerContext,
+  onChange: (overrides: CurriculumContentOverride[]) => void,
+  onError?: (error: Error) => void,
+): Unsubscribe {
+  if (!context.schoolId || !book.gradeKey) {
+    onChange([]);
+    return () => undefined;
+  }
+
+  const overridesQuery = query(
+    collection(db, 'contentOverrides'),
+    where('schoolId', '==', context.schoolId),
+  );
+
+  return onSnapshot(
+    overridesQuery,
+    (snapshot) => {
+        const subjectKeys = new Set([book.subjectKey, book.subject].filter(Boolean));
+      const overrides = snapshot.docs
+        .map((overrideDoc) => normalizeContentOverride(overrideDoc.id, overrideDoc.data()))
+        .filter((override): override is CurriculumContentOverride => Boolean(override))
+        .filter((override) => override.gradeKey === book.gradeKey && subjectKeys.has(override.subjectKey));
+      onChange(overrides);
+    },
+    (error) => onError?.(error as Error),
+  );
+}
+
 const pageCache = new Map<string, Promise<CurriculumPage[]>>();
+const CURRICULUM_CACHE_NAME = 'edusmart-curriculum-pages-v1';
 
 function normalizePages(payload: any): CurriculumPage[] {
   const rows = Array.isArray(payload)
@@ -165,10 +227,23 @@ export async function loadBookPages(book: CurriculumBook): Promise<CurriculumPag
   const cached = pageCache.get(sourceUrl);
   if (cached) return cached;
 
-  const request = fetch(sourceUrl, { credentials: 'omit' }).then(async (response) => {
+  const request = (async () => {
+    const cache = typeof window !== 'undefined' && 'caches' in window
+      ? await window.caches.open(CURRICULUM_CACHE_NAME)
+      : null;
+    const cachedResponse = cache ? await cache.match(sourceUrl) : undefined;
+
+    if (cachedResponse) {
+      return normalizePages(await cachedResponse.clone().json());
+    }
+
+    const response = await fetch(sourceUrl, { credentials: 'omit' });
     if (!response.ok) throw new Error(`تعذر تحميل النص المفهرس (${response.status})`);
+    if (cache) {
+      await cache.put(sourceUrl, response.clone());
+    }
     return normalizePages(await response.json());
-  });
+  })();
   pageCache.set(sourceUrl, request);
   return request;
 }
@@ -176,6 +251,35 @@ export async function loadBookPages(book: CurriculumBook): Promise<CurriculumPag
 export async function loadBookPage(book: CurriculumBook, pageNumber: number): Promise<string> {
   const pages = await loadBookPages(book);
   return pages.find((page) => page.pageNumber === pageNumber)?.text || '';
+}
+
+/**
+ * Warms the browser cache with the complete processed page manifest. The page
+ * text remains lightweight JSON; the original PDF is never copied into local
+ * storage by this action.
+ */
+export async function cacheBookOffline(book: CurriculumBook): Promise<boolean> {
+  const sourceUrl = book.manifestUrl || book.textIndexUrl;
+  if (!sourceUrl || typeof window === 'undefined' || !('caches' in window)) return false;
+
+  await loadBookPages(book);
+  const cache = await window.caches.open(CURRICULUM_CACHE_NAME);
+  const cachedResponse = await cache.match(sourceUrl);
+  if (!cachedResponse) {
+    await cache.add(sourceUrl);
+  }
+  return true;
+}
+
+export async function isBookCachedOffline(book: CurriculumBook): Promise<boolean> {
+  const sourceUrl = book.manifestUrl || book.textIndexUrl;
+  if (!sourceUrl || typeof window === 'undefined' || !('caches' in window)) return false;
+  try {
+    const cache = await window.caches.open(CURRICULUM_CACHE_NAME);
+    return Boolean(await cache.match(sourceUrl));
+  } catch {
+    return false;
+  }
 }
 
 export function clearCurriculumPageCache(): void {

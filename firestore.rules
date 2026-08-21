@@ -57,12 +57,18 @@ service cloud.firestore {
       return isAuthenticated() && request.auth.uid == userId;
     }
 
+    // The owner email is the only bootstrap path for the first admin profile.
+    // The account itself must still exist in Firebase Authentication; no password is stored here.
+    function isOwnerAccount() {
+      return isAuthenticated() && request.auth.token.email == "amtiaz1991@gmail.com";
+    }
+
     function isAdmin() {
       return isAuthenticated() &&
         (
           (exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
            get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin') ||
-          (request.auth.token.email == "amtiaz1991@gmail.com" && request.auth.token.email_verified == true)
+          isOwnerAccount()
         );
     }
 
@@ -122,11 +128,26 @@ service cloud.firestore {
     function hasValidStudentRegistration(data) {
       return data.role != 'student' || (
         data.studentRegistrationKey is string &&
-        data.gradeKey is string &&
         get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.uid == request.auth.uid &&
         get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.schoolId == data.schoolId &&
         get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.gradeKey == data.gradeKey
       );
+    }
+
+    function hasApprovedRoleInvitation(data) {
+      return data.email is string &&
+        data.role in ['teacher', 'principal'] &&
+        exists(/databases/$(database)/documents/roleInvitationsByEmail/$(data.email)) &&
+        get(/databases/$(database)/documents/roleInvitationsByEmail/$(data.email)).data.email == data.email &&
+        get(/databases/$(database)/documents/roleInvitationsByEmail/$(data.email)).data.role == data.role &&
+        get(/databases/$(database)/documents/roleInvitationsByEmail/$(data.email)).data.status == 'approved' &&
+        get(/databases/$(database)/documents/roleInvitationsByEmail/$(data.email)).data.schoolId == data.schoolId;
+    }
+
+    function mayCreateRole(data) {
+      return data.role in ['student', 'parent'] ||
+        (data.role in ['teacher', 'principal'] && hasApprovedRoleInvitation(data)) ||
+        (data.role == 'admin' && isAdmin());
     }
 
     function isValidSchool(data) {
@@ -168,6 +189,12 @@ service cloud.firestore {
              data.questions is list;
     }
 
+    function teacherOwnsExam(data) {
+      return isTeacher() && data.teacherId == request.auth.uid &&
+        (('schoolId' in data && data.schoolId == getUserData().schoolId) ||
+         ('school' in data && data.school == getUserData().school));
+    }
+
     function isValidSubmission(data) {
       return data.examId is string && data.examId.size() > 0 &&
              data.studentId is string && data.studentId.size() > 0 &&
@@ -195,21 +222,21 @@ service cloud.firestore {
         ('parentId' in resource.data && resource.data.parentId == request.auth.uid)
       );
       
-            allow create: if isAuthenticated() &&
+      allow create: if isAuthenticated() &&
                     isOwner(userId) &&
                     isValidUser(request.resource.data) &&
                     hasValidStudentRegistration(request.resource.data) &&
+                    mayCreateRole(request.resource.data) &&
                     uidUnchanged();
 
       allow update: if isAuthenticated() &&
                     isValidUser(request.resource.data) &&
                     hasValidStudentRegistration(request.resource.data) &&
                     uidNotModified() &&
-
                     (
-                      (isOwner(userId) && (request.resource.data.role == resource.data.role || isAdmin())) || 
                       isAdmin() ||
-                      isPrincipal() // Principals can update users in their school
+                      (isOwner(userId) && request.resource.data.role == resource.data.role && request.resource.data.schoolId == resource.data.schoolId) ||
+                      (isPrincipal() && request.resource.data.schoolId == resource.data.schoolId && request.resource.data.role == resource.data.role)
                     );
                     
       allow delete: if isAdmin() || isPrincipal();
@@ -284,9 +311,11 @@ service cloud.firestore {
 
     match /exams/{examId} {
       allow read: if isAuthenticated();
-      allow create: if (isTeacher() || isPrincipal() || isAdmin()) && isValidExam(request.resource.data);
-      allow update: if (isTeacher() || isPrincipal() || isAdmin()) && isValidExam(request.resource.data);
-      allow delete: if isTeacher() || isPrincipal() || isAdmin();
+      allow create: if isValidExam(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (teacherOwnsExam(request.resource.data) && request.resource.data.type in ['quiz', 'monthly']));
+      allow update: if isValidExam(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (teacherOwnsExam(request.resource.data) && request.resource.data.type in ['quiz', 'monthly']));
+      allow delete: if isAdmin() || isPrincipal() || (isTeacher() && resource.data.teacherId == request.auth.uid);
     }
 
     match /submissions/{submissionId} {
@@ -365,6 +394,388 @@ service cloud.firestore {
     match /tracking/{trackId} {
       allow read: if isAuthenticated();
       allow create, update, delete: if isPrincipal() || isTeacher() || isAdmin();
+    }
+
+    // ===============================================================
+    // Central school-management model
+    // ===============================================================
+
+    function hasSchool(schoolId) {
+      return isAuthenticated() && schoolId is string && schoolId.size() > 0;
+    }
+
+    function sameSchool(schoolId) {
+      return hasSchool(schoolId) && (
+        isAdmin() ||
+        (exists(/databases/$(database)/documents/users/$(request.auth.uid)) && getUserData().schoolId == schoolId)
+      );
+    }
+
+    function managesSchool(schoolId) {
+      return sameSchool(schoolId) && (isAdmin() || getUserData().role == 'principal');
+    }
+
+    function validSchoolScopedRecord(data) {
+      return data.schoolId is string && data.schoolId.size() > 0;
+    }
+
+    function validStudentIdentifier(data) {
+      return validSchoolScopedRecord(data) &&
+        data.identifier is string && data.identifier.size() >= 6 && data.identifier.size() <= 40 &&
+        data.status in ['available', 'assigned', 'suspended'] &&
+        data.gradeKey is string && data.gradeKey.size() > 0 &&
+        data.studentName is string && data.studentName.size() > 0 && data.studentName.size() < 150;
+    }
+
+    function validTeacherAssignment(data) {
+      return validSchoolScopedRecord(data) &&
+        data.teacherId is string && data.teacherId.size() > 0 &&
+        data.subjectKey is string && data.subjectKey.size() > 0 &&
+        data.gradeKey is string && data.gradeKey.size() > 0 &&
+        data.classId is string && data.classId.size() > 0 &&
+        (!('teacherIds' in data) || data.teacherIds is list);
+    }
+
+    function validSchoolSettings(data) {
+      return validSchoolScopedRecord(data) &&
+        data.periodsPerDay is number && data.periodsPerDay >= 1 && data.periodsPerDay <= 12 &&
+        data.periodDurationMinutes is number && data.periodDurationMinutes >= 20 && data.periodDurationMinutes <= 180 &&
+        data.breakDurationMinutes is number && data.breakDurationMinutes >= 0 && data.breakDurationMinutes <= 120 &&
+        data.workingDays is list;
+    }
+
+    function validCalendarEntry(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+        data.date is string && data.date.size() > 0 &&
+        data.scope in ['national', 'school'] &&
+        (!('schoolId' in data) || data.schoolId is string);
+    }
+
+    function validContentOverride(data) {
+      return validSchoolScopedRecord(data) &&
+        data.gradeKey is string && data.gradeKey.size() > 0 &&
+        data.subjectKey is string && data.subjectKey.size() > 0 &&
+        data.lessonKey is string && data.lessonKey.size() > 0 &&
+        data.status in ['included', 'excluded', 'required'];
+    }
+
+    match /contentOverrides/{overrideId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create: if managesSchool(request.resource.data.schoolId) && validContentOverride(request.resource.data);
+      allow update: if managesSchool(resource.data.schoolId) && validContentOverride(request.resource.data);
+      allow delete: if managesSchool(resource.data.schoolId);
+    }
+
+    function validSchoolExam(data) {
+      return validSchoolScopedRecord(data) &&
+        data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+        data.classId is string && data.classId.size() > 0 &&
+        data.examType in ['monthly', 'midterm', 'final', 'diagnostic'] &&
+        data.date is string && data.date.size() > 0 &&
+        data.durationMinutes is number && data.durationMinutes >= 10 && data.durationMinutes <= 240 &&
+        data.status in ['scheduled', 'cancelled', 'completed'];
+    }
+
+    match /schoolExams/{examId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create: if validSchoolExam(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (isTeacher() && request.resource.data.teacherId == request.auth.uid && request.resource.data.examType == 'monthly'));
+      allow update: if validSchoolExam(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (isTeacher() && resource.data.teacherId == request.auth.uid && request.resource.data.teacherId == request.auth.uid && request.resource.data.examType == 'monthly'));
+      allow delete: if isAdmin() || isPrincipal() || (isTeacher() && resource.data.teacherId == request.auth.uid);
+    }
+
+    match /studentIds/{studentId} {
+      allow read: if isAuthenticated() && (
+        isAdmin() ||
+        (resource.data.linkedUserId == request.auth.uid) ||
+        (resource.data.parentId == request.auth.uid) ||
+        sameSchool(resource.data.schoolId)
+      );
+      allow create: if isAdmin() || (isPrincipal() && managesSchool(request.resource.data.schoolId) && validStudentIdentifier(request.resource.data));
+      allow update: if isAdmin() ||
+        (isPrincipal() && managesSchool(resource.data.schoolId) && validStudentIdentifier(request.resource.data)) ||
+        (
+          isAuthenticated() &&
+          resource.data.status == 'available' &&
+          request.resource.data.status == 'assigned' &&
+          request.resource.data.linkedUserId == request.auth.uid &&
+          request.resource.data.schoolId == resource.data.schoolId &&
+          request.resource.data.identifier == resource.data.identifier &&
+          request.resource.data.studentName == resource.data.studentName &&
+          request.resource.data.gradeKey == resource.data.gradeKey &&
+          validStudentIdentifier(request.resource.data)
+        ) ||
+        (
+          isAuthenticated() &&
+          resource.data.status == 'assigned' &&
+          resource.data.linkedUserId == request.auth.uid &&
+          request.resource.data.status == 'available' &&
+          request.resource.data.schoolId == resource.data.schoolId &&
+          request.resource.data.identifier == resource.data.identifier &&
+          request.resource.data.studentName == resource.data.studentName &&
+          request.resource.data.gradeKey == resource.data.gradeKey &&
+          !('linkedUserId' in request.resource.data) &&
+          !('linkedAt' in request.resource.data) &&
+          validStudentIdentifier(request.resource.data)
+        );
+      allow delete: if isAdmin() || (isPrincipal() && managesSchool(resource.data.schoolId));
+    }
+
+    match /schoolSettings/{schoolId} {
+      allow read: if sameSchool(schoolId);
+      allow create, update: if managesSchool(schoolId) && validSchoolSettings(request.resource.data);
+      allow delete: if isAdmin() || (isPrincipal() && sameSchool(schoolId));
+    }
+
+    match /teacherAssignments/{assignmentId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create: if managesSchool(request.resource.data.schoolId) && validTeacherAssignment(request.resource.data);
+      allow update: if managesSchool(resource.data.schoolId) && validTeacherAssignment(request.resource.data);
+      allow delete: if managesSchool(resource.data.schoolId);
+    }
+
+    match /schoolClasses/{classId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create: if managesSchool(request.resource.data.schoolId) && validSchoolScopedRecord(request.resource.data);
+      allow update: if managesSchool(resource.data.schoolId) && validSchoolScopedRecord(request.resource.data);
+      allow delete: if managesSchool(resource.data.schoolId);
+    }
+
+    match /adminInvitations/{invitationId} {
+      allow read, create, update, delete: if isAdmin();
+    }
+
+    // A user may read only the invitation addressed to the email of the
+    // currently authenticated account. Listing the collection is disabled.
+    // AdminControlCenter mirrors each invitation here using a stable email key.
+    match /roleInvitationsByEmail/{emailKey} {
+      allow get: if isAuthenticated() && resource.data.email == request.auth.token.email;
+      allow list: if false;
+      allow create, update, delete: if isAdmin();
+    }
+
+    match /academicCalendar/{entryId} {
+      allow read: if isAuthenticated();
+      allow create, update: if isAdmin() || (isPrincipal() && request.resource.data.scope == 'school' && sameSchool(request.resource.data.schoolId) && validCalendarEntry(request.resource.data));
+      allow delete: if isAdmin() || (isPrincipal() && resource.data.scope == 'school' && sameSchool(resource.data.schoolId));
+    }
+
+    match /contentOverrides/{overrideId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create, update: if (isAdmin() || isTeacher() || isPrincipal()) && sameSchool(request.resource.data.schoolId) && validContentOverride(request.resource.data);
+      allow delete: if isAdmin() || (isPrincipal() && sameSchool(resource.data.schoolId));
+    }
+
+    match /examSchedules/{scheduleId} {
+      allow read: if sameSchool(resource.data.schoolId);
+      allow create, update: if (isAdmin() || isPrincipal() || isTeacher()) && sameSchool(request.resource.data.schoolId);
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
+    match /auditLogs/{logId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin() || isPrincipal();
+      allow update, delete: if isAdmin();
+    }
+
+    // ===============================================================
+    // Academic operations, notifications, learning progress, and live competitions
+    // ===============================================================
+
+    function isSchoolStaffFor(data) {
+      return data.schoolId is string &&
+        sameSchool(data.schoolId) &&
+        (isAdmin() || isPrincipal() || isTeacher());
+    }
+
+    function isParentOfStudent(studentId) {
+      return isAuthenticated() && isParent() &&
+        exists(/databases/$(database)/documents/users/$(studentId)) &&
+        get(/databases/$(database)/documents/users/$(studentId)).data.parentId == request.auth.uid;
+    }
+
+    function validNotification(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.body is string && data.body.size() <= 4000 &&
+        data.createdBy == request.auth.uid &&
+        data.audience in ['all', 'school', 'teachers', 'students', 'parents', 'specific'] &&
+        (!('schoolId' in data) || data.schoolId is string) &&
+        (!('recipientIds' in data) || data.recipientIds is list) &&
+        (!('deepLink' in data) || data.deepLink is string);
+    }
+
+    function canReadNotification(data) {
+      return isAdmin() ||
+        data.audience == 'all' ||
+        (('schoolId' in data) && sameSchool(data.schoolId)) ||
+        (('recipientIds' in data) && data.recipientIds is list && data.recipientIds.hasAny([request.auth.uid]));
+    }
+
+    function canCreateNotification(data) {
+      return isAdmin() ||
+        (isPrincipal() && data.schoolId == getUserData().schoolId) ||
+        (isTeacher() && data.audience == 'students' && data.schoolId == getUserData().schoolId);
+    }
+
+    function validAttendance(data) {
+      return data.schoolId is string && data.schoolId.size() > 0 &&
+        data.studentId is string && data.studentId.size() > 0 &&
+        data.date is string && data.date.size() > 0 &&
+        data.status in ['present', 'absent', 'late', 'excused'] &&
+        data.recordedBy is string && data.recordedBy == request.auth.uid;
+    }
+
+    function canReadStudentRecord(data) {
+      return isAdmin() ||
+        (isSchoolStaffFor(data) && (isPrincipal() || isTeacher())) ||
+        (isStudent() && data.studentId == request.auth.uid && data.visibleToStudent == true) ||
+        isParentOfStudent(data.studentId);
+    }
+
+    function validGradeRecord(data) {
+      return data.schoolId is string && data.schoolId.size() > 0 &&
+        data.studentId is string && data.studentId.size() > 0 &&
+        data.subjectKey is string && data.subjectKey.size() > 0 &&
+        data.assessmentType in ['quiz', 'monthly', 'midterm', 'final', 'annual', 'assignment'] &&
+        data.score is number && data.score >= 0 && data.score <= 100 &&
+        data.maxScore is number && data.maxScore > 0 &&
+        data.recordedBy is string && data.recordedBy == request.auth.uid &&
+        data.visibleToStudent is bool;
+    }
+
+    function validTeacherAttendance(data) {
+      return data.schoolId is string && data.schoolId.size() > 0 &&
+        data.teacherId is string && data.teacherId.size() > 0 &&
+        data.date is string && data.date.size() > 0 &&
+        data.status in ['present', 'absent', 'late', 'excused'] &&
+        data.recordedBy is string && data.recordedBy == request.auth.uid;
+    }
+
+    function validLearningProgress(data) {
+      return data.userId == request.auth.uid &&
+        data.bookId is string && data.bookId.size() > 0 &&
+        data.pageNumber is number && data.pageNumber >= 1 &&
+        (!('progressPercent' in data) || (data.progressPercent is number && data.progressPercent >= 0 && data.progressPercent <= 100)) &&
+        (!('schoolId' in data) || data.schoolId is string);
+    }
+
+    function validCompetitionSession(data) {
+      return data.schoolId is string && data.schoolId.size() > 0 &&
+        data.title is string && data.title.size() > 0 && data.title.size() <= 200 &&
+        data.classId is string && data.classId.size() > 0 &&
+        data.status in ['draft', 'scheduled', 'live', 'finished', 'cancelled'] &&
+        data.createdBy is string && data.createdBy == request.auth.uid &&
+        (!('participantIds' in data) || data.participantIds is list);
+    }
+
+    function canReadCompetitionSession(data) {
+      return isAdmin() ||
+        isSchoolStaffFor(data) ||
+        (('participantIds' in data) && data.participantIds is list && data.participantIds.hasAny([request.auth.uid]));
+    }
+
+    function validCompetitionEvent(data) {
+      return data.sessionId is string && data.sessionId.size() > 0 &&
+        data.studentId == request.auth.uid &&
+        data.eventType in ['joined', 'focus_lost', 'focus_restored', 'submitted', 'left'] &&
+        (!('metadata' in data) || data.metadata is map);
+    }
+
+    function validTimetableEntry(data) {
+      return data.schoolId is string && data.schoolId.size() > 0 &&
+        data.classId is string && data.classId.size() > 0 &&
+        data.dayOfWeek is number && data.dayOfWeek >= 0 && data.dayOfWeek <= 6 &&
+        data.periodNumber is number && data.periodNumber >= 1 && data.periodNumber <= 12 &&
+        data.subjectKey is string && data.subjectKey.size() > 0 &&
+        data.teacherIds is list;
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isAuthenticated() && canReadNotification(resource.data);
+      allow create: if isAuthenticated() && validNotification(request.resource.data) && canCreateNotification(request.resource.data);
+      allow update: if isAdmin() ||
+        (isPrincipal() && resource.data.schoolId == getUserData().schoolId && validNotification(request.resource.data));
+      allow delete: if isAdmin() || (isPrincipal() && resource.data.schoolId == getUserData().schoolId);
+    }
+
+    match /notificationTokens/{userId} {
+      allow read, create, update, delete: if isOwner(userId) &&
+        (!('token' in request.resource.data) || request.resource.data.token is string);
+    }
+
+    match /attendanceRecords/{attendanceId} {
+      allow read: if isAuthenticated() && canReadStudentRecord(resource.data);
+      allow create: if isAuthenticated() && validAttendance(request.resource.data) &&
+        isSchoolStaffFor(request.resource.data);
+      allow update: if isAuthenticated() && validAttendance(request.resource.data) &&
+        isSchoolStaffFor(request.resource.data);
+      allow delete: if isAdmin() || (isPrincipal() && sameSchool(resource.data.schoolId));
+    }
+
+    match /teacherAttendance/{attendanceId} {
+      allow read: if isAuthenticated() &&
+        (isAdmin() || (isSchoolStaffFor(resource.data) && (isPrincipal() || isTeacher())));
+      allow create, update: if isAuthenticated() && validTeacherAttendance(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (isTeacher() && request.resource.data.teacherId == request.auth.uid));
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
+    match /gradeRecords/{gradeId} {
+      allow read: if isAuthenticated() && canReadStudentRecord(resource.data);
+      allow create: if isAuthenticated() && validGradeRecord(request.resource.data) &&
+        isSchoolStaffFor(request.resource.data);
+      allow update: if isAuthenticated() && validGradeRecord(request.resource.data) &&
+        (isAdmin() || isPrincipal() ||
+          (isTeacher() && resource.data.recordedBy == request.auth.uid && request.resource.data.schoolId == resource.data.schoolId));
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
+    match /learningProgress/{progressId} {
+      allow read: if isAuthenticated() &&
+        (isOwner(resource.data.userId) || isAdmin() ||
+         (('schoolId' in resource.data) && sameSchool(resource.data.schoolId) && (isPrincipal() || isTeacher())));
+      allow create, update: if isAuthenticated() && validLearningProgress(request.resource.data);
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+
+    match /studentPageAnnotations/{annotationId} {
+      allow read, create, update, delete: if isAuthenticated() &&
+        isOwner(resource.data.userId);
+    }
+
+    match /timetableEntries/{entryId} {
+      allow read: if isAuthenticated() && sameSchool(resource.data.schoolId);
+      allow create, update: if isAuthenticated() && managesSchool(request.resource.data.schoolId) &&
+        validTimetableEntry(request.resource.data);
+      allow delete: if isAdmin() || (isPrincipal() && sameSchool(resource.data.schoolId));
+    }
+
+    match /competitionSessions/{sessionId} {
+      allow read: if isAuthenticated() && canReadCompetitionSession(resource.data);
+      allow create: if isAuthenticated() && validCompetitionSession(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (isTeacher() && request.resource.data.schoolId == getUserData().schoolId));
+      allow update: if isAuthenticated() && validCompetitionSession(request.resource.data) &&
+        (isAdmin() || isPrincipal() || (isTeacher() && resource.data.createdBy == request.auth.uid));
+      allow delete: if isAdmin() || isPrincipal();
+
+      match /participants/{participantId} {
+        allow read: if isAuthenticated() &&
+          (participantId == request.auth.uid || canReadCompetitionSession(get(/databases/$(database)/documents/competitionSessions/$(sessionId)).data));
+        allow create, update: if isStudent() && participantId == request.auth.uid &&
+          request.resource.data.userId == request.auth.uid;
+        allow delete: if isAdmin() || isPrincipal();
+      }
+    }
+
+    match /competitionEvents/{eventId} {
+      allow read: if isAuthenticated() &&
+        (isAdmin() || (resource.data.studentId == request.auth.uid) ||
+         (exists(/databases/$(database)/documents/competitionSessions/$(resource.data.sessionId)) &&
+          canReadCompetitionSession(get(/databases/$(database)/documents/competitionSessions/$(resource.data.sessionId)).data)));
+      allow create: if isStudent() && validCompetitionEvent(request.resource.data) &&
+        exists(/databases/$(database)/documents/competitionSessions/$(request.resource.data.sessionId));
+      allow update, delete: if isAdmin() || isPrincipal();
     }
   }
 }
