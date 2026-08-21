@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, collection, getDocs } from 'firebase/firestore';
+import { doc, setDoc, collection, getDocs, deleteDoc, runTransaction } from 'firebase/firestore';
 import { auth, db } from '../../lib/firebase';
 import { useStore, Role } from '../../lib/store';
 import { BookOpen, AlertCircle } from 'lucide-react';
 import { ARAB_COUNTRIES, SCHOOL_SYSTEMS, GRADES } from '../../lib/constants';
 import { yemenGovernorates } from '../../lib/yemenData';
 import { getGradeKey, YEMEN_GRADE_OPTIONS } from '../../lib/gradeCatalog';
+import { createStableKey, isFourPartName, normalizePersonName } from '../../lib/utils';
 
 export default function Onboarding() {
   const { user, setUser, language, isAuthReady } = useStore();
@@ -81,12 +82,23 @@ export default function Onboarding() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!auth.currentUser) return;
-    
+
     setError('');
+    const normalizedName = normalizePersonName(formData.name || auth.currentUser.displayName || '');
+    if (!isFourPartName(normalizedName)) {
+      setError(language === 'en'
+        ? 'Please enter your full four-part name (four words).'
+        : 'يرجى إدخال الاسم الرباعي كاملاً (أربع كلمات).');
+      return;
+    }
+
     setLoading(true);
+    let createdSchoolId: string | null = null;
+    let createdClaimId: string | null = null;
+    let profileSaved = false;
 
     try {
-      let finalSchoolName = formData.school.trim();
+      let finalSchoolName = normalizePersonName(formData.school);
       let finalSchoolId = formData.schoolId || '';
       const selectedGovernorate = isYemen
         ? yemenGovernorates.find((governorate) => governorate.nameAr === formData.city)
@@ -95,24 +107,23 @@ export default function Onboarding() {
       const selectedSchool = registeredSchools.find((school) => school.id === formData.schoolId);
 
       let schoolApprovalStatus: 'pending' | 'approved' | 'rejected' = 'approved';
-      let schoolStatus: 'pending' | 'active' | 'none' = 'none';
+      let schoolStatus: 'pending' | 'active' | 'rejected' | 'none' = 'none';
 
       if (['student', 'teacher', 'principal'].includes(formData.role)) {
         if (schoolMode === 'registered' && selectedSchool) {
           finalSchoolId = selectedSchool.id;
-          finalSchoolName = String(selectedSchool.name || '').trim();
+          finalSchoolName = normalizePersonName(String(selectedSchool.name || ''));
           schoolApprovalStatus = selectedSchool.status === 'pending' ? 'pending' : 'approved';
           schoolStatus = selectedSchool.status === 'pending' ? 'pending' : 'active';
         } else if (schoolMode === 'new' && finalSchoolName) {
-          const normalizedSchoolName = finalSchoolName.replace(/\\s+/g, ' ').trim();
-          if (normalizedSchoolName.length < 3) {
+          if (finalSchoolName.length < 3) {
             throw new Error(language === 'en'
               ? 'Enter a valid school name (at least 3 characters).'
               : 'أدخل اسم مدرسة صحيحاً (ثلاثة أحرف على الأقل).');
           }
 
-          finalSchoolName = normalizedSchoolName;
           finalSchoolId = `school_${auth.currentUser.uid}`;
+          createdSchoolId = finalSchoolId;
           schoolApprovalStatus = 'pending';
           schoolStatus = 'pending';
           await setDoc(doc(db, 'schools', finalSchoolId), {
@@ -140,10 +151,40 @@ export default function Onboarding() {
         }
       }
 
+      const gradeKey = getGradeKey(formData.grade);
+      const registrationKey = formData.role === 'student'
+        ? createStableKey(formData.country, formData.city, formData.district, finalSchoolId, gradeKey, normalizedName)
+        : '';
+
+      if (formData.role === 'student' && finalSchoolId) {
+        const claimId = `student_${registrationKey}`;
+        const claimRef = doc(db, 'studentRegistrationClaims', claimId);
+        await runTransaction(db, async (transaction) => {
+          const claimSnapshot = await transaction.get(claimRef);
+          if (claimSnapshot.exists()) {
+            throw new Error('DUPLICATE_STUDENT');
+          }
+          transaction.set(claimRef, {
+            uid: auth.currentUser?.uid,
+            role: 'student',
+            country: formData.country,
+            city: formData.city,
+            district: formData.district,
+            districtId: selectedDistrict?.id || '',
+            schoolId: finalSchoolId,
+            gradeKey,
+            nameKey: createStableKey(normalizedName),
+            createdAt: new Date().toISOString(),
+          });
+        });
+        createdClaimId = claimId;
+      }
+
       const userData = {
         uid: auth.currentUser.uid,
         email: auth.currentUser.email || '',
-        name: formData.name || auth.currentUser.displayName || 'User',
+        name: normalizedName,
+        nameKey: createStableKey(normalizedName),
         role: formData.role,
         phoneNumber: formData.phoneNumber,
         country: formData.country,
@@ -158,17 +199,30 @@ export default function Onboarding() {
         schoolApprovalStatus,
         schoolStatus,
         grade: formData.grade,
-        gradeKey: getGradeKey(formData.grade),
-        createdAt: new Date().toISOString()
+        gradeKey,
+        studentRegistrationKey: registrationKey,
+        createdAt: new Date().toISOString(),
       };
 
       await setDoc(doc(db, 'users', auth.currentUser.uid), userData);
-      setUser(userData as any);
-      navigate('/');
+      profileSaved = true;
+      setUser({ ...userData, needsOnboarding: false } as any);
+      navigate(`/${formData.role}`, { replace: true });
     } catch (err: any) {
-      if (err.message?.toLowerCase().includes('offline')) {
-        setError(language === 'en' 
-          ? 'Network Error: Cannot save profile. Please check your device date/time, disable your AdBlocker, or open in a new tab.' 
+      if (createdClaimId && !profileSaved) {
+        await deleteDoc(doc(db, 'studentRegistrationClaims', createdClaimId)).catch(() => undefined);
+      }
+      if (createdSchoolId && !profileSaved) {
+        await deleteDoc(doc(db, 'schools', createdSchoolId)).catch(() => undefined);
+      }
+
+      if (err.message === 'DUPLICATE_STUDENT') {
+        setError(language === 'en'
+          ? 'This four-part name is already registered in the selected school and grade.'
+          : 'هذا الاسم الرباعي مسجل مسبقاً في المدرسة والصف المحددين.');
+      } else if (err.message?.toLowerCase().includes('offline')) {
+        setError(language === 'en'
+          ? 'Network Error: Cannot save profile. Please check your device date/time, disable your AdBlocker, or open in a new tab.'
           : 'حدث خطأ في الشبكة. يرجى التحقق من التاريخ والوقت بجهازك، أو إيقاف مانع الإعلانات، أو فتح التطبيق في نافذة جديدة.');
       } else {
         setError(err.message || 'Failed to complete profile');
@@ -247,8 +301,12 @@ export default function Onboarding() {
                   required
                   value={formData.name}
                   onChange={handleChange}
+                  placeholder={language === 'en' ? 'First Father Grandfather Family' : 'الاسم الأول اسم الأب اسم الجد اسم العائلة'}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
+                <p className="mt-1 text-xs text-gray-500">
+                  {language === 'en' ? 'Enter four name parts: first name, father, grandfather, and family name.' : 'أدخل أربعة أجزاء: الاسم الأول، اسم الأب، اسم الجد، واسم العائلة.'}
+                </p>
               </div>
 
               <div>

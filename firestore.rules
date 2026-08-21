@@ -119,6 +119,16 @@ service cloud.firestore {
              data.role in ['principal', 'teacher', 'student', 'parent', 'admin'];
     }
 
+    function hasValidStudentRegistration(data) {
+      return data.role != 'student' || (
+        data.studentRegistrationKey is string &&
+        data.gradeKey is string &&
+        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.uid == request.auth.uid &&
+        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.schoolId == data.schoolId &&
+        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.gradeKey == data.gradeKey
+      );
+    }
+
     function isValidSchool(data) {
       return data.name is string && data.name.size() >= 3 && data.name.size() < 200 &&
              data.country is string && data.country.size() > 0 && data.country.size() < 100 &&
@@ -185,14 +195,17 @@ service cloud.firestore {
         ('parentId' in resource.data && resource.data.parentId == request.auth.uid)
       );
       
-      allow create: if isAuthenticated() && 
-                    isOwner(userId) && 
-                    isValidUser(request.resource.data) && 
+            allow create: if isAuthenticated() &&
+                    isOwner(userId) &&
+                    isValidUser(request.resource.data) &&
+                    hasValidStudentRegistration(request.resource.data) &&
                     uidUnchanged();
-                    
-      allow update: if isAuthenticated() && 
-                    isValidUser(request.resource.data) && 
+
+      allow update: if isAuthenticated() &&
+                    isValidUser(request.resource.data) &&
+                    hasValidStudentRegistration(request.resource.data) &&
                     uidNotModified() &&
+
                     (
                       (isOwner(userId) && (request.resource.data.role == resource.data.role || isAdmin())) || 
                       isAdmin() ||
@@ -219,7 +232,23 @@ service cloud.firestore {
           request.resource.data.createdBy == request.auth.uid &&
           isValidSchool(request.resource.data)
         );
-      allow delete: if isAdmin();
+      allow delete: if isAdmin() ||
+        (isAuthenticated() && resource.data.createdBy == request.auth.uid && resource.data.status == 'pending');
+    }
+
+    match /studentRegistrationClaims/{claimId} {
+      // Reading the claim only reveals that the requested registration key exists;
+      // the document stores a hash instead of the student's readable name.
+      allow get: if isAuthenticated();
+      allow list: if false;
+      allow create: if isAuthenticated() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.role == 'student' &&
+        request.resource.data.schoolId is string &&
+        request.resource.data.gradeKey is string &&
+        request.resource.data.nameKey is string;
+      allow update: if false;
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.uid == request.auth.uid);
     }
 
     match /classes/{classId} {

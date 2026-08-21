@@ -18,6 +18,8 @@ export interface UserProfile {
   schoolSystem?: string;
   schoolApprovalStatus?: 'pending' | 'approved' | 'rejected';
   schoolStatus?: 'pending' | 'active' | 'rejected' | 'none';
+  nameKey?: string;
+  studentRegistrationKey?: string;
   governorateId?: string;
   governorate?: string;
   districtId?: string;

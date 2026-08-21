@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, updateProfile, sendEmailVerification, G
 import { auth } from '../../lib/firebase';
 import { useStore } from '../../lib/store';
 import { BookOpen, AlertCircle, CheckCircle } from 'lucide-react';
+import { isFourPartName, normalizePersonName } from '../../lib/utils';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -30,11 +31,18 @@ export default function Register() {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    const normalizedName = normalizePersonName(name);
+    if (!isFourPartName(normalizedName)) {
+      setError(language === 'en'
+        ? 'Please enter your full four-part name (four words).'
+        : 'يرجى إدخال الاسم الرباعي كاملاً (أربع كلمات).');
+      return;
+    }
     setLoading(true);
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      await updateProfile(userCredential.user, { displayName: name });
+      await updateProfile(userCredential.user, { displayName: normalizedName });
       await sendEmailVerification(userCredential.user);
       setVerificationSent(true);
       setLoading(false);
@@ -128,9 +136,13 @@ export default function Register() {
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  placeholder={language === 'en' ? 'First Father Grandfather Family' : 'الاسم الأول اسم الأب اسم الجد اسم العائلة'}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                 />
               </div>
+              <p className="mt-1 text-xs text-gray-500">
+                {language === 'en' ? 'Use four name parts so your school can identify you correctly.' : 'استخدم أربعة أجزاء للاسم حتى تتمكن المدرسة من التعرف عليك بشكل صحيح.'}
+              </p>
             </div>
 
             <div>
