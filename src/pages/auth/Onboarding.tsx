@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doc, setDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { doc, setDoc, collection, getDocs } from 'firebase/firestore';
 import { auth, db } from '../../lib/firebase';
 import { useStore, Role } from '../../lib/store';
 import { BookOpen, AlertCircle } from 'lucide-react';
@@ -14,6 +14,8 @@ export default function Onboarding() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [availableSchools, setAvailableSchools] = useState<any[]>([]);
+  const [schoolsLoaded, setSchoolsLoaded] = useState(false);
+  const [schoolMode, setSchoolMode] = useState<'registered' | 'new'>('registered');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -45,14 +47,20 @@ export default function Onboarding() {
       setAvailableSchools(schools);
     } catch (err) {
       console.error('Error fetching schools:', err);
+    } finally {
+      setSchoolsLoaded(true);
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    if (name === 'role') {
+      setSchoolMode(value === 'principal' ? 'new' : 'registered');
+    }
     setFormData(prev => ({
       ...prev,
       [name]: value,
+      ...(name === 'role' ? { school: '', schoolId: '' } : {}),
       ...(name === 'city' ? { district: '', school: '', schoolId: '' } : {}),
       ...(name === 'district' ? { school: '', schoolId: '' } : {}),
     }));
@@ -84,31 +92,51 @@ export default function Onboarding() {
         ? yemenGovernorates.find((governorate) => governorate.nameAr === formData.city)
         : undefined;
       const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === formData.district);
-      const selectedSchool = availableSchools.find((school) => school.id === formData.schoolId);
+      const selectedSchool = registeredSchools.find((school) => school.id === formData.schoolId);
 
-      // Students and teachers must link to a real registered school. A principal may create one.
+      let schoolApprovalStatus: 'pending' | 'approved' | 'rejected' = 'approved';
+      let schoolStatus: 'pending' | 'active' | 'none' = 'none';
+
       if (['student', 'teacher', 'principal'].includes(formData.role)) {
-        if (selectedSchool) {
+        if (schoolMode === 'registered' && selectedSchool) {
           finalSchoolId = selectedSchool.id;
           finalSchoolName = String(selectedSchool.name || '').trim();
-        } else if (formData.role === 'principal' && finalSchoolName) {
+          schoolApprovalStatus = selectedSchool.status === 'pending' ? 'pending' : 'approved';
+          schoolStatus = selectedSchool.status === 'pending' ? 'pending' : 'active';
+        } else if (schoolMode === 'new' && finalSchoolName) {
+          const normalizedSchoolName = finalSchoolName.replace(/\\s+/g, ' ').trim();
+          if (normalizedSchoolName.length < 3) {
+            throw new Error(language === 'en'
+              ? 'Enter a valid school name (at least 3 characters).'
+              : 'أدخل اسم مدرسة صحيحاً (ثلاثة أحرف على الأقل).');
+          }
+
+          finalSchoolName = normalizedSchoolName;
           finalSchoolId = `school_${auth.currentUser.uid}`;
+          schoolApprovalStatus = 'pending';
+          schoolStatus = 'pending';
           await setDoc(doc(db, 'schools', finalSchoolId), {
             id: finalSchoolId,
             name: finalSchoolName,
             country: formData.country,
             city: formData.city,
             district: formData.district,
+            governorate: formData.city,
             governorateId: selectedGovernorate?.id || '',
             districtId: selectedDistrict?.id || '',
             system: formData.schoolSystem,
+            status: 'pending',
+            approvalStatus: 'pending',
+            isActive: false,
             createdBy: auth.currentUser.uid,
+            createdByRole: formData.role,
             createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
           });
         } else {
           throw new Error(language === 'en'
-            ? 'Select a registered school. A principal can register a new school.'
-            : 'اختر مدرسة مسجلة من القائمة. يستطيع مدير المدرسة تسجيل مدرسة جديدة.');
+            ? 'Select a registered school or choose “My school is not listed” to submit a new school for approval.'
+            : 'اختر مدرسة مسجلة أو اختر «مدرستي غير موجودة» لإرسال طلب إضافة مدرسة للاعتماد.');
         }
       }
 
@@ -127,6 +155,8 @@ export default function Onboarding() {
         school: finalSchoolName,
         schoolId: finalSchoolId,
         schoolSystem: formData.schoolSystem,
+        schoolApprovalStatus,
+        schoolStatus,
         grade: formData.grade,
         gradeKey: getGradeKey(formData.grade),
         createdAt: new Date().toISOString()
@@ -155,7 +185,12 @@ export default function Onboarding() {
   const selectedGovernorate = yemenGovernorates.find((governorate) => governorate.nameAr === formData.city);
   const yemenDistricts = isYemen && selectedGovernorate ? selectedGovernorate.districts : [];
   const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === formData.district);
-  const filteredSchools = availableSchools
+  const registeredSchools = availableSchools.filter((school) =>
+    school.status !== 'pending' &&
+    school.approvalStatus !== 'pending' &&
+    school.isActive !== false
+  );
+  const filteredSchools = registeredSchools
     .filter((school) => {
       if (school.country && school.country !== formData.country) return false;
       if (formData.country !== 'اليمن') return true;
@@ -168,6 +203,12 @@ export default function Onboarding() {
       return governorateMatches && districtMatches && String(school.name || '').trim();
     })
     .sort((a, b) => String(a.name || '').localeCompare(String(b.name || ''), 'ar'));
+
+  useEffect(() => {
+    if (schoolsLoaded && formData.role !== 'principal' && filteredSchools.length === 0) {
+      setSchoolMode('new');
+    }
+  }, [schoolsLoaded, formData.role, formData.country, formData.city, formData.district, filteredSchools.length]);
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -318,21 +359,38 @@ export default function Onboarding() {
                     </select>
                   </div>
 
-                  <div>
+                  <div className="sm:col-span-2">
                     <label className="block text-sm font-medium text-gray-700">
                       {language === 'en' ? 'School/University' : 'المدرسة/الجامعة'}
                     </label>
-                    {formData.role === 'principal' ? (
-                      <input
-                        type="text"
-                        name="school"
-                        required
-                        value={formData.school}
-                        onChange={handleChange}
-                        placeholder={language === 'en' ? 'Enter your school name' : 'أدخل اسم المدرسة التي تديرها'}
-                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                      />
-                    ) : (
+
+                    {formData.role !== 'principal' && (
+                      <div className="mt-2 flex flex-wrap gap-2" role="group" aria-label={language === 'en' ? 'School selection mode' : 'طريقة اختيار المدرسة'}>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSchoolMode('registered');
+                            setFormData(prev => ({ ...prev, school: '', schoolId: '' }));
+                          }}
+                          disabled={filteredSchools.length === 0}
+                          className={`rounded-md border px-3 py-2 text-sm ${schoolMode === 'registered' ? 'border-blue-600 bg-blue-50 text-blue-700' : 'border-gray-300 text-gray-700'} disabled:cursor-not-allowed disabled:opacity-50`}
+                        >
+                          {language === 'en' ? 'Choose a registered school' : 'اختيار مدرسة مسجلة'}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSchoolMode('new');
+                            setFormData(prev => ({ ...prev, school: '', schoolId: '' }));
+                          }}
+                          className={`rounded-md border px-3 py-2 text-sm ${schoolMode === 'new' ? 'border-amber-600 bg-amber-50 text-amber-800' : 'border-gray-300 text-gray-700'}`}
+                        >
+                          {language === 'en' ? 'My school is not listed' : 'مدرستي غير موجودة'}
+                        </button>
+                      </div>
+                    )}
+
+                    {schoolMode === 'registered' && formData.role !== 'principal' ? (
                       <select
                         name="schoolId"
                         required
@@ -345,19 +403,37 @@ export default function Onboarding() {
                             school: school?.name || '',
                           }));
                         }}
-                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="mt-2 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       >
-                        <option value="">{language === 'en' ? 'Select a registered school' : 'اختر مدرسة مسجلة'}</option>
+                        <option value="">{language === 'en' ? 'Select an approved school' : 'اختر مدرسة معتمدة'}</option>
                         {filteredSchools.map((school) => (
                           <option key={school.id} value={school.id}>{school.name}</option>
                         ))}
                       </select>
+                    ) : (
+                      <input
+                        type="text"
+                        name="school"
+                        required
+                        value={formData.school}
+                        onChange={handleChange}
+                        placeholder={language === 'en' ? 'Enter the school name' : 'أدخل اسم المدرسة'}
+                        className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      />
                     )}
-                    {formData.role !== 'principal' && filteredSchools.length === 0 && (
+
+                    {schoolMode === 'new' && (
                       <p className="mt-2 text-xs text-amber-700">
                         {language === 'en'
-                          ? 'No registered school was found for this district. Ask the school principal to register it first.'
-                          : 'لا توجد مدرسة مسجلة لهذه المديرية. اطلب من مدير المدرسة تسجيلها أولاً.'}
+                          ? 'Your school will be saved as pending and reviewed by the app administrator. You can finish creating your account now.'
+                          : 'سيتم حفظ المدرسة كطلب قيد الاعتماد ومراجعتها من قبل مدير التطبيق. يمكنك إكمال إنشاء حسابك الآن.'}
+                      </p>
+                    )}
+                    {formData.role !== 'principal' && schoolMode === 'registered' && filteredSchools.length === 0 && (
+                      <p className="mt-2 text-xs text-amber-700">
+                        {language === 'en'
+                          ? 'No approved school was found for this location. Choose “My school is not listed” to submit a request.'
+                          : 'لا توجد مدرسة معتمدة في هذا الموقع. اختر «مدرستي غير موجودة» لإرسال طلب إضافة مدرسة.'}
                       </p>
                     )}
                   </div>

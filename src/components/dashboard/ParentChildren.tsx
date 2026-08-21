@@ -4,9 +4,8 @@ import { db, auth } from '../../lib/firebase';
 import { useStore } from '../../lib/store';
 import { Users, Plus, Loader2, UserMinus, Search, Target, TrendingUp, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { GoogleGenAI } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface Child {
   id: string;
@@ -119,7 +118,7 @@ export default function ParentChildren() {
         - recommendation: A short actionable tip for the parent.
       `;
 
-      const response = await ai.models.generateContent({
+      const response = await getGeminiAI().models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {

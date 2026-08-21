@@ -66,8 +66,10 @@ export default defineConfig(({mode}) => {
       },
     },
     server: {
-      // HMR is disabled in AI Studio via DISABLE_HMR env var.
-      // Do not modifyâfile watching is disabled to prevent flickering during agent edits.
+      // Allow the temporary public preview proxy to reach Vite during development.
+      allowedHosts: true,
+      // HMR is disabled in AI Studio via DISABLE_HMR env VAR.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
     },
   };

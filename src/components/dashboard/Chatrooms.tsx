@@ -3,9 +3,8 @@ import { collection, query, where, orderBy, onSnapshot, addDoc, serverTimestamp 
 import { db, auth } from '../../lib/firebase';
 import { useStore } from '../../lib/store';
 import { MessageSquare, Send, Loader2, Bot } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface Message {
   id: string;
@@ -117,7 +116,7 @@ export default function Chatrooms() {
         
         if (prompt) {
           // Add a temporary "typing" message or just wait
-          const response = await ai.models.generateContent({
+          const response = await getGeminiAI().models.generateContent({
             model: 'gemini-3-flash-preview',
             contents: `You are an AI teaching assistant in a class chatroom. The class is "${selectedClass.name}". A ${user.role} named ${user.name} asked: "${prompt}". Provide a helpful, educational, and concise response in ${language === 'en' ? 'English' : 'Arabic'}.`
           });

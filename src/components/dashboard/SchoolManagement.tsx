@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../../lib/store';
-import { collection, query, getDocs, doc, setDoc, deleteDoc } from 'firebase/firestore';
+import { collection, query, getDocs, doc, setDoc, deleteDoc, where, writeBatch } from 'firebase/firestore';
 import { db } from '../../lib/firebase';
-import { Building2, Plus, Trash2, Loader2 } from 'lucide-react';
+import { Building2, Plus, Trash2, Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { ARAB_COUNTRIES, YEMEN_GOVERNORATES, SCHOOL_SYSTEMS } from '../../lib/constants';
 import { toast } from 'sonner';
 
@@ -14,6 +14,10 @@ interface School {
   district?: string;
   system: string;
   createdAt: string;
+  status?: 'pending' | 'approved' | 'active' | 'rejected';
+  approvalStatus?: 'pending' | 'approved' | 'rejected';
+  isActive?: boolean;
+  createdBy?: string;
 }
 
 export default function SchoolManagement() {
@@ -89,11 +93,14 @@ export default function SchoolManagement() {
       const schoolId = `school_${Date.now()}`;
       const newSchool: School = {
         id: schoolId,
-        name: formData.name,
+        name: formData.name.trim(),
         country: formData.country,
         city: formData.city,
         district: formData.district,
         system: formData.system,
+        status: 'approved',
+        approvalStatus: 'approved',
+        isActive: true,
         createdAt: new Date().toISOString(),
       };
 
@@ -106,6 +113,42 @@ export default function SchoolManagement() {
       toast.error(language === 'en' ? 'Failed to add school' : 'فشل في إضافة المدرسة');
     } finally {
       setIsAdding(false);
+    }
+  };
+
+  const handleSchoolApproval = async (schoolId: string, status: 'approved' | 'rejected') => {
+    try {
+      const schoolRef = doc(db, 'schools', schoolId);
+      const usersQuery = query(collection(db, 'users'), where('schoolId', '==', schoolId));
+      const usersSnapshot = await getDocs(usersQuery);
+      const batch = writeBatch(db);
+      const reviewedAt = new Date().toISOString();
+
+      batch.update(schoolRef, {
+        status,
+        approvalStatus: status,
+        isActive: status === 'approved',
+        reviewedAt,
+      });
+
+      usersSnapshot.forEach((userDoc) => {
+        batch.update(userDoc.ref, {
+          schoolApprovalStatus: status,
+          schoolStatus: status === 'approved' ? 'active' : 'rejected',
+        });
+      });
+
+      await batch.commit();
+      setSchools(prev => prev.map(school => school.id === schoolId
+        ? { ...school, status, approvalStatus: status, isActive: status === 'approved' }
+        : school
+      ));
+      toast.success(language === 'en'
+        ? `School ${status === 'approved' ? 'approved' : 'rejected'} successfully`
+        : status === 'approved' ? 'تم اعتماد المدرسة وتفعيل الحسابات المرتبطة بها' : 'تم رفض طلب المدرسة');
+    } catch (error) {
+      console.error('Error updating school approval:', error);
+      toast.error(language === 'en' ? 'Failed to update school approval' : 'تعذر تحديث اعتماد المدرسة');
     }
   };
 
@@ -263,8 +306,23 @@ export default function SchoolManagement() {
             {schools.map(school => (
               <div key={school.id} className="bg-white dark:bg-gray-800 p-4 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm flex flex-col justify-between">
                 <div>
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-semibold text-gray-900 dark:text-white">{school.name}</h4>
+                  <div className="flex justify-between items-start mb-2 gap-2">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 dark:text-white">{school.name}</h4>
+                      <span className={`mt-1 inline-flex rounded-full px-2 py-0.5 text-xs font-medium ${
+                        school.status === 'pending' || school.approvalStatus === 'pending'
+                          ? 'bg-amber-100 text-amber-800 dark:bg-amber-900/30 dark:text-amber-300'
+                          : school.status === 'rejected' || school.approvalStatus === 'rejected'
+                            ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
+                            : 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300'
+                      }`}>
+                        {school.status === 'pending' || school.approvalStatus === 'pending'
+                          ? (language === 'en' ? 'Pending approval' : 'قيد الاعتماد')
+                          : school.status === 'rejected' || school.approvalStatus === 'rejected'
+                            ? (language === 'en' ? 'Rejected' : 'مرفوضة')
+                            : (language === 'en' ? 'Approved' : 'معتمدة')}
+                      </span>
+                    </div>
                     <button
                       onClick={() => handleDeleteSchool(school.id)}
                       className="p-1 text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
@@ -277,6 +335,26 @@ export default function SchoolManagement() {
                     <p>{school.system}</p>
                     <p>{school.country} - {school.city} {school.district && `- ${school.district}`}</p>
                   </div>
+                  {(school.status === 'pending' || school.approvalStatus === 'pending') && (
+                    <div className="mt-4 flex gap-2 border-t border-gray-100 dark:border-gray-700 pt-3">
+                      <button
+                        type="button"
+                        onClick={() => handleSchoolApproval(school.id, 'approved')}
+                        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-green-600 px-2 py-2 text-xs font-medium text-white hover:bg-green-700"
+                      >
+                        <CheckCircle className="h-4 w-4" />
+                        {language === 'en' ? 'Approve' : 'اعتماد'}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSchoolApproval(school.id, 'rejected')}
+                        className="flex flex-1 items-center justify-center gap-1 rounded-md bg-red-600 px-2 py-2 text-xs font-medium text-white hover:bg-red-700"
+                      >
+                        <XCircle className="h-4 w-4" />
+                        {language === 'en' ? 'Reject' : 'رفض'}
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}

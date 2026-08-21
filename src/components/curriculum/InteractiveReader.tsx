@@ -9,10 +9,9 @@ import {
   Sparkles, Brain, Download, Check, ListTree, Layers,
   Volume2, Maximize, FileText, ArrowRight
 } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 import { toast } from 'sonner';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface InteractiveReaderProps {
   book: CurriculumBook;
@@ -133,7 +132,7 @@ export default function InteractiveReader({
         ? `You are an expert tutor. Explain the following official curriculum text clearly with examples. Answer in ${language === 'en' ? 'English' : 'Arabic'}. Lesson: "${currentLesson.title}". Subject: "${book.subject}".\n\nTEXT:\n${sourceText}`
         : `You are an expert tutor. Summarize the following official curriculum text into structured revision points. Answer in ${language === 'en' ? 'English' : 'Arabic'}. Lesson: "${currentLesson.title}". Subject: "${book.subject}".\n\nTEXT:\n${sourceText}`;
 
-      const response = await ai.models.generateContent({
+      const response = await getGeminiAI().models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
       });

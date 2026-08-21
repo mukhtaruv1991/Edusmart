@@ -1,12 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
 import { useStore } from '../../lib/store';
-import { GoogleGenAI } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 import { Languages, Volume2, HelpCircle, Brain, Loader2, X, BookmarkCheck, Sparkles, Send } from 'lucide-react';
 import { toast } from 'sonner';
 import { saveStudyAIItem } from '../../lib/studyStorage';
 import { StudyAIItem } from '../../types/curriculum';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface AIContextMenuProps {
   selectedText: string;
@@ -76,7 +75,7 @@ export default function AIContextMenu({
         prompt = `Based on the following educational text:\n"${selectedText}"\n\nAnswer the student's question clearly in ${language === 'en' ? 'English' : 'Arabic'}:\n"${customQuery}"`;
       }
 
-      const response = await ai.models.generateContent({
+      const response = await getGeminiAI().models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
       });

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../../lib/store';
-import { GoogleGenAI, Type } from '@google/genai';
+import { Type } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 import { Loader2, Plus, Save, Printer } from 'lucide-react';
 import { toast } from 'sonner';
 import { collection, query, where, getDocs, addDoc } from 'firebase/firestore';
 import { db, auth } from '../../lib/firebase';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 export default function ExamGenerator() {
   const { language } = useStore();
@@ -51,7 +51,7 @@ export default function ExamGenerator() {
     try {
       const prompt = `Generate an exam about "${topic}" with ${mcqCount} Multiple Choice Questions and ${tfCount} True/False questions. Difficulty: ${difficulty}. Language: ${language === 'en' ? 'English' : 'Arabic'}.`;
       
-      const response = await ai.models.generateContent({
+      const response = await getGeminiAI().models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {

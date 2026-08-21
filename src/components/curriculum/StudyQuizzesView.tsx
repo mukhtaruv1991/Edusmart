@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { useStore } from '../../lib/store';
 import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyQuiz, StudyQuizQuestion } from '../../types/curriculum';
 import { saveStudyQuiz } from '../../lib/studyStorage';
-import { GoogleGenAI, Type } from '@google/genai';
+import { Type } from '@google/genai';
+import { getGeminiAI } from '../../lib/gemini';
 import {
   Brain, Sparkles, CheckCircle2, XCircle, Award, RotateCcw,
   Loader2, Plus, Calendar, HelpCircle, ChevronRight, Play
 } from 'lucide-react';
 import { toast } from 'sonner';
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 interface StudyQuizzesViewProps {
   book: CurriculumBook;
@@ -59,7 +59,7 @@ Return the result strictly as a valid JSON object matching this schema:
   ]
 }`;
 
-      const response = await ai.models.generateContent({
+      const response = await getGeminiAI().models.generateContent({
         model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {

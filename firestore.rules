@@ -119,6 +119,16 @@ service cloud.firestore {
              data.role in ['principal', 'teacher', 'student', 'parent', 'admin'];
     }
 
+    function isValidSchool(data) {
+      return data.name is string && data.name.size() >= 3 && data.name.size() < 200 &&
+             data.country is string && data.country.size() > 0 && data.country.size() < 100 &&
+             data.city is string && data.city.size() > 0 && data.city.size() < 100 &&
+             data.system is string && data.system.size() > 0 && data.system.size() < 100 &&
+             (!('status' in data) || data.status in ['pending', 'approved', 'active', 'rejected']) &&
+             (!('approvalStatus' in data) || data.approvalStatus in ['pending', 'approved', 'rejected']) &&
+             (!('isActive' in data) || data.isActive is bool);
+    }
+
     function isValidClass(data) {
       return data.name is string && data.name.size() > 0 && data.name.size() < 100 &&
              data.teacherId is string && data.teacherId.size() > 0 &&
@@ -194,8 +204,21 @@ service cloud.firestore {
 
     match /schools/{schoolId} {
       allow read: if isAuthenticated();
-      allow create: if isAuthenticated() && (isAdmin() || request.resource.data.name is string);
-      allow update: if isAdmin() || isPrincipal();
+      allow create: if isAuthenticated() &&
+        isValidSchool(request.resource.data) &&
+        (
+          isAdmin() ||
+          (request.resource.data.status == 'pending' && request.resource.data.createdBy == request.auth.uid)
+        );
+      allow update: if isAdmin() ||
+        (
+          isAuthenticated() &&
+          resource.data.createdBy == request.auth.uid &&
+          resource.data.status in ['pending', 'rejected'] &&
+          request.resource.data.status == 'pending' &&
+          request.resource.data.createdBy == request.auth.uid &&
+          isValidSchool(request.resource.data)
+        );
       allow delete: if isAdmin();
     }
 
