@@ -4,7 +4,9 @@ import { doc, setDoc, collection, getDocs, query, where } from 'firebase/firesto
 import { auth, db } from '../../lib/firebase';
 import { useStore, Role } from '../../lib/store';
 import { BookOpen, AlertCircle } from 'lucide-react';
-import { ARAB_COUNTRIES, YEMEN_GOVERNORATES, SCHOOL_SYSTEMS, GRADES } from '../../lib/constants';
+import { ARAB_COUNTRIES, SCHOOL_SYSTEMS, GRADES } from '../../lib/constants';
+import { yemenGovernorates } from '../../lib/yemenData';
+import { getGradeKey, YEMEN_GRADE_OPTIONS } from '../../lib/gradeCatalog';
 
 export default function Onboarding() {
   const { user, setUser, language, isAuthReady } = useStore();
@@ -21,7 +23,8 @@ export default function Onboarding() {
     city: 'صنعاء',
     district: '',
     school: '',
-    grade: GRADES[0],
+    schoolId: '',
+    grade: YEMEN_GRADE_OPTIONS[0].labelAr,
     schoolSystem: SCHOOL_SYSTEMS[0],
   });
 
@@ -38,7 +41,7 @@ export default function Onboarding() {
   const fetchSchools = async () => {
     try {
       const snapshot = await getDocs(collection(db, 'schools'));
-      const schools = snapshot.docs.map(doc => doc.data());
+      const schools = snapshot.docs.map(schoolDoc => ({ id: schoolDoc.id, ...schoolDoc.data() }));
       setAvailableSchools(schools);
     } catch (err) {
       console.error('Error fetching schools:', err);
@@ -46,7 +49,13 @@ export default function Onboarding() {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+      ...(name === 'city' ? { district: '', school: '', schoolId: '' } : {}),
+      ...(name === 'district' ? { school: '', schoolId: '' } : {}),
+    }));
   };
 
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -56,6 +65,8 @@ export default function Onboarding() {
       country: newCountry,
       city: newCountry === 'اليمن' ? 'صنعاء' : '',
       district: '',
+      school: '',
+      schoolId: '',
     });
   };
 
@@ -68,35 +79,36 @@ export default function Onboarding() {
 
     try {
       let finalSchoolName = formData.school.trim();
+      let finalSchoolId = formData.schoolId || '';
+      const selectedGovernorate = isYemen
+        ? yemenGovernorates.find((governorate) => governorate.nameAr === formData.city)
+        : undefined;
+      const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === formData.district);
+      const selectedSchool = availableSchools.find((school) => school.id === formData.schoolId);
 
-      // If role is student, teacher, or principal, check/create school
-      if (['student', 'teacher', 'principal'].includes(formData.role) && formData.school) {
-        const isUniversity = formData.school.includes('جامع') || formData.school.includes('كلية') || formData.school.includes('معهد');
-        const isBranch = formData.school.includes('فرع');
-        
-        const existingSchool = availableSchools.find(s => {
-          if (s.country !== formData.country || s.city !== formData.city) return false;
-          if (s.name.trim() === formData.school.trim()) {
-            if (isUniversity && !isBranch) return true; // Universities/Institutes (not branches) are unique per governorate
-            return s.district === formData.district; // Schools and University branches are unique per district
-          }
-          return false;
-        });
-
-        if (existingSchool) {
-          finalSchoolName = existingSchool.name;
-        } else {
-          // Create the school so others can link to it
-          const schoolId = `school_${Date.now()}`;
-          await setDoc(doc(db, 'schools', schoolId), {
-            id: schoolId,
+      // Students and teachers must link to a real registered school. A principal may create one.
+      if (['student', 'teacher', 'principal'].includes(formData.role)) {
+        if (selectedSchool) {
+          finalSchoolId = selectedSchool.id;
+          finalSchoolName = String(selectedSchool.name || '').trim();
+        } else if (formData.role === 'principal' && finalSchoolName) {
+          finalSchoolId = `school_${auth.currentUser.uid}`;
+          await setDoc(doc(db, 'schools', finalSchoolId), {
+            id: finalSchoolId,
             name: finalSchoolName,
             country: formData.country,
             city: formData.city,
             district: formData.district,
+            governorateId: selectedGovernorate?.id || '',
+            districtId: selectedDistrict?.id || '',
             system: formData.schoolSystem,
+            createdBy: auth.currentUser.uid,
             createdAt: new Date().toISOString(),
           });
+        } else {
+          throw new Error(language === 'en'
+            ? 'Select a registered school. A principal can register a new school.'
+            : 'اختر مدرسة مسجلة من القائمة. يستطيع مدير المدرسة تسجيل مدرسة جديدة.');
         }
       }
 
@@ -109,8 +121,14 @@ export default function Onboarding() {
         country: formData.country,
         city: formData.city,
         district: formData.district,
+        districtId: selectedDistrict?.id || '',
+        governorate: formData.city,
+        governorateId: selectedGovernorate?.id || '',
         school: finalSchoolName,
+        schoolId: finalSchoolId,
+        schoolSystem: formData.schoolSystem,
         grade: formData.grade,
+        gradeKey: getGradeKey(formData.grade),
         createdAt: new Date().toISOString()
       };
 
@@ -133,8 +151,23 @@ export default function Onboarding() {
   if (!user) return null;
 
   const isYemen = formData.country === 'اليمن';
-  const yemenCities = Object.keys(YEMEN_GOVERNORATES);
-  const yemenDistricts = isYemen && formData.city ? YEMEN_GOVERNORATES[formData.city] || [] : [];
+  const yemenCities = yemenGovernorates.map((governorate) => governorate.nameAr);
+  const selectedGovernorate = yemenGovernorates.find((governorate) => governorate.nameAr === formData.city);
+  const yemenDistricts = isYemen && selectedGovernorate ? selectedGovernorate.districts : [];
+  const selectedDistrict = selectedGovernorate?.districts.find((district) => district.nameAr === formData.district);
+  const filteredSchools = availableSchools
+    .filter((school) => {
+      if (school.country && school.country !== formData.country) return false;
+      if (formData.country !== 'اليمن') return true;
+      const governorateMatches = school.governorateId
+        ? school.governorateId === selectedGovernorate?.id
+        : school.city === formData.city;
+      const districtMatches = school.districtId
+        ? school.districtId === selectedDistrict?.id
+        : school.district === formData.district;
+      return governorateMatches && districtMatches && String(school.name || '').trim();
+    })
+    .sort((a, b) => String(a.name || '').localeCompare(String(b.name || ''), 'ar'));
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -248,7 +281,7 @@ export default function Onboarding() {
                       className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     >
                       <option value="">{language === 'en' ? 'Select District' : 'اختر المديرية'}</option>
-                      {yemenDistricts.map(d => <option key={d} value={d}>{d}</option>)}
+                      {yemenDistricts.map(d => <option key={d.id} value={d.nameAr}>{d.nameAr}</option>)}
                     </select>
                   </div>
                 </>
@@ -289,25 +322,44 @@ export default function Onboarding() {
                     <label className="block text-sm font-medium text-gray-700">
                       {language === 'en' ? 'School/University' : 'المدرسة/الجامعة'}
                     </label>
-                    <input
-                      type="text"
-                      name="school"
-                      required
-                      list="schools-list"
-                      value={formData.school}
-                      onChange={handleChange}
-                      className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-                    />
-                    <datalist id="schools-list">
-                      {availableSchools.filter(s => {
-                        if (s.country !== formData.country || s.city !== formData.city) return false;
-                        const isUniversity = s.name.includes('جامع') || s.name.includes('كلية') || s.name.includes('معهد');
-                        const isBranch = s.name.includes('فرع');
-                        return (isUniversity && !isBranch) ? true : s.district === formData.district;
-                      }).map((s, idx) => (
-                        <option key={idx} value={s.name} />
-                      ))}
-                    </datalist>
+                    {formData.role === 'principal' ? (
+                      <input
+                        type="text"
+                        name="school"
+                        required
+                        value={formData.school}
+                        onChange={handleChange}
+                        placeholder={language === 'en' ? 'Enter your school name' : 'أدخل اسم المدرسة التي تديرها'}
+                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      />
+                    ) : (
+                      <select
+                        name="schoolId"
+                        required
+                        value={formData.schoolId}
+                        onChange={(event) => {
+                          const school = filteredSchools.find(item => item.id === event.target.value);
+                          setFormData(prev => ({
+                            ...prev,
+                            schoolId: event.target.value,
+                            school: school?.name || '',
+                          }));
+                        }}
+                        className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                      >
+                        <option value="">{language === 'en' ? 'Select a registered school' : 'اختر مدرسة مسجلة'}</option>
+                        {filteredSchools.map((school) => (
+                          <option key={school.id} value={school.id}>{school.name}</option>
+                        ))}
+                      </select>
+                    )}
+                    {formData.role !== 'principal' && filteredSchools.length === 0 && (
+                      <p className="mt-2 text-xs text-amber-700">
+                        {language === 'en'
+                          ? 'No registered school was found for this district. Ask the school principal to register it first.'
+                          : 'لا توجد مدرسة مسجلة لهذه المديرية. اطلب من مدير المدرسة تسجيلها أولاً.'}
+                      </p>
+                    )}
                   </div>
                 </>
               )}
@@ -323,7 +375,7 @@ export default function Onboarding() {
                     onChange={handleChange}
                     className="mt-1 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   >
-                    {GRADES.map(g => <option key={g} value={g}>{g}</option>)}
+                    {(isYemen ? YEMEN_GRADE_OPTIONS.map(option => option.labelAr) : GRADES).map(g => <option key={g} value={g}>{g}</option>)}
                   </select>
                 </div>
               )}

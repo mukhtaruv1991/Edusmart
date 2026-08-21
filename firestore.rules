@@ -131,6 +131,16 @@ service cloud.firestore {
              data.uploaderId is string && data.uploaderId.size() > 0;
     }
 
+    function isValidCurriculumBook(data) {
+      return data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
+             data.subject is string && data.subject.size() > 0 && data.subject.size() < 100 &&
+             data.gradeKey is string && data.gradeKey.size() > 0 &&
+             data.totalPageCount is number && data.totalPageCount > 0 &&
+             data.manifestUrl is string && data.manifestUrl.size() > 0 &&
+             data.pdfUrl is string && data.pdfUrl.size() > 0 &&
+             data.units is list && data.isActive is bool;
+    }
+
     function isValidExam(data) {
       return data.title is string && data.title.size() > 0 && data.title.size() < 200 &&
              data.classId is string && data.classId.size() > 0 &&
@@ -158,12 +168,11 @@ service cloud.firestore {
       // Allow read if owner, admin, or if the user is a principal/teacher (they need to see users in their school)
       // Also parents need to see their children.
       allow read: if isAuthenticated() && (
-        isOwner(userId) || 
-        isAdmin() || 
-        isPrincipal() || 
-        isTeacher() || 
-        isParent() ||
-        isStudent() // Students might need to see teachers
+        isOwner(userId) ||
+        isAdmin() ||
+        ('schoolId' in getUserData() && getUserData().schoolId != null && resource.data.schoolId == getUserData().schoolId) ||
+        ('school' in getUserData() && getUserData().school != null && resource.data.school == getUserData().school) ||
+        ('parentId' in resource.data && resource.data.parentId == request.auth.uid)
       );
       
       allow create: if isAuthenticated() && 
@@ -203,6 +212,17 @@ service cloud.firestore {
       }
     }
 
+    match /curriculumBooks/{bookId} {
+      // The catalog contains metadata and signed Storage URLs; the application still filters school-scoped books by schoolId.
+      allow read: if isAuthenticated();
+      allow create: if (isPrincipal() || isAdmin()) &&
+        isValidCurriculumBook(request.resource.data) &&
+        request.resource.data.createdBy == request.auth.uid;
+      allow update: if (isAdmin() || (isPrincipal() && resource.data.createdBy == request.auth.uid)) &&
+        isValidCurriculumBook(request.resource.data);
+      allow delete: if isAdmin() || (isPrincipal() && resource.data.createdBy == request.auth.uid);
+    }
+
     match /books/{bookId} {
       allow read: if isAuthenticated();
       allow create: if (isTeacher() || isPrincipal() || isAdmin()) && isValidBook(request.resource.data);
@@ -234,6 +254,40 @@ service cloud.firestore {
     match /competitions/{compId} {
       allow read: if isAuthenticated();
       allow create, update, delete: if isPrincipal() || isAdmin();
+
+      match /questions/{questionId} {
+        allow read: if isAuthenticated();
+        allow create, update, delete: if isTeacher() || isPrincipal() || isAdmin();
+      }
+
+      match /participants/{participantId} {
+        allow read: if isAuthenticated();
+        allow create: if isStudent() && participantId == request.auth.uid && request.resource.data.uid == request.auth.uid;
+        allow update: if isStudent() && participantId == request.auth.uid && resource.data.uid == request.auth.uid;
+        allow delete: if isAdmin() || isPrincipal();
+      }
+    }
+
+    match /examAttempts/{attemptId} {
+      allow read: if isAuthenticated() && (
+        resource.data.studentId == request.auth.uid ||
+        isAdmin() || isTeacher() || isPrincipal() ||
+        (isParent() && 'parentId' in get(/databases/$(database)/documents/users/$(resource.data.studentId)).data && get(/databases/$(database)/documents/users/$(resource.data.studentId)).data.parentId == request.auth.uid)
+      );
+      allow create: if isStudent() && request.resource.data.studentId == request.auth.uid;
+      allow update: if isStudent() && resource.data.studentId == request.auth.uid;
+      allow delete: if isAdmin() || isTeacher() || isPrincipal();
+    }
+
+    match /competitionAttempts/{attemptId} {
+      allow read: if isAuthenticated() && (
+        resource.data.studentId == request.auth.uid ||
+        isAdmin() || isTeacher() || isPrincipal() ||
+        (isParent() && 'parentId' in get(/databases/$(database)/documents/users/$(resource.data.studentId)).data && get(/databases/$(database)/documents/users/$(resource.data.studentId)).data.parentId == request.auth.uid)
+      );
+      allow create: if isStudent() && request.resource.data.studentId == request.auth.uid;
+      allow update: if isStudent() && resource.data.studentId == request.auth.uid;
+      allow delete: if isAdmin() || isTeacher() || isPrincipal();
     }
 
     match /curriculums/{currId} {

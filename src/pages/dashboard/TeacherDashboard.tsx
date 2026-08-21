@@ -1,14 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { useStore } from '../../lib/store';
+import { db } from '../../lib/firebase';
 import { BookOpen, FileText, Users, BarChart } from 'lucide-react';
 import ExamGenerator from '../../components/ai/ExamGenerator';
 import ClassManagement from '../../components/dashboard/ClassManagement';
-import Chatrooms from '../../components/dashboard/Chatrooms';
+import ChatInterface from '../../components/chat/ChatInterface';
 import TeacherReports from '../../components/dashboard/TeacherReports';
 
 export default function TeacherDashboard() {
-  const { language } = useStore();
+  const { user, language } = useStore();
   const [activeTab, setActiveTab] = useState<'overview' | 'exams' | 'classes' | 'chat' | 'reports'>('overview');
+  const [metrics, setMetrics] = useState({ students: 0, exams: 0, classes: 0 });
+
+  useEffect(() => {
+    if (!user?.uid) return;
+    const loadMetrics = async () => {
+      try {
+        const schoolFilter = user.schoolId ? where('schoolId', '==', user.schoolId) : where('school', '==', user.school || '');
+        const [studentsSnapshot, examsSnapshot, classesSnapshot] = await Promise.all([
+          getDocs(query(collection(db, 'users'), schoolFilter, where('role', '==', 'student'))),
+          getDocs(query(collection(db, 'exams'), where('teacherId', '==', user.uid))),
+          getDocs(query(collection(db, 'classes'), where('teacherId', '==', user.uid))),
+        ]);
+        setMetrics({
+          students: studentsSnapshot.size,
+          exams: examsSnapshot.size,
+          classes: classesSnapshot.size,
+        });
+      } catch (error) {
+        console.error('Failed to load teacher metrics:', error);
+      }
+    };
+    void loadMetrics();
+  }, [user?.school, user?.schoolId, user?.uid]);
 
   return (
     <div className="space-y-6">
@@ -20,7 +45,7 @@ export default function TeacherDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{language === 'en' ? 'Total Students' : 'إجمالي الطلاب'}</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">124</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metrics.students}</p>
             </div>
           </div>
         </div>
@@ -31,7 +56,7 @@ export default function TeacherDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{language === 'en' ? 'Active Exams' : 'الامتحانات النشطة'}</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">3</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metrics.exams}</p>
             </div>
           </div>
         </div>
@@ -42,7 +67,7 @@ export default function TeacherDashboard() {
             </div>
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400">{language === 'en' ? 'Classes' : 'الفصول'}</p>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">4</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{metrics.classes}</p>
             </div>
           </div>
         </div>
@@ -72,7 +97,7 @@ export default function TeacherDashboard() {
             onClick={() => setActiveTab('chat')}
             className={`px-6 py-4 text-sm font-medium transition-colors whitespace-nowrap ${activeTab === 'chat' ? 'border-b-2 border-blue-600 text-blue-600' : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200'}`}
           >
-            {language === 'en' ? 'Class Chats' : 'محادثات الفصول'}
+            {language === 'en' ? 'School chats' : 'محادثات المدرسة'}
           </button>
           <button
             onClick={() => setActiveTab('reports')}
@@ -95,7 +120,7 @@ export default function TeacherDashboard() {
           )}
           {activeTab === 'classes' && <ClassManagement />}
           {activeTab === 'exams' && <ExamGenerator />}
-          {activeTab === 'chat' && <Chatrooms />}
+          {activeTab === 'chat' && <ChatInterface />}
           {activeTab === 'reports' && <TeacherReports />}
         </div>
       </div>

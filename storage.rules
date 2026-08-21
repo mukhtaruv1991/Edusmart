@@ -1,0 +1,43 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function userData() {
+      return firestore.get(/databases/(default)/documents/users/$(request.auth.uid)).data;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && userData().role == 'admin';
+    }
+
+    function isPrincipal() {
+      return isAuthenticated() && userData().role == 'principal';
+    }
+
+    function isTeacher() {
+      return isAuthenticated() && userData().role == 'teacher';
+    }
+
+    match /curriculum/{gradeKey}/{bookId}/{fileName} {
+      allow read: if isAuthenticated();
+      allow write: if (isAdmin() || isPrincipal() || isTeacher()) &&
+        request.resource.size < 250 * 1024 * 1024 &&
+        request.resource.contentType in ['application/pdf', 'application/json'];
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
+    match /chat-attachments/{senderId}/{receiverId}/{fileName} {
+      allow read: if isAuthenticated() && (request.auth.uid == senderId || request.auth.uid == receiverId);
+      allow write: if isAuthenticated() && request.auth.uid == senderId && request.resource.size < 10 * 1024 * 1024 && request.resource.contentType in ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'audio/mpeg', 'audio/wav', 'audio/webm', 'application/pdf', 'text/plain'];
+      allow delete: if isAuthenticated() && request.auth.uid == senderId;
+    }
+
+    match /{allPaths=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -14,6 +14,7 @@ import StudentDashboard from './pages/dashboard/StudentDashboard';
 import StudentCurriculums from './pages/dashboard/student/StudentCurriculums';
 import StudentProfile from './pages/dashboard/student/StudentProfile';
 import StudentExams from './pages/dashboard/student/StudentExams';
+import CompetitionPlay from './pages/dashboard/student/CompetitionPlay';
 import ChatInterface from './components/chat/ChatInterface';
 import TeachersList from './pages/dashboard/principal/TeachersList';
 import ClassesManagement from './pages/dashboard/principal/ClassesManagement';
@@ -164,6 +165,7 @@ export default function App() {
           <Route path="student/private-exams" element={<StudentExams type="private" />} />
           <Route path="student/school-exams" element={<StudentExams type="school" />} />
           <Route path="student/competitions" element={<CompetitionsView />} />
+          <Route path="student/competitions/:competitionId" element={<CompetitionPlay />} />
           <Route path="student/profile" element={<StudentProfile />} />
           <Route path="student/chats" element={<ChatInterface />} />
 

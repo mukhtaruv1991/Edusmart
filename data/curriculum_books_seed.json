@@ -1,0 +1,6126 @@
+{
+  "version": 1,
+  "books": [
+    {
+      "id": "secondary_1-الإيمان-combined",
+      "title": "الإيمان — الجزء الأول والثاني",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "الإيمان",
+      "part": "combined",
+      "totalPageCount": 96,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/الإيمان/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/الإيمان/كتاب_المادة.json",
+      "localTextPath": "الصف_الأول_الثانوي/الإيمان/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 96,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "9d9abf8a088235f0223f3959bc2c32e02dca61aaf3e2d8465d557e5706a1e365",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-السيرة-النبوية-combined",
+      "title": "السيرة النبوية — الجزء الأول والثاني",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "السيرة النبوية",
+      "part": "combined",
+      "totalPageCount": 88,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/السيرة_النبوية/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/السيرة_النبوية/كتاب_المادة.json",
+      "localTextPath": "الصف_الأول_الثانوي/السيرة_النبوية/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 88,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-88",
+              "title": "صفحات 85 - 88",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 88
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "e3a1e60be91f901f090faeda169d81077e700c1e0e7c37956e4d9926129cf408",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-الفقه-والحديث-combined",
+      "title": "الفقه والحديث — الجزء الأول والثاني",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "الفقه والحديث",
+      "part": "combined",
+      "totalPageCount": 176,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/الفقه_والحديث/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/الفقه_والحديث/كتاب_المادة.json",
+      "localTextPath": "الصف_الأول_الثانوي/الفقه_والحديث/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 176,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-176",
+              "title": "صفحات 169 - 176",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 176
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "1dffb4023ea528c3b08c90e1377b7312624e2bd400828ba32b0b9d85f896078f",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-الفيزياء-combined",
+      "title": "الفيزياء — الجزء الأول والثاني",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "الفيزياء",
+      "part": "combined",
+      "totalPageCount": 128,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/الفيزياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/الفيزياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الأول_الثانوي/الفيزياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 128,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-128",
+              "title": "صفحات 121 - 128",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 128
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "d2946ad2cd6de91162a57eb0f5ac8db6ba32065f3249c889a544f20cf0b22ace",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-القرآن-الكريم-part_1",
+      "title": "القرآن الكريم — الجزء الأول",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "القرآن الكريم",
+      "part": "part_1",
+      "totalPageCount": 200,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/القرآن_الكريم_وعلومه_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/القرآن_الكريم_وعلومه_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الأول_الثانوي/القرآن_الكريم_وعلومه_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 200,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-200",
+              "title": "صفحات 193 - 200",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 200
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "0821baf8f54e46c8c7a87b973aa717fd1384a8734a05279fe658fce933945084",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-الكيمياء-combined",
+      "title": "الكيمياء — الجزء الأول والثاني",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "الكيمياء",
+      "part": "combined",
+      "totalPageCount": 184,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/الكيمياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/الكيمياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الأول_الثانوي/الكيمياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 184,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-184",
+              "title": "صفحات 181 - 184",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 184
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "d57bafb2a1b67563bf93d3e62436a3d807fcaecb55dcdcc3928ae6f08bfb1988",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_1-النحو-والصرف-part_1",
+      "title": "النحو والصرف — الجزء الأول",
+      "grade": "الصف الأول الثانوي",
+      "gradeKey": "secondary_1",
+      "subject": "النحو والصرف",
+      "part": "part_1",
+      "totalPageCount": 82,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الأول_الثانوي/النحو_والصرف_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الأول_الثانوي/النحو_والصرف_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الأول_الثانوي/النحو_والصرف_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 82,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-82",
+              "title": "صفحات 73 - 82",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 82
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "f5d144c6fb0cf976bb8c93cbf46fb26ab25913fc185c963f00dfcfeb1ae8606e",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-التربية-الإسلامية-part_1",
+      "title": "التربية الإسلامية — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التربية الإسلامية",
+      "part": "part_1",
+      "totalPageCount": 170,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 170,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-170",
+              "title": "صفحات 169 - 170",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 170
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "ac2e3ebba33aa07654d8f579ac9475c0cdd20ae1623caa0a38ac7d9814d49b40",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-التربية-الإسلامية-part_2",
+      "title": "التربية الإسلامية — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التربية الإسلامية",
+      "part": "part_2",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_التاسع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "413d49dbb56f84ae7415d6994f573409f0c151c5708d595447228ae832361f45",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-الرياضيات-part_1",
+      "title": "الرياضيات — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "الرياضيات",
+      "part": "part_1",
+      "totalPageCount": 195,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/الرياضيات_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/الرياضيات_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_التاسع_الأساسي/الرياضيات_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 195,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-195",
+              "title": "صفحات 193 - 195",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 195
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "ebff0b2d4a92e75c07c7b9f028ec42bd2c0d8ad0ca4e79f82a4546877cda5772",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-الرياضيات-part_2",
+      "title": "الرياضيات — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "الرياضيات",
+      "part": "part_2",
+      "totalPageCount": 147,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/الرياضيات_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/الرياضيات_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_التاسع_الأساسي/الرياضيات_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 147,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-147",
+              "title": "صفحات 145 - 147",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 147
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "c5e6a343b629b0585f1ee0f5470069683a67b377e41b8d951eb52b1944e0657a",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-العلوم-part_1",
+      "title": "العلوم — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "العلوم",
+      "part": "part_1",
+      "totalPageCount": 170,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/العلوم_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/العلوم_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_التاسع_الأساسي/العلوم_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 170,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-170",
+              "title": "صفحات 169 - 170",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 170
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "feb1ff6315a221d482f7268fdcdd8131f15ed7d25df4b3e1b0c104f90553733b",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-العلوم-part_2",
+      "title": "العلوم — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "العلوم",
+      "part": "part_2",
+      "totalPageCount": 156,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/العلوم_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/العلوم_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_التاسع_الأساسي/العلوم_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 156,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "2099ce30e0f361fd23de0b3c3d449e3df1bb14025a4fb11b712286a1321c8c39",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-القرآن-الكريم-combined",
+      "title": "القرآن الكريم — الجزء الأول والثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "القرآن الكريم",
+      "part": "combined",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.json",
+      "localTextPath": "الصف_التاسع_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "65156267bb52d169f6b2c776ffc0577c4778bbe1411f27a50576d4d7ab0d4f6c",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-اللغة-العربية-part_1",
+      "title": "اللغة العربية — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "اللغة العربية",
+      "part": "part_1",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "b87ae9a4b56cdf2aab84b2b6f24031b9c764955b7e9b30a0b69bcfb2cd3f9f70",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_9-اللغة-العربية-part_2",
+      "title": "اللغة العربية — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "اللغة العربية",
+      "part": "part_2",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_التاسع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "5a74c23364567f0a0cabf6170b1ad8affcd67a29f3d25397aab53355d7f12e2c",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_3_scientific-الأحياء-combined",
+      "title": "الأحياء — الجزء الأول والثاني",
+      "grade": "الصف الثالث الثانوي (العلمي)",
+      "gradeKey": "secondary_3_scientific",
+      "subject": "الأحياء",
+      "part": "combined",
+      "totalPageCount": 226,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثالث_الثانوي/الأحياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثالث_الثانوي/الأحياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثالث_الثانوي/الأحياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 226,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-216",
+              "title": "صفحات 205 - 216",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 216
+            },
+            {
+              "id": "lesson-pages-217-226",
+              "title": "صفحات 217 - 226",
+              "lessonNumber": 19,
+              "startPage": 217,
+              "endPage": 226
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "0f7dd5a8451f23fb8c5da6e4c271364a0501aecb27fc41ddc7c4352d13121a6a",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_3_scientific-الرياضيات-combined",
+      "title": "الرياضيات — الجزء الأول والثاني",
+      "grade": "الصف الثالث الثانوي (العلمي)",
+      "gradeKey": "secondary_3_scientific",
+      "subject": "الرياضيات",
+      "part": "combined",
+      "totalPageCount": 258,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثالث_الثانوي/الرياضيات/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثالث_الثانوي/الرياضيات/كتاب_المادة.json",
+      "localTextPath": "الصف_الثالث_الثانوي/الرياضيات/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 258,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-216",
+              "title": "صفحات 205 - 216",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 216
+            },
+            {
+              "id": "lesson-pages-217-228",
+              "title": "صفحات 217 - 228",
+              "lessonNumber": 19,
+              "startPage": 217,
+              "endPage": 228
+            },
+            {
+              "id": "lesson-pages-229-240",
+              "title": "صفحات 229 - 240",
+              "lessonNumber": 20,
+              "startPage": 229,
+              "endPage": 240
+            },
+            {
+              "id": "lesson-pages-241-252",
+              "title": "صفحات 241 - 252",
+              "lessonNumber": 21,
+              "startPage": 241,
+              "endPage": 252
+            },
+            {
+              "id": "lesson-pages-253-258",
+              "title": "صفحات 253 - 258",
+              "lessonNumber": 22,
+              "startPage": 253,
+              "endPage": 258
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "0bc0d520c5da7c681bb73225c1866f5459615da92c80a590c504399330577e11",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_3_scientific-الفيزياء-combined",
+      "title": "الفيزياء — الجزء الأول والثاني",
+      "grade": "الصف الثالث الثانوي (العلمي)",
+      "gradeKey": "secondary_3_scientific",
+      "subject": "الفيزياء",
+      "part": "combined",
+      "totalPageCount": 213,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثالث_الثانوي/الفيزياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثالث_الثانوي/الفيزياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثالث_الثانوي/الفيزياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 213,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-213",
+              "title": "صفحات 205 - 213",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 213
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "ec0b6a68bbeb564a3382cbfff0f5147030ce1bf6cb43925b3f5a596c2790f33a",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_3_scientific-الكيمياء-combined",
+      "title": "الكيمياء — الجزء الأول والثاني",
+      "grade": "الصف الثالث الثانوي (العلمي)",
+      "gradeKey": "secondary_3_scientific",
+      "subject": "الكيمياء",
+      "part": "combined",
+      "totalPageCount": 183,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثالث_الثانوي/الكيمياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثالث_الثانوي/الكيمياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثالث_الثانوي/الكيمياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 183,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-183",
+              "title": "صفحات 181 - 183",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 183
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "515cb02c74fc9639d4f81b76fb55f43c1fdda848447c98bb1d42470d735b4170",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_3_scientific-النحو-والصرف-combined",
+      "title": "النحو والصرف — الجزء الأول والثاني",
+      "grade": "الصف الثالث الثانوي (العلمي)",
+      "gradeKey": "secondary_3_scientific",
+      "subject": "النحو والصرف",
+      "part": "combined",
+      "totalPageCount": 210,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثالث_الثانوي/النحو_والصرف/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثالث_الثانوي/النحو_والصرف/كتاب_المادة.json",
+      "localTextPath": "الصف_الثالث_الثانوي/النحو_والصرف/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 210,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-210",
+              "title": "صفحات 205 - 210",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 210
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "bdf71746696312eee8fa901e413e9008d688c859fd290abb8f84b0ce878d6b42",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-التربية-الإسلامية-part_1",
+      "title": "التربية الإسلامية — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "التربية الإسلامية",
+      "part": "part_1",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "452b8e4aba3566c3dbfd3cba0d98d34b655753a08db57d206e58996f19eb5703",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-التربية-الإسلامية-part_2",
+      "title": "التربية الإسلامية — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "التربية الإسلامية",
+      "part": "part_2",
+      "totalPageCount": 161,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_الثامن_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 161,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-161",
+              "title": "صفحات 157 - 161",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 161
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "fa6831a84f6d67abc68f8540ff1fba4f6fa72e987fcffeb78f07571dbb28740a",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-الرياضيات-part_1",
+      "title": "الرياضيات — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "الرياضيات",
+      "part": "part_1",
+      "totalPageCount": 163,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/الرياضيات_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/الرياضيات_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الثامن_الأساسي/الرياضيات_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 163,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-163",
+              "title": "صفحات 157 - 163",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 163
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "541818a3a64ec91c0a32745a377ef6f2bab1fe25e5282508f994101f13401f51",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-الرياضيات-part_2",
+      "title": "الرياضيات — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "الرياضيات",
+      "part": "part_2",
+      "totalPageCount": 139,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/الرياضيات_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/الرياضيات_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_الثامن_الأساسي/الرياضيات_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 139,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-139",
+              "title": "صفحات 133 - 139",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 139
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "3944224957c77e1de50c50ca20be21f6adb6d67b9b32b4b42a63e735487ae193",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-العلوم-part_1",
+      "title": "العلوم — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "العلوم",
+      "part": "part_1",
+      "totalPageCount": 179,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/العلوم_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/العلوم_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الثامن_الأساسي/العلوم_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 179,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-179",
+              "title": "صفحات 169 - 179",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 179
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "e17ab0937a776b985f1756901b08f55fbf97655ee8cf48cdaa685f26c83ea5cd",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-العلوم-part_2",
+      "title": "العلوم — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "العلوم",
+      "part": "part_2",
+      "totalPageCount": 131,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/العلوم_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/العلوم_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_الثامن_الأساسي/العلوم_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 131,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-131",
+              "title": "صفحات 121 - 131",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 131
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "dbbe43b95060140c6a9f45206b255fdc096de3d6b530f948dda38bd7a6353bcb",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-القرآن-الكريم-combined",
+      "title": "القرآن الكريم — الجزء الأول والثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "القرآن الكريم",
+      "part": "combined",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.json",
+      "localTextPath": "الصف_الثامن_الأساسي/القرآن_الكريم_وعلومه/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "71a0b3c8fc1e8c1383c1d491b4e11df50fd1f9f3c9ab61e078ea71426bd66930",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-اللغة-العربية-part_1",
+      "title": "اللغة العربية — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة العربية",
+      "part": "part_1",
+      "totalPageCount": 193,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 193,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-193",
+              "title": "صفحات 193 - 193",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 193
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "94dff545046e8f82d9874d80c17fe7e70f1626684682650ce6ddc3d0a258ba8e",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_8-اللغة-العربية-part_2",
+      "title": "اللغة العربية — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة العربية",
+      "part": "part_2",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_الثامن_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "c9aa9df44b91b58d312ccc49f37feee463be2395e3099fec552c736cf22975cb",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_2_scientific-الأحياء-combined",
+      "title": "الأحياء — الجزء الأول والثاني",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الأحياء",
+      "part": "combined",
+      "totalPageCount": 177,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثاني_الثانوي/الأحياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثاني_الثانوي/الأحياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثاني_الثانوي/الأحياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 177,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-177",
+              "title": "صفحات 169 - 177",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 177
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "d5588c118caa1af08636cb164f7a1611f4235aac3eb4d3e77f8f13be39d03d95",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_2_scientific-الرياضيات-part_1",
+      "title": "الرياضيات — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الرياضيات",
+      "part": "part_1",
+      "totalPageCount": 168,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثاني_الثانوي/الرياضيات_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_الثاني_الثانوي/الرياضيات_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_الثاني_الثانوي/الرياضيات_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 168,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "010639b940179d2c0bbef7f172fe00022e79c7a015127bcdf131e0c849e645ad",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_2_scientific-الرياضيات-part_2",
+      "title": "الرياضيات — الجزء الثاني",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الرياضيات",
+      "part": "part_2",
+      "totalPageCount": 160,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثاني_الثانوي/الرياضيات_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_الثاني_الثانوي/الرياضيات_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_الثاني_الثانوي/الرياضيات_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 160,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-160",
+              "title": "صفحات 157 - 160",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 160
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "7d7e0ef2042f723b5dc1a9a6d09b3a41fa4269ca5a667180ff903eebd62128b5",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_2_scientific-الفيزياء-combined",
+      "title": "الفيزياء — الجزء الأول والثاني",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الفيزياء",
+      "part": "combined",
+      "totalPageCount": 274,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثاني_الثانوي/الفيزياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثاني_الثانوي/الفيزياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثاني_الثانوي/الفيزياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 274,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-216",
+              "title": "صفحات 205 - 216",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 216
+            },
+            {
+              "id": "lesson-pages-217-228",
+              "title": "صفحات 217 - 228",
+              "lessonNumber": 19,
+              "startPage": 217,
+              "endPage": 228
+            },
+            {
+              "id": "lesson-pages-229-240",
+              "title": "صفحات 229 - 240",
+              "lessonNumber": 20,
+              "startPage": 229,
+              "endPage": 240
+            },
+            {
+              "id": "lesson-pages-241-252",
+              "title": "صفحات 241 - 252",
+              "lessonNumber": 21,
+              "startPage": 241,
+              "endPage": 252
+            },
+            {
+              "id": "lesson-pages-253-264",
+              "title": "صفحات 253 - 264",
+              "lessonNumber": 22,
+              "startPage": 253,
+              "endPage": 264
+            },
+            {
+              "id": "lesson-pages-265-274",
+              "title": "صفحات 265 - 274",
+              "lessonNumber": 23,
+              "startPage": 265,
+              "endPage": 274
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "f6680a8b146e3a1ef76a95c3b4355e1b459ed6861002b05057276a86d959ac72",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "secondary_2_scientific-الكيمياء-combined",
+      "title": "الكيمياء — الجزء الأول والثاني",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الكيمياء",
+      "part": "combined",
+      "totalPageCount": 192,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_الثاني_الثانوي/الكيمياء/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_الثاني_الثانوي/الكيمياء/كتاب_المادة.json",
+      "localTextPath": "الصف_الثاني_الثانوي/الكيمياء/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 192,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "738a808d41b102ebdef6a5a8f9fa7f7ea302e2b50de4107ea932f1bb05aa909d",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-التاريخ-part_1",
+      "title": "التاريخ — الجزء الأول",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "التاريخ",
+      "part": "part_1",
+      "totalPageCount": 99,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/التاريخ_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/التاريخ_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_السابع_الأساسي/التاريخ_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 99,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-99",
+              "title": "صفحات 97 - 99",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 99
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "a7a18abfc23c18c33a31c41b14ffee0002de5e08cda9b6a95e208c7634692f3e",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-التاريخ-part_2",
+      "title": "التاريخ — الجزء الثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "التاريخ",
+      "part": "part_2",
+      "totalPageCount": 110,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/التاريخ_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/التاريخ_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/التاريخ_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 110,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-110",
+              "title": "صفحات 109 - 110",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 110
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "75dd527500e9bacbaa21ab1b87dbeba014d3b89a1301038357d69428be0a8cd2",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-التربية-الإسلامية-part_1",
+      "title": "التربية الإسلامية — الجزء الأول",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "التربية الإسلامية",
+      "part": "part_1",
+      "totalPageCount": 145,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 145,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-145",
+              "title": "صفحات 145 - 145",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 145
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "4c9c3df57b5130c6fcbf2c3ee95df809d889e5e485a482f87f94240fc06ee8f2",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-التربية-الإسلامية-part_2",
+      "title": "التربية الإسلامية — الجزء الثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "التربية الإسلامية",
+      "part": "part_2",
+      "totalPageCount": 161,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/التربية_الإسلامية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 161,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-161",
+              "title": "صفحات 157 - 161",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 161
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "c8c76fd81b8b7d0d676bdc2e8d2158efaac459346774815f824aea9b5fe8765e",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-الجغرافيا-ج2-combined",
+      "title": "الجغرافيا+ج2 — الجزء الأول والثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "الجغرافيا+ج2",
+      "part": "combined",
+      "totalPageCount": 141,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/الجغرافيا_ج1+ج2/الجزء_الأول_والثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/الجغرافيا_ج1+ج2/الجزء_الأول_والثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/الجغرافيا_ج1+ج2/الجزء_الأول_والثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 141,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-141",
+              "title": "صفحات 133 - 141",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 141
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "eb50f4a2b00fe4f75977e1595cf2fb7033b9ce5321971eb042b7205b8ae35169",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-الرياضيات-ج2-combined",
+      "title": "الرياضيات+ج2 — الجزء الأول والثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "الرياضيات+ج2",
+      "part": "combined",
+      "totalPageCount": 275,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/الرياضيات_ج1+ج2/الجزء_الأول_والثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/الرياضيات_ج1+ج2/الجزء_الأول_والثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/الرياضيات_ج1+ج2/الجزء_الأول_والثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 275,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-216",
+              "title": "صفحات 205 - 216",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 216
+            },
+            {
+              "id": "lesson-pages-217-228",
+              "title": "صفحات 217 - 228",
+              "lessonNumber": 19,
+              "startPage": 217,
+              "endPage": 228
+            },
+            {
+              "id": "lesson-pages-229-240",
+              "title": "صفحات 229 - 240",
+              "lessonNumber": 20,
+              "startPage": 229,
+              "endPage": 240
+            },
+            {
+              "id": "lesson-pages-241-252",
+              "title": "صفحات 241 - 252",
+              "lessonNumber": 21,
+              "startPage": 241,
+              "endPage": 252
+            },
+            {
+              "id": "lesson-pages-253-264",
+              "title": "صفحات 253 - 264",
+              "lessonNumber": 22,
+              "startPage": 253,
+              "endPage": 264
+            },
+            {
+              "id": "lesson-pages-265-275",
+              "title": "صفحات 265 - 275",
+              "lessonNumber": 23,
+              "startPage": 265,
+              "endPage": 275
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "f6ef05fefe66edbf14c91786939b17c0c80f7e215edbd0ecb669404151679517",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-العلوم-part_1",
+      "title": "العلوم — الجزء الأول",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "العلوم",
+      "part": "part_1",
+      "totalPageCount": 163,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/العلوم_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/العلوم_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_السابع_الأساسي/العلوم_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 163,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-163",
+              "title": "صفحات 157 - 163",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 163
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "164bb29e3c309f98c18e7c5ce6af9f834165152888c7a6dd0cad606632caa555",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-العلوم-part_2",
+      "title": "العلوم — الجزء الثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "العلوم",
+      "part": "part_2",
+      "totalPageCount": 123,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/العلوم_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/العلوم_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/العلوم_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 123,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-123",
+              "title": "صفحات 121 - 123",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 123
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "e218fddb8586e2085373d1f7eb72693eb2e079fbd08b9c7b9f1f30317dbc5e8c",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-القرآن-الكريم-ج2-combined",
+      "title": "القرآن الكريم+ج2 — الجزء الأول والثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "القرآن الكريم+ج2",
+      "part": "combined",
+      "totalPageCount": 193,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/القرآن_الكريم_وعلومه_ج1+ج2/الجزء_الأول_والثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/القرآن_الكريم_وعلومه_ج1+ج2/الجزء_الأول_والثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/القرآن_الكريم_وعلومه_ج1+ج2/الجزء_الأول_والثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 193,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-193",
+              "title": "صفحات 193 - 193",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 193
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "1c386f8bd7ac9a2221e650b52e7c0ff2dfde6cb0dc38bf66d383c404f1e06fac",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-اللغة-الإنجليزية-combined",
+      "title": "اللغة الإنجليزية — الجزء الأول والثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "اللغة الإنجليزية",
+      "part": "combined",
+      "totalPageCount": 65,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/اللغة_الإنجليزية_كورس/كتاب_المادة.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/اللغة_الإنجليزية_كورس/كتاب_المادة.json",
+      "localTextPath": "الصف_السابع_الأساسي/اللغة_الإنجليزية_كورس/كتاب_المادة.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 65,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-65",
+              "title": "صفحات 61 - 65",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 65
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "dce9a8e508f1b4e0be8b01ce6f35dfa8f9060cf7cce8dc68e7e407edbb70723f",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-اللغة-العربية-part_1",
+      "title": "اللغة العربية — الجزء الأول",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "اللغة العربية",
+      "part": "part_1",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.json",
+      "localTextPath": "الصف_السابع_الأساسي/اللغة_العربية_ج1/الجزء_الأول.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "973a1d667bbc3db419ae20c3f619641b66ff1e94259125355ae56ad6604faec2",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    },
+    {
+      "id": "grade_7-اللغة-العربية-part_2",
+      "title": "اللغة العربية — الجزء الثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "اللغة العربية",
+      "part": "part_2",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "contentVersion": "source-file-checksum",
+      "localPdfPath": "الصف_السابع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.pdf",
+      "localManifestPath": "الصف_السابع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.json",
+      "localTextPath": "الصف_السابع_الأساسي/اللغة_العربية_ج2/الجزء_الثاني.txt",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "pdfSha256": "d202c22efdaa79f06f0456532211590aa8e206dbbe9508db924b637d71485c73",
+      "notes": "استبدل local* بروابط Storage أو املأ pdfUrl وmanifestUrl قبل الاستيراد."
+    }
+  ]
+}

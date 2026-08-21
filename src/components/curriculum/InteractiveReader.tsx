@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useStore } from '../../lib/store';
 import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyAIItem } from '../../types/curriculum';
 import { saveLastReadProgress, getLastReadProgress } from '../../lib/studyStorage';
+import { loadBookPage } from '../../lib/curriculumService';
 import AIContextMenu from '../ai/AIContextMenu';
 import {
   BookOpen, ChevronLeft, ChevronRight, ZoomIn, ZoomOut,
@@ -40,11 +41,38 @@ export default function InteractiveReader({
   const [showSidebar, setShowSidebar] = useState(false);
   const [isDownloadedOffline, setIsDownloadedOffline] = useState(false);
   const [aiGenerating, setAiGenerating] = useState(false);
+  const [pageText, setPageText] = useState('');
+  const [pageLoading, setPageLoading] = useState(false);
+  const [pageError, setPageError] = useState<string | null>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Determine current unit and lesson based on currentPage
   const currentUnit = book.units.find(u => currentPage >= u.startPage && currentPage <= u.endPage) || book.units[0];
   const currentLesson = currentUnit?.lessons.find(l => currentPage >= l.startPage && currentPage <= l.endPage) || currentUnit?.lessons[0];
+
+  // Fetch only the requested page from the pre-processed JSON manifest.
+  useEffect(() => {
+    let cancelled = false;
+    setPageLoading(true);
+    setPageError(null);
+    loadBookPage(book, currentPage)
+      .then((text) => {
+        if (!cancelled) setPageText(text);
+      })
+      .catch((error) => {
+        console.error('Page content load failed:', error);
+        if (!cancelled) {
+          setPageText('');
+          setPageError(error.message || 'تعذر تحميل نص الصفحة');
+        }
+      })
+      .finally(() => {
+        if (!cancelled) setPageLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [book.id, book.manifestUrl, book.textIndexUrl, currentPage]);
 
   // Save last read progress
   useEffect(() => {
@@ -100,9 +128,10 @@ export default function InteractiveReader({
     if (!currentLesson) return;
     setAiGenerating(true);
     try {
+      const sourceText = pageText || currentLesson.sampleContent || currentLesson.title;
       const prompt = action === 'explain'
-        ? `You are an expert tutor. Provide an engaging, easy-to-understand explanation with examples for the lesson "${currentLesson.title}" from "${book.subject}" in ${language === 'en' ? 'English' : 'Arabic'}:`
-        : `Summarize the essential concepts and key takeaways of the lesson "${currentLesson.title}" from "${book.subject}" in ${language === 'en' ? 'English' : 'Arabic'} as structured revision points:`;
+        ? `You are an expert tutor. Explain the following official curriculum text clearly with examples. Answer in ${language === 'en' ? 'English' : 'Arabic'}. Lesson: "${currentLesson.title}". Subject: "${book.subject}".\n\nTEXT:\n${sourceText}`
+        : `You are an expert tutor. Summarize the following official curriculum text into structured revision points. Answer in ${language === 'en' ? 'English' : 'Arabic'}. Lesson: "${currentLesson.title}". Subject: "${book.subject}".\n\nTEXT:\n${sourceText}`;
 
       const response = await ai.models.generateContent({
         model: 'gemini-3-flash-preview',
@@ -145,7 +174,7 @@ export default function InteractiveReader({
 
   const handleReadAloud = () => {
     if ('speechSynthesis' in window) {
-      const textToRead = currentLesson?.sampleContent || currentLesson?.title || book.title;
+      const textToRead = pageText || currentLesson?.sampleContent || currentLesson?.title || book.title;
       const utterance = new SpeechSynthesisUtterance(textToRead);
       utterance.lang = language === 'en' ? 'en-US' : 'ar-SA';
       window.speechSynthesis.speak(utterance);
@@ -348,17 +377,22 @@ export default function InteractiveReader({
 
               {/* Lesson Text Body */}
               <div className="space-y-6 text-gray-800 dark:text-gray-200 leading-relaxed text-sm sm:text-base">
-                {currentLesson?.sampleContent ? (
-                  <div className="whitespace-pre-line font-normal leading-loose">
-                    {currentLesson.sampleContent}
+                {pageLoading ? (
+                  <div className="p-6 rounded-xl bg-blue-50/60 dark:bg-blue-950/20 text-blue-700 dark:text-blue-300 text-center">
+                    جاري تحميل نص الصفحة...
                   </div>
+                ) : pageText ? (
+                  <div className="whitespace-pre-line font-normal leading-loose">{pageText}</div>
+                ) : currentLesson?.sampleContent ? (
+                  <div className="whitespace-pre-line font-normal leading-loose">{currentLesson.sampleContent}</div>
                 ) : (
                   <div className="space-y-4">
+                    {pageError && <p className="text-amber-700 dark:text-amber-300">{pageError}</p>}
                     <p>
-                      هذا الدرس يتناول مفاهيم أساسية ضمن مقرر <strong>{book.subject}</strong> للصف الدراسي، ويهدف إلى ترسيخ الفهم التطبيقي والنظري للطالب.
+                      لا يوجد نص مفهرس لهذه الصفحة بعد. يمكنك فتح نسخة PDF المرئية أو رفع ملف JSON المعالج من لوحة الإدارة.
                     </p>
                     <p className="p-4 bg-blue-50/50 dark:bg-blue-950/20 rounded-xl border-r-4 border-blue-600 text-gray-700 dark:text-gray-300">
-                      💡 يمكنك تحديد أي فقرة أو عبارة من النص لاستخدام ميزات المساعد الذكي التفاعلي (الشرح المبسط، تلخيص النقاط، توليد أسئلة تدريبية، أو القراءة الصوتية).
+                      حدد أي فقرة من النص بعد ربط manifestUrl ليستخدمها المساعد الذكي في الشرح والتلخيص وتوليد الأسئلة.
                     </p>
                   </div>
                 )}

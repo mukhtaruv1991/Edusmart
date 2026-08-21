@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
 import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyAIItem, StudyQuiz } from '../../../types/curriculum';
-import { getCurriculumBooksForGrade, SAMPLE_CURRICULUM_DATABASE } from '../../../lib/curriculumData';
+import { subscribeToCurriculumBooks } from '../../../lib/curriculumService';
+import { YEMEN_GRADE_OPTIONS } from '../../../lib/gradeCatalog';
 import { getLocalStudyItems, getLocalQuizzes, getCustomUnits } from '../../../lib/studyStorage';
 import UnitsLessonsTree from '../../../components/curriculum/UnitsLessonsTree';
 import InteractiveReader from '../../../components/curriculum/InteractiveReader';
@@ -10,14 +11,16 @@ import StudyQuizzesView from '../../../components/curriculum/StudyQuizzesView';
 import StudentExams from '../../../components/dashboard/StudentExams';
 import {
   BookOpen, Search, Sparkles, Brain, FileText, ArrowRight,
-  Bookmark, CheckCircle2, Award, DownloadCloud, Layers, ArrowLeft
+  DownloadCloud, Layers, ArrowLeft
 } from 'lucide-react';
-import { toast } from 'sonner';
 
 export default function StudentCurriculums() {
   const { user, language } = useStore();
-  const [selectedGrade, setSelectedGrade] = useState<string>(user?.grade || 'الصف الثالث الثانوي (العلمي)');
+  const [selectedGrade, setSelectedGrade] = useState<string>(user?.grade || YEMEN_GRADE_OPTIONS[0].labelAr);
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [remoteBooks, setRemoteBooks] = useState<CurriculumBook[]>([]);
+  const [booksLoading, setBooksLoading] = useState(true);
+  const [booksError, setBooksError] = useState<string | null>(null);
   
   // Selected Curriculum Detail View
   const [selectedBook, setSelectedBook] = useState<CurriculumBook | null>(null);
@@ -33,14 +36,34 @@ export default function StudentCurriculums() {
   const [studyItems, setStudyItems] = useState<StudyAIItem[]>([]);
   const [studyQuizzes, setStudyQuizzes] = useState<StudyQuiz[]>([]);
 
-  // Load books for the selected grade and apply custom overrides if saved
-  const baseBooks = getCurriculumBooksForGrade(selectedGrade);
-  const books = baseBooks.map(b => {
-    const custom = getCustomUnits(b.id);
-    if (custom && custom.length > 0) {
-      return { ...b, units: custom };
-    }
-    return b;
+  // Load only lightweight catalog metadata. PDF and page JSON are fetched on demand by the reader.
+  useEffect(() => {
+    if (user?.grade && user.grade !== selectedGrade) setSelectedGrade(user.grade);
+  }, [user?.grade]);
+
+  useEffect(() => {
+    setSelectedBook(null);
+    setBooksLoading(true);
+    setBooksError(null);
+    const unsubscribe = subscribeToCurriculumBooks(
+      selectedGrade,
+      { uid: user?.uid, schoolId: user?.schoolId, school: user?.school, grade: selectedGrade },
+      (nextBooks) => {
+        setRemoteBooks(nextBooks);
+        setBooksLoading(false);
+      },
+      (error) => {
+        console.error('Curriculum subscription failed:', error);
+        setBooksError(error.message || 'تعذر تحميل كتالوج المناهج');
+        setBooksLoading(false);
+      },
+    );
+    return unsubscribe;
+  }, [selectedGrade, user?.uid, user?.schoolId, user?.school]);
+
+  const books = remoteBooks.map((book) => {
+    const custom = getCustomUnits(book.id);
+    return custom && custom.length > 0 ? { ...book, units: custom } : book;
   });
 
   // Load local items on mount or user change
@@ -79,13 +102,7 @@ export default function StudentCurriculums() {
     }
   };
 
-  const gradeOptions = [
-    'الصف الثالث الثانوي (العلمي)',
-    'الصف الثالث الثانوي (الأدبي)',
-    'الصف التاسع الأساسي',
-    'الصف السابع الأساسي',
-    'الصف الأول الثانوي',
-  ];
+  const gradeOptions = YEMEN_GRADE_OPTIONS.map((option) => option.labelAr);
 
   return (
     <div className="space-y-6">
@@ -290,6 +307,19 @@ export default function StudentCurriculums() {
           </div>
 
           {/* Subjects Grid */}
+          {booksLoading ? (
+            <div className="rounded-3xl border border-blue-100 bg-blue-50/60 p-8 text-center text-sm text-blue-700 dark:border-blue-900 dark:bg-blue-950/20 dark:text-blue-300">
+              جاري تحميل كتالوج المواد الخاص بصفك...
+            </div>
+          ) : booksError ? (
+            <div className="rounded-3xl border border-red-100 bg-red-50 p-8 text-center text-sm text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-300">
+              {booksError}
+            </div>
+          ) : filteredBooks.length === 0 ? (
+            <div className="rounded-3xl border-2 border-dashed border-gray-200 bg-white p-8 text-center text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+              لا توجد مناهج منشورة لهذا الصف حالياً. سيظهر الكتاب تلقائياً بعد رفعه من لوحة الإدارة وتسجيله في كتالوج المناهج.
+            </div>
+          ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {filteredBooks.map((book) => {
               const bookNotesCount = studyItems.filter(i => i.curriculumId === book.id).length;
@@ -359,6 +389,7 @@ export default function StudentCurriculums() {
               );
             })}
           </div>
+          )}
         </div>
       )}
     </div>

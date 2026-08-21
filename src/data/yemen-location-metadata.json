@@ -1,0 +1,11 @@
+{
+  "governorates": 22,
+  "districts": 335,
+  "schoolSiteObservations": 1637,
+  "schoolNameDataAvailable": false,
+  "schoolNameDataReason": "The attached workbook contains المحافظة، القرية، حالة المدرسة، نوع الضرر; it has no school name or EMIS code.",
+  "sources": {
+    "administrativeHierarchy": "التقسيم الإداري لليمن.xlsx",
+    "schoolObservations": "قائمة المدارس اليمن.xlsx"
+  }
+}

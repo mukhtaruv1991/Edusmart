@@ -18,16 +18,32 @@ export interface CurriculumUnit {
   lessons: CurriculumLesson[];
 }
 
+export interface CurriculumPage {
+  pageNumber: number;
+  text: string;
+}
+
 export interface CurriculumBook {
   id: string;
   title: string;
   grade: string;
+  gradeKey?: string;
   subject: string;
   totalPageCount: number;
   pdfUrl?: string;
+  manifestUrl?: string;
+  textIndexUrl?: string;
+  storagePath?: string;
+  manifestStoragePath?: string;
   schoolId?: string;
   schoolName?: string;
   semester?: string;
+  part?: 'part_1' | 'part_2' | 'combined' | string;
+  source?: 'official' | 'school' | 'teacher' | string;
+  publisher?: string;
+  isOfficial?: boolean;
+  isActive?: boolean;
+  contentVersion?: string;
   units: CurriculumUnit[];
   coverColor?: string;
   academicYear?: string;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useStore } from '../../lib/store';
 import { BookOpen, FileText, Award, Target, ArrowLeft, Loader2, MessageSquare, Sparkles, Brain, ArrowRight } from 'lucide-react';
 import StudentExams from '../../components/dashboard/StudentExams';
-import Chatrooms from '../../components/dashboard/Chatrooms';
+import ChatInterface from '../../components/chat/ChatInterface';
 import { getCurriculumBooksForGrade } from '../../lib/curriculumData';
 import { getLocalStudyItems, getLocalQuizzes } from '../../lib/studyStorage';
 import InteractiveReader from '../../components/curriculum/InteractiveReader';
@@ -90,12 +90,12 @@ export default function StudentDashboard() {
               : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'
           }`}
         >
-          {language === 'en' ? 'Class Chats' : 'محادثات الفصول'}
+          {language === 'en' ? 'School chats' : 'محادثات المدرسة'}
         </button>
       </div>
 
       {activeTab === 'chat' ? (
-        <Chatrooms />
+        <ChatInterface />
       ) : (
         <>
           {/* Quick Metrics Bar */}
