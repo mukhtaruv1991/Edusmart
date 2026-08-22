@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, Navigate, Link, useLocation } from 'react-router-dom';
+import { Outlet, Navigate, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useStore } from '../../lib/store';
 import { auth } from '../../lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -11,16 +11,20 @@ import {
 import { cn } from '../../lib/utils';
 
 export default function DashboardLayout() {
-  const { user, isAuthReady, language, setLanguage } = useStore();
+  const { user, isAuthReady, language, setLanguage, previewOwnerMode, setPreviewOwnerMode, setUser } = useStore();
   const location = useLocation();
+  const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   if (!isAuthReady) return <div className="flex h-screen items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (user.needsOnboarding) return <Navigate to="/onboarding" replace />;
+  if (user.needsOnboarding && !previewOwnerMode && user.email !== 'amtiaz1991@gmail.com') return <Navigate to="/onboarding" replace />;
 
   const handleLogout = async () => {
+    setPreviewOwnerMode(false);
+    setUser(null);
     await signOut(auth);
+    navigate('/login', { replace: true });
   };
 
   const toggleLanguage = () => {

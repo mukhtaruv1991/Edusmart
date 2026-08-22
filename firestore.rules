@@ -126,12 +126,25 @@ service cloud.firestore {
     }
 
     function hasValidStudentRegistration(data) {
-      return data.role != 'student' || (
-        data.studentRegistrationKey is string &&
-        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.uid == request.auth.uid &&
-        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.schoolId == data.schoolId &&
-        get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.gradeKey == data.gradeKey
-      );
+      return data.role != 'student' ||
+        (
+          data.studentRegistrationKey is string &&
+          data.studentRegistrationKey.size() > 0 &&
+          exists(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)) &&
+          get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.uid == request.auth.uid &&
+          get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.schoolId == data.schoolId &&
+          get(/databases/$(database)/documents/studentRegistrationClaims/$(data.studentRegistrationKey)).data.gradeKey == data.gradeKey
+        ) ||
+        (
+          data.studentRegistrationKey is string &&
+          data.studentRegistrationKey.size() == 0 &&
+          data.schoolStatus == 'pending' &&
+          data.schoolId is string &&
+          (
+            data.schoolId.size() == 0 ||
+            exists(/databases/$(database)/documents/schools/$(data.schoolId))
+          )
+        );
     }
 
     function hasApprovedRoleInvitation(data) {

@@ -35,6 +35,8 @@ export interface UserProfile {
 interface AppState {
   user: UserProfile | null;
   setUser: (user: UserProfile | null) => void;
+  previewOwnerMode: boolean;
+  setPreviewOwnerMode: (enabled: boolean) => void;
   language: 'en' | 'ar';
   setLanguage: (lang: 'en' | 'ar') => void;
   isAuthReady: boolean;
@@ -46,6 +48,8 @@ export const useStore = create<AppState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
+      previewOwnerMode: false,
+      setPreviewOwnerMode: (previewOwnerMode) => set({ previewOwnerMode }),
       language: 'ar',
       setLanguage: (language) => {
         document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
@@ -57,7 +61,7 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'edusmart-storage',
-      partialize: (state) => ({ language: state.language, user: state.user }),
+      partialize: (state) => ({ language: state.language, user: state.user, previewOwnerMode: state.previewOwnerMode }),
     }
   )
 );

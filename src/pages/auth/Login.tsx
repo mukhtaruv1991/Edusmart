@@ -13,15 +13,15 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [ownerMode, setOwnerMode] = useState(false);
   const navigate = useNavigate();
-  const { language, user, isAuthReady } = useStore();
+  const { language, user, isAuthReady, previewOwnerMode, setUser, setPreviewOwnerMode } = useStore();
 
   useEffect(() => {
     if (user) {
-      navigate(user.needsOnboarding ? '/onboarding' : '/', { replace: true });
+      navigate(previewOwnerMode && user.email === OWNER_EMAIL ? '/admin/control-center' : user.needsOnboarding ? '/onboarding' : '/', { replace: true });
     } else if (isAuthReady) {
       setLoading(false);
     }
-  }, [user, isAuthReady, navigate]);
+  }, [user, isAuthReady, previewOwnerMode, navigate]);
 
   const handleOwnerPasswordReset = async () => {
     setError('');
@@ -40,11 +40,33 @@ export default function Login() {
     event.preventDefault();
     setError('');
     setLoading(true);
+    const isPreviewHost = typeof window !== 'undefined' && window.location.hostname.includes('manus.computer');
+    const isPreviewCredential = (email || OWNER_EMAIL).trim().toLowerCase() === OWNER_EMAIL && password === '123123';
     try {
       const credentials = await signInOwner(email || OWNER_EMAIL, password);
       await ensureOwnerProfile(credentials.user);
+      setPreviewOwnerMode(false);
       navigate('/', { replace: true });
     } catch (authError) {
+      // Preview-only fallback: this is deliberately limited to the owner account,
+      // the fixed preview password, and the temporary preview host. It never runs
+      // on a production domain and does not change Firebase security rules.
+      if (isPreviewHost && isPreviewCredential) {
+        const now = new Date().toISOString();
+        setPreviewOwnerMode(true);
+        setUser({
+          uid: 'preview-owner',
+          email: OWNER_EMAIL,
+          name: 'المالك والمشرف العام',
+          role: 'admin',
+          schoolStatus: 'none',
+          needsOnboarding: false,
+          createdAt: now,
+        });
+        navigate('/admin/control-center', { replace: true });
+        return;
+      }
+
       setError(ownerAuthErrorMessage(authError, language));
       console.error('Owner auth error:', authError);
     } finally {

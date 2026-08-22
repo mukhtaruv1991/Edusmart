@@ -7,7 +7,7 @@ import { BookOpen, AlertCircle } from 'lucide-react';
 import { ARAB_COUNTRIES, SCHOOL_SYSTEMS, GRADES } from '../../lib/constants';
 import { yemenGovernorates } from '../../lib/yemenData';
 import { getGradeKey, getGradeLabelAr, YEMEN_GRADE_OPTIONS } from '../../lib/gradeCatalog';
-import { createStableKey, isFourPartName, normalizePersonName } from '../../lib/utils';
+import { createStableKey, normalizePersonName } from '../../lib/utils';
 import { clearRegistrationDraft, readRegistrationDraft } from '../../lib/emailLinkAuth';
 
 const FIRESTORE_OPERATION_TIMEOUT_MS = 10000;
@@ -52,7 +52,7 @@ export default function Onboarding() {
   const [availableSchools, setAvailableSchools] = useState<any[]>([]);
   const [schoolsLoaded, setSchoolsLoaded] = useState(false);
   const [firestoreUnavailable, setFirestoreUnavailable] = useState(false);
-  const [schoolMode, setSchoolMode] = useState<'registered' | 'new'>('registered');
+  const [schoolMode, setSchoolMode] = useState<'registered' | 'new' | 'none'>('none');
 
   const [formData, setFormData] = useState({
     name: '',
@@ -112,7 +112,7 @@ export default function Onboarding() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === 'role') {
-      setSchoolMode(value === 'principal' ? 'new' : 'registered');
+      setSchoolMode(value === 'principal' ? 'new' : value === 'student' ? 'none' : 'registered');
     }
     setFormData(prev => ({
       ...prev,
@@ -154,22 +154,10 @@ export default function Onboarding() {
 
     setError('');
     const normalizedName = normalizePersonName(formData.name || auth.currentUser.displayName || '');
-    if (!isFourPartName(normalizedName)) {
+    if (normalizedName.split(/\s+/).filter(Boolean).length < 2) {
       setError(language === 'en'
-        ? 'Please enter your full four-part name (four words).'
-        : 'يرجى إدخال الاسم الرباعي كاملاً (أربع كلمات).');
-      return;
-    }
-
-    if (formData.role === 'student' && !formData.studentIdentifier.trim()) {
-      setError(language === 'en'
-        ? 'Enter the student ID issued by your school administrator.'
-        : 'أدخل معرف الطالب الذي أصدرته إدارة مدرستك.');
-      return;
-    }
-
-    if (isYemen && formData.role === 'parent' && !formData.district) {
-      setError(language === 'en' ? 'Please select your district.' : 'يرجى اختيار المديرية قبل المتابعة.');
+        ? 'Please enter at least your first name and family name.'
+        : 'يرجى إدخال الاسم الأول واسم العائلة على الأقل. ويمكن استكمال الاسم لاحقاً.');
       return;
     }
 
@@ -190,7 +178,7 @@ export default function Onboarding() {
       let assignedStudentData: Record<string, any> | null = null;
       let roleInvitationData: Record<string, any> | null = null;
       let assignedSchoolData: Record<string, any> | null = null;
-      if (formData.role === 'student') {
+      if (formData.role === 'student' && formData.studentIdentifier.trim()) {
         assignedStudentIdentifier = formData.studentIdentifier.trim().toUpperCase();
         const identifierSnapshot = await withFirestoreTimeout(getDoc(doc(db, 'studentIds', assignedStudentIdentifier)));
         if (!identifierSnapshot.exists()) throw new Error('INVALID_STUDENT_IDENTIFIER');
@@ -289,6 +277,13 @@ export default function Onboarding() {
             createdAt: new Date().toISOString(),
             updatedAt: new Date().toISOString(),
           }));
+        } else if (formData.role === 'student') {
+          // Students may enter the platform before receiving a school-issued ID.
+          // Their account remains pending until an administrator links a school and ID.
+          finalSchoolId = '';
+          finalSchoolName = '';
+          schoolApprovalStatus = 'pending';
+          schoolStatus = 'pending';
         } else {
           throw new Error(language === 'en'
             ? 'Select a registered school or choose “My school is not listed” to submit a new school for approval.'
@@ -461,7 +456,7 @@ export default function Onboarding() {
 
   useEffect(() => {
     if (schoolsLoaded && formData.role !== 'principal' && formData.role !== 'teacher' && filteredSchools.length === 0) {
-      setSchoolMode('new');
+      setSchoolMode(formData.role === 'student' ? 'none' : 'new');
     }
   }, [schoolsLoaded, formData.role, formData.country, formData.city, formData.district, filteredSchools.length]);
 
@@ -547,15 +542,14 @@ export default function Onboarding() {
               {formData.role === 'student' && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    {language === 'en' ? 'Student ID' : 'معرف الطالب'}
+                    {language === 'en' ? 'Student ID (optional)' : 'معرف الطالب (اختياري)' }
                   </label>
                   <input
                     type="text"
                     name="studentIdentifier"
-                    required
                     value={formData.studentIdentifier}
                     onChange={handleChange}
-                    placeholder={language === 'en' ? 'Issued by the school administrator' : 'يصدره مدير المدرسة أو الأدمن'}
+                    placeholder={language === 'en' ? 'Optional school-issued code' : 'رمز المدرسة (اختياري)'}
                     className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 uppercase focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                   />
                   <p className="mt-1 text-xs text-gray-500">
@@ -684,13 +678,25 @@ export default function Onboarding() {
                         >
                           {language === 'en' ? 'My school is not listed' : 'مدرستي غير موجودة'}
                         </button>
+                        {formData.role === 'student' && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setSchoolMode('none');
+                              setFormData(prev => ({ ...prev, school: '', schoolId: '' }));
+                            }}
+                            className={`rounded-md border px-3 py-2 text-sm ${schoolMode === 'none' ? 'border-slate-600 bg-slate-100 text-slate-800' : 'border-gray-300 text-gray-700'}`}
+                          >
+                            {language === 'en' ? 'Link my school later' : 'سأربط المدرسة لاحقاً'}
+                          </button>
+                        )}
                       </div>
                     )}
 
                     {schoolMode === 'registered' && formData.role !== 'principal' ? (
                       <select
                         name="schoolId"
-                        required
+                        required={formData.role !== 'student'}
                         value={formData.schoolId}
                         onChange={(event) => {
                           const school = filteredSchools.find(item => item.id === event.target.value);
@@ -707,7 +713,7 @@ export default function Onboarding() {
                           <option key={school.id} value={school.id}>{school.name}</option>
                         ))}
                       </select>
-                    ) : (
+                    ) : schoolMode === 'new' ? (
                       <input
                         type="text"
                         name="school"
@@ -715,8 +721,14 @@ export default function Onboarding() {
                         value={formData.school}
                         onChange={handleChange}
                         placeholder={language === 'en' ? 'Enter the school name' : 'أدخل اسم المدرسة'}
-                        className="mt-2 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        className="mt-2 block w-full bg-white border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                       />
+                    ) : (
+                      <div className="mt-2 rounded-md border border-slate-200 bg-slate-50 px-3 py-3 text-sm text-slate-600">
+                        {language === 'en'
+                          ? 'You can create your student account now. The administrator will link your school, class, and student code later.'
+                          : 'يمكنك إنشاء حساب الطالب الآن، ثم يربط الأدمن المدرسة والشعبة ورمز الطالب لاحقاً.'}
+                      </div>
                     )}
 
                     {schoolMode === 'new' && (

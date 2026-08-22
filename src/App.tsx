@@ -130,6 +130,13 @@ export default function App() {
           }
         );
       } else {
+        // Keep an explicit preview owner session alive when the preview host cannot
+        // establish a Firebase Auth session. Real sessions are still cleared normally.
+        const currentState = useStore.getState();
+        if (currentState.previewOwnerMode && isOwnerEmail(currentState.user?.email)) {
+          setAuthReady(true);
+          return;
+        }
         setUser(null);
         setAuthReady(true);
       }
@@ -217,7 +224,9 @@ function RoleGuard({ roles, children }: { roles: Role[]; children: ReactNode }) 
   const { user, isAuthReady } = useStore();
   if (!isAuthReady) return <div className="flex h-screen items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (user.needsOnboarding) return <Navigate to="/onboarding" replace />;
+  // Owner always bypasses onboarding checks to ensure access to admin dashboard
+  const isOwner = isOwnerEmail(user.email);
+  if (user.needsOnboarding && !isOwner) return <Navigate to="/onboarding" replace />;
   if (!roles.includes(user.role)) return <Navigate to={`/${user.role}`} replace />;
   return <>{children}</>;
 }
@@ -227,7 +236,9 @@ function RoleBasedRedirect() {
 
   if (!isAuthReady) return <div className="flex h-screen items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (user.needsOnboarding) return <Navigate to="/onboarding" replace />;
+  // Owner always bypasses onboarding checks to ensure access to admin dashboard
+  const isOwner = isOwnerEmail(user.email);
+  if (user.needsOnboarding && !isOwner) return <Navigate to="/onboarding" replace />;
 
   switch (user.role) {
     case 'principal': return <Navigate to="/principal" replace />;

@@ -31,7 +31,7 @@ const DEFAULT_GOVERNORATE = yemenGovernorates[0]?.nameAr || 'أمانة العا
 const inputClass = 'mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100 dark:border-gray-700 dark:bg-gray-900 dark:text-white';
 
 export default function AdminControlCenter() {
-  const { language, user } = useStore();
+  const { language, user, previewOwnerMode } = useStore();
   const [tab, setTab] = useState<Tab>('schools');
   const [schools, setSchools] = useState<AnyRecord[]>([]);
   const [invitations, setInvitations] = useState<AnyRecord[]>([]);
@@ -48,6 +48,16 @@ export default function AdminControlCenter() {
   const [settingsForm, setSettingsForm] = useState({ schoolId: '', periodsPerDay: '7', periodDurationMinutes: '45', breakDurationMinutes: '20', workingDays: 'الأحد، الإثنين، الثلاثاء، الأربعاء، الخميس' });
 
   useEffect(() => {
+    if (previewOwnerMode) {
+      setSchools([]);
+      setInvitations([]);
+      setStudentIds([]);
+      setCalendar([]);
+      setError('');
+      setLoading(false);
+      return;
+    }
+
     const unsubscribers = [
       onSnapshot(collection(db, 'schools'), (snapshot) => setSchools(snapshot.docs.map((item) => ({ id: item.id, ...item.data() }))), (e) => setError(errorMessage(e, language))),
       onSnapshot(collection(db, 'adminInvitations'), (snapshot) => setInvitations(snapshot.docs.map((item) => ({ id: item.id, ...item.data() }))), (e) => setError(errorMessage(e, language))),
@@ -56,7 +66,7 @@ export default function AdminControlCenter() {
     ];
     setLoading(false);
     return () => unsubscribers.forEach((unsubscribe) => unsubscribe());
-  }, [language]);
+  }, [language, previewOwnerMode]);
 
   const orderedSchools = useMemo(() => [...schools].sort((a, b) => String(a.name || '').localeCompare(String(b.name || ''), 'ar')), [schools]);
   const pendingInvitations = useMemo(() => invitations.filter((item) => item.status !== 'approved'), [invitations]);
@@ -64,6 +74,12 @@ export default function AdminControlCenter() {
   const schoolDistricts = selectedSchoolGovernorate?.districts || [];
 
   const runAction = async (action: () => Promise<void>, success: string) => {
+    if (previewOwnerMode) {
+      const message = language === 'ar' ? 'أنت في وضع المعاينة. سجّل دخول Firebase الحقيقي لتنفيذ عمليات الحفظ.' : 'Preview mode is read-only. Use a real Firebase owner session to save changes.';
+      setError(message);
+      toast.info(message);
+      return;
+    }
     setSaving(true);
     setError('');
     try {
@@ -275,6 +291,7 @@ export default function AdminControlCenter() {
       <div><p className="text-sm font-semibold text-blue-600">الإدارة العليا</p><h1 className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">مركز التحكم والصلاحيات</h1><p className="mt-1 max-w-3xl text-sm text-gray-500 dark:text-gray-400">لوحة موحدة لإدارة المدارس والمديرين ومعرفات الطلاب والمناهج والتقويم، مع تسجيل كل إجراء إداري في سجل التدقيق.</p></div>
       <div className="flex items-center gap-2 rounded-full bg-emerald-50 px-3 py-2 text-xs font-semibold text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300"><Activity className="h-4 w-4" /> متصل بقاعدة `(default)`</div>
     </header>
+    {previewOwnerMode && <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-800 dark:bg-amber-900/20 dark:text-amber-200" role="status">وضع المعاينة مفعل: يمكنك استعراض مركز التحكم، بينما تتطلب الإضافة والاعتماد جلسة Firebase حقيقية.</div>}
     {error && <div className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700" role="alert">{error}</div>}
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4"><Summary icon={<School className="h-5 w-5" />} label="المدارس" value={schools.length} /><Summary icon={<Users className="h-5 w-5" />} label="طلبات الصلاحيات" value={pendingInvitations.length} /><Summary icon={<GraduationCap className="h-5 w-5" />} label="معرفات الطلاب" value={studentIds.length} /><Summary icon={<CalendarDays className="h-5 w-5" />} label="عناصر التقويم" value={calendar.length} /></div>
 
