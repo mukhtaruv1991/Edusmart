@@ -216,8 +216,9 @@ service cloud.firestore {
     }
 
     function isValidMessage(data) {
-      return data.text is string && data.text.size() > 0 && data.text.size() < 2000 &&
-             data.senderId is string && data.senderId.size() > 0;
+      return data.senderId is string && data.senderId.size() > 0 &&
+        ((!('text' in data) || data.text is string) && (!('text' in data) || data.text.size() <= 2000)) &&
+        (('text' in data && data.text.size() > 0) || ('attachmentUrl' in data && data.attachmentUrl is string && data.attachmentUrl.size() > 0));
     }
 
     // ===============================================================
@@ -341,8 +342,11 @@ service cloud.firestore {
     match /messages/{messageId} {
       allow read: if isAuthenticated() && (resource.data.senderId == request.auth.uid || resource.data.receiverId == request.auth.uid || isAdmin());
       allow create: if isAuthenticated() && isValidMessage(request.resource.data) && request.resource.data.senderId == request.auth.uid;
-      allow update: if isAuthenticated() && (resource.data.senderId == request.auth.uid || resource.data.receiverId == request.auth.uid);
-      allow delete: if isAdmin();
+      allow update: if isAuthenticated() &&
+        (resource.data.senderId == request.auth.uid || resource.data.receiverId == request.auth.uid) &&
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['read', 'deletedFor']) &&
+        (!('deletedFor' in request.resource.data) || request.resource.data.deletedFor is list);
+      allow delete: if isAdmin() || (isAuthenticated() && resource.data.senderId == request.auth.uid);
     }
 
     match /competitions/{compId} {
@@ -357,7 +361,7 @@ service cloud.firestore {
       match /participants/{participantId} {
         allow read: if isAuthenticated();
         allow create: if isStudent() && participantId == request.auth.uid && request.resource.data.uid == request.auth.uid;
-        allow update: if isStudent() && participantId == request.auth.uid && resource.data.uid == request.auth.uid;
+        allow update: if isStudent() && participantId == request.auth.uid && resource.data.uid == request.auth.uid && !('completedAt' in resource.data);
         allow delete: if isAdmin() || isPrincipal();
       }
     }
@@ -379,8 +383,8 @@ service cloud.firestore {
         isAdmin() || isTeacher() || isPrincipal() ||
         (isParent() && 'parentId' in get(/databases/$(database)/documents/users/$(resource.data.studentId)).data && get(/databases/$(database)/documents/users/$(resource.data.studentId)).data.parentId == request.auth.uid)
       );
-      allow create: if isStudent() && request.resource.data.studentId == request.auth.uid;
-      allow update: if isStudent() && resource.data.studentId == request.auth.uid;
+      allow create: if isStudent() && request.resource.data.studentId == request.auth.uid && !exists(/databases/$(database)/documents/competitionAttempts/$(attemptId));
+      allow update: if isAdmin() || isTeacher() || isPrincipal();
       allow delete: if isAdmin() || isTeacher() || isPrincipal();
     }
 
@@ -586,6 +590,34 @@ service cloud.firestore {
       allow delete: if isAdmin() || isPrincipal();
     }
 
+    function validExamAttempt(data) {
+      return data.examId is string && data.examId.size() > 0 &&
+        data.studentId == request.auth.uid &&
+        data.schoolId is string && data.schoolId.size() > 0 &&
+        data.answers is map &&
+        data.status in ['in_progress', 'submitted'];
+    }
+
+    match /examAttempts/{attemptId} {
+      allow read: if isAuthenticated() &&
+        (isOwner(resource.data.studentId) || isAdmin() ||
+         (isPrincipal() && sameSchool(resource.data.schoolId)) ||
+         (isTeacher() && sameSchool(resource.data.schoolId)));
+      allow create: if isStudent() && validExamAttempt(request.resource.data);
+      allow update: if isStudent() && isOwner(resource.data.studentId) &&
+        resource.data.status != 'submitted' && validExamAttempt(request.resource.data);
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
+    match /examAnswerKeys/{examId} {
+      allow read: if isAdmin() ||
+        (isPrincipal() && sameSchool(resource.data.schoolId)) ||
+        (isTeacher() && isOwner(resource.data.createdBy) && sameSchool(resource.data.schoolId));
+      allow create, update: if (isAdmin() || isPrincipal() || isTeacher()) &&
+        sameSchool(request.resource.data.schoolId);
+      allow delete: if isAdmin() || isPrincipal();
+    }
+
     match /auditLogs/{logId} {
       allow read: if isAdmin();
       allow create: if isAdmin() || isPrincipal();
@@ -620,8 +652,11 @@ service cloud.firestore {
 
     function canReadNotification(data) {
       return isAdmin() ||
-        data.audience == 'all' ||
-        (('schoolId' in data) && sameSchool(data.schoolId)) ||
+        (data.audience == 'all' && (!('schoolId' in data) || sameSchool(data.schoolId))) ||
+        (data.audience == 'school' && sameSchool(data.schoolId)) ||
+        (data.audience == 'teachers' && isTeacher() && sameSchool(data.schoolId)) ||
+        (data.audience == 'students' && isStudent() && sameSchool(data.schoolId)) ||
+        (data.audience == 'parents' && isParent() && sameSchool(data.schoolId)) ||
         (('recipientIds' in data) && data.recipientIds is list && data.recipientIds.hasAny([request.auth.uid]));
     }
 
@@ -753,8 +788,10 @@ service cloud.firestore {
     }
 
     match /studentPageAnnotations/{annotationId} {
-      allow read, create, update, delete: if isAuthenticated() &&
-        isOwner(resource.data.userId);
+      allow read, update, delete: if isAuthenticated() && isOwner(resource.data.userId);
+      allow create: if isAuthenticated() && isOwner(request.resource.data.userId) &&
+        request.resource.data.bookId is string && request.resource.data.pageNumber is number &&
+        request.resource.data.text is string;
     }
 
     match /timetableEntries/{entryId} {
@@ -789,6 +826,27 @@ service cloud.firestore {
       allow create: if isStudent() && validCompetitionEvent(request.resource.data) &&
         exists(/databases/$(database)/documents/competitionSessions/$(request.resource.data.sessionId));
       allow update, delete: if isAdmin() || isPrincipal();
+    }
+
+    match /studentLinkRequests/{requestId} {
+      allow get, list: if isAuthenticated() && (
+        isAdmin() ||
+        resource.data.uid == request.auth.uid ||
+        (isPrincipal() && sameSchool(resource.data.schoolId))
+      );
+      allow create: if isStudent() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.requestedBy == request.auth.uid &&
+        request.resource.data.status == 'pending' &&
+        request.resource.data.identifier is string &&
+        request.resource.data.studentName is string &&
+        request.resource.data.gradeKey is string &&
+        request.resource.data.schoolId is string;
+      allow update: if isAuthenticated() && (
+        (isOwner(resource.data.uid) && resource.data.status == 'pending' && request.resource.data.status == 'cancelled') ||
+        (isAdmin() || (isPrincipal() && sameSchool(resource.data.schoolId)))
+      );
+      allow delete: if isAdmin();
     }
 
     // The designated owner is the emergency and platform-wide administrator.

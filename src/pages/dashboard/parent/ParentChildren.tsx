@@ -20,6 +20,9 @@ interface Child {
   average: number;
   examsCount: number;
   competitionsCount: number;
+  attendancePresent: number;
+  attendanceTotal: number;
+  gradesCount: number;
 }
 
 interface Attempt { percentage?: number; score?: number; total?: number; }
@@ -32,12 +35,32 @@ function getSchoolState(child: Child): 'pending' | 'rejected' | 'approved' {
 }
 
 export default function ParentChildren() {
-  const { user, language } = useStore();
+  const { user, language, previewUserMode } = useStore();
   const [children, setChildren] = useState<Child[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!user?.uid) return;
+    const isPreviewParent = user.role === 'parent' && (previewUserMode || user.uid.startsWith('demo-'));
+    if (isPreviewParent) {
+      setChildren([{
+        uid: 'demo-student',
+        name: 'محمد الطالب',
+        grade: 'الصف السابع',
+        school: 'مدرسة EduSmart التجريبية',
+        status: 'active',
+        schoolApprovalStatus: 'approved',
+        schoolStatus: 'active',
+        average: 86,
+        examsCount: 3,
+        competitionsCount: 2,
+        attendancePresent: 18,
+        attendanceTotal: 20,
+        gradesCount: 6,
+      }]);
+      setLoading(false);
+      return;
+    }
     let active = true;
     const usersQuery = query(collection(db, 'users'), where('role', '==', 'student'), where('parentId', '==', user.uid));
     const unsubscribe = onSnapshot(usersQuery, async (snapshot) => {
@@ -45,8 +68,13 @@ export default function ParentChildren() {
         const result = await Promise.all(snapshot.docs.map(async (student) => {
           const examsSnapshot = await getDocs(query(collection(db, 'examAttempts'), where('studentId', '==', student.id)));
           const competitionsSnapshot = await getDocs(query(collection(db, 'competitionAttempts'), where('studentId', '==', student.id)));
+          const gradesSnapshot = await getDocs(query(collection(db, 'gradeRecords'), where('studentId', '==', student.id)));
+          const attendanceSnapshot = await getDocs(query(collection(db, 'attendanceRecords'), where('studentId', '==', student.id)));
           const attempts = examsSnapshot.docs.map((item) => item.data() as Attempt);
-          const average = attempts.length ? Math.round(attempts.reduce((sum, item) => sum + percentage(item), 0) / attempts.length) : 0;
+          const grades = gradesSnapshot.docs.map((item) => item.data() as { score?: number; maxScore?: number });
+          const gradePercentages = grades.map((item) => item.maxScore && typeof item.score === 'number' ? (item.score / item.maxScore) * 100 : 0).filter((item) => item > 0);
+          const average = gradePercentages.length ? Math.round(gradePercentages.reduce((sum, item) => sum + item, 0) / gradePercentages.length) : attempts.length ? Math.round(attempts.reduce((sum, item) => sum + percentage(item), 0) / attempts.length) : 0;
+          const attendance = attendanceSnapshot.docs.map((item) => item.data() as { status?: string });
           const data = student.data();
           return {
             uid: student.id,
@@ -59,6 +87,9 @@ export default function ParentChildren() {
             average,
             examsCount: attempts.length,
             competitionsCount: competitionsSnapshot.size,
+            attendancePresent: attendance.filter((item) => item.status === 'present' || item.status === 'late').length,
+            attendanceTotal: attendance.length,
+            gradesCount: grades.length,
           } as Child;
         }));
         if (active) setChildren(result);
@@ -74,7 +105,7 @@ export default function ParentChildren() {
       setLoading(false);
     });
     return () => { active = false; unsubscribe(); };
-  }, [language, user?.uid]);
+  }, [language, previewUserMode, user?.role, user?.uid]);
 
   return (
     <div className="space-y-6">
@@ -108,10 +139,11 @@ export default function ParentChildren() {
                 </div>
 
                 <SchoolStatusBanner state={schoolState} language={language} />
-                <div className="grid grid-cols-3 gap-3 p-6">
+                <div className="grid grid-cols-2 gap-3 p-6 sm:grid-cols-4">
                   <Stat icon={<Activity className="h-5 w-5" />} label={language === 'ar' ? 'المعدل' : 'Average'} value={`${child.average}%`} />
                   <Stat icon={<BookOpen className="h-5 w-5" />} label={language === 'ar' ? 'اختبارات' : 'Exams'} value={`${child.examsCount}`} />
                   <Stat icon={<Trophy className="h-5 w-5" />} label={language === 'ar' ? 'مسابقات' : 'Competitions'} value={`${child.competitionsCount}`} />
+                  <Stat icon={<CheckCircle2 className="h-5 w-5" />} label={language === 'ar' ? 'الحضور' : 'Attendance'} value={child.attendanceTotal ? `${child.attendancePresent}/${child.attendanceTotal}` : '-'} />
                 </div>
                 <div className="flex gap-3 border-t border-gray-100 p-4 dark:border-gray-700"><Link to="/parent/tracking" className="flex-1 rounded-xl bg-gray-50 px-3 py-2 text-center text-sm font-medium text-gray-700 hover:bg-blue-50 hover:text-blue-600 dark:bg-gray-700/50 dark:text-gray-200">{language === 'ar' ? 'التقدم الدراسي' : 'Progress'}</Link><Link to="/parent/chats" className="flex-1 rounded-xl bg-blue-50 px-3 py-2 text-center text-sm font-medium text-blue-700 hover:bg-blue-100 dark:bg-blue-900/20 dark:text-blue-300">{language === 'ar' ? 'التواصل' : 'Message'}</Link></div>
               </article>

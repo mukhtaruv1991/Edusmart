@@ -8,6 +8,7 @@ import {
   updateDoc,
   where,
   doc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { format } from 'date-fns';
@@ -21,6 +22,7 @@ import {
   Paperclip,
   Search,
   Send,
+  Trash2,
   User,
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -37,6 +39,8 @@ interface Message {
   attachmentUrl?: string;
   attachmentName?: string;
   attachmentType?: string;
+  deletedFor?: string[];
+  deletedAt?: { toDate?: () => Date } | Date | string | null;
 }
 
 interface ChatUser {
@@ -219,6 +223,26 @@ export default function ChatInterface() {
 
   const getRoleLabel = (role?: string) => roleLabels[role || '']?.[language] || role || (language === 'ar' ? 'مستخدم' : 'User');
 
+  const handleDeleteMessage = async (message: Message) => {
+    if (!user?.uid) return;
+    const isMine = message.senderId === user.uid;
+    const prompt = isMine
+      ? (language === 'ar' ? 'حذف الرسالة لدى الجميع؟ لا يمكن التراجع عن هذا الإجراء.' : 'Delete this message for everyone? This cannot be undone.')
+      : (language === 'ar' ? 'إخفاء الرسالة من محادثتك؟' : 'Hide this message from your chat?');
+    if (!window.confirm(prompt)) return;
+    try {
+      if (isMine) {
+        await deleteDoc(doc(db, 'messages', message.id));
+      } else {
+        const deletedFor = Array.from(new Set([...(message.deletedFor || []), user.uid]));
+        await updateDoc(doc(db, 'messages', message.id), { deletedFor });
+      }
+    } catch (error) {
+      console.error('Failed to delete message:', error);
+      toast.error(language === 'ar' ? 'تعذر حذف الرسالة' : 'Could not delete the message');
+    }
+  };
+
   if (!user) return null;
 
   return (
@@ -290,14 +314,18 @@ export default function ChatInterface() {
               {!loadingMessages && messages.length === 0 ? <p className="mt-20 text-center text-sm text-gray-500">{language === 'ar' ? 'لا توجد رسائل بعد. ابدأ المحادثة.' : 'No messages yet. Start the conversation.'}</p> : null}
               {messages.map((message) => {
                 const mine = message.senderId === user.uid;
+                const hiddenForMe = message.deletedFor?.includes(user.uid);
                 return (
                   <div key={message.id} className={`flex ${mine ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[82%] rounded-2xl px-4 py-2 shadow-sm ${mine ? 'rounded-br-sm bg-blue-600 text-white' : 'rounded-bl-sm bg-white text-gray-900 dark:bg-gray-800 dark:text-white'}`}>
-                      {message.attachmentUrl ? (message.attachmentType?.startsWith('image/') ? <img src={message.attachmentUrl} alt={message.attachmentName || 'Attachment'} className="mb-2 max-h-64 rounded-xl object-contain" /> : <a href={message.attachmentUrl} target="_blank" rel="noreferrer" className="mb-2 block text-sm font-semibold underline">{message.attachmentName || (language === 'ar' ? 'فتح المرفق' : 'Open attachment')}</a>) : null}
-                      {message.text ? <p className="whitespace-pre-wrap break-words text-sm leading-6">{message.text}</p> : null}
+                    <div className={`group relative max-w-[82%] rounded-2xl px-4 py-2 shadow-sm ${mine ? 'rounded-br-sm bg-blue-600 text-white' : 'rounded-bl-sm bg-white text-gray-900 dark:bg-gray-800 dark:text-white'}`}>
+                      {hiddenForMe ? <p className="text-sm italic opacity-60">{language === 'ar' ? 'تم إخفاء هذه الرسالة لديك' : 'This message is hidden for you'}</p> : <>
+                        {message.attachmentUrl ? (message.attachmentType?.startsWith('image/') ? <img src={message.attachmentUrl} alt={message.attachmentName || 'Attachment'} className="mb-2 max-h-64 rounded-xl object-contain" /> : <a href={message.attachmentUrl} target="_blank" rel="noreferrer" className="mb-2 block text-sm font-semibold underline">{message.attachmentName || (language === 'ar' ? 'فتح المرفق' : 'Open attachment')}</a>) : null}
+                        {message.text ? <p className="whitespace-pre-wrap break-words text-sm leading-6">{message.text}</p> : null}
+                      </>}
                       <div className={`mt-1 flex items-center justify-end gap-1 text-[10px] ${mine ? 'text-blue-100' : 'text-gray-400'}`}>
                         <span>{formatMessageTime(message.createdAt)}</span>
                         {mine ? (message.read ? <CheckCheck className="h-3 w-3" /> : <Check className="h-3 w-3" />) : null}
+                        <button type="button" onClick={() => void handleDeleteMessage(message)} title={mine ? (language === 'ar' ? 'حذف لدى الجميع' : 'Delete for everyone') : (language === 'ar' ? 'إخفاء لدي' : 'Hide for me')} className="ms-1 rounded p-0.5 opacity-0 transition-opacity hover:bg-black/10 group-hover:opacity-100 focus:opacity-100"><Trash2 className="h-3 w-3" /></button>
                       </div>
                     </div>
                   </div>

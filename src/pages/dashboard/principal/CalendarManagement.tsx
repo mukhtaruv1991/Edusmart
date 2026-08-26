@@ -30,11 +30,16 @@ export default function CalendarManagement() {
   const [type, setType] = useState<'meeting' | 'exam' | 'holiday' | 'other'>('meeting');
 
   useEffect(() => {
-    if (!user?.school) return;
+    const schoolId = user?.schoolId || user?.school;
+    if (!schoolId) {
+      setLoading(false);
+      return;
+    }
 
     const q = query(
-      collection(db, 'events'),
-      where('school', '==', user.school)
+      collection(db, 'academicCalendar'),
+      where('scope', '==', 'school'),
+      where('schoolId', '==', schoolId)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -53,21 +58,24 @@ export default function CalendarManagement() {
     });
 
     return () => unsubscribe();
-  }, [user, language]);
+  }, [user?.uid, user?.schoolId, user?.school, language]);
 
   const handleAdd = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user?.school) return;
+    const schoolId = user?.schoolId || user?.school;
+    if (!schoolId || !user?.uid) return;
 
     try {
-      await addDoc(collection(db, 'events'), {
+      await addDoc(collection(db, 'academicCalendar'), {
         title,
         description,
         date,
         time,
         location,
         type,
-        school: user.school,
+        scope: 'school',
+        schoolId,
+        createdBy: user.uid,
         createdAt: serverTimestamp()
       });
 

@@ -8,3 +8,9 @@ serviceAccountKey.json
 *.firebase-adminsdk-*.json
 .env*
 !.env.example
+
+# Official curriculum binaries and generated working directories stay outside GitHub.
+curriculum-source/originals/
+curriculum-source/processed/
+curriculum-source/manifests/*.log
+scripts/__pycache__/

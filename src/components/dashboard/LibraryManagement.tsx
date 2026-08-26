@@ -96,7 +96,7 @@ export default function LibraryManagement() {
   const handleDelete = async (book: CurriculumBook) => {
     if (!window.confirm('هل أنت متأكد من حذف سجل هذا المنهج؟')) return;
     try {
-      await deleteCurriculumBook(book.id);
+      await deleteCurriculumBook(book);
       toast.success('تم حذف سجل المنهج');
       await fetchBooks();
     } catch (error) {

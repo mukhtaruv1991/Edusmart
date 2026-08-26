@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
+import { useNavigate } from 'react-router-dom';
 import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { FileText, Search, Calendar, Clock, CheckCircle, BookOpen } from 'lucide-react';
@@ -23,32 +24,40 @@ interface StudentExamsProps {
 
 export default function StudentExams({ type }: StudentExamsProps) {
   const { user, language } = useStore();
+  const navigate = useNavigate();
   const [exams, setExams] = useState<Exam[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    if (!user?.uid || !user?.school) return;
+    const schoolId = user?.schoolId || user?.school;
+    if (!user?.uid || !schoolId) {
+      setLoading(false);
+      return;
+    }
 
-    // For school exams, we fetch exams for the student's school and class
-    // For private exams, we would fetch exams specifically assigned to the student
-    // Here we'll just use a simple query for demonstration
-    const q = query(
-      collection(db, 'exams'),
-      where('school', '==', user.school)
-      // In a real app, add: where('classId', '==', user.classId)
-    );
+    const constraints = [where('schoolId', '==', schoolId)];
+    if (user.classId) constraints.push(where('classId', '==', user.classId));
+    const q = query(collection(db, 'examSchedules'), ...constraints);
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedExams: Exam[] = [];
       snapshot.forEach((doc) => {
-        fetchedExams.push({ id: doc.id, ...doc.data() } as Exam);
+        const data = doc.data();
+        const scheduledAt = data.scheduledAt || data.date;
+        fetchedExams.push({
+          id: doc.id,
+          ...data,
+          subject: data.subject || data.subjectKey || '',
+          type: data.type || data.examType || 'quiz',
+          duration: data.duration || data.durationMinutes || 60,
+          date: scheduledAt,
+        } as Exam);
       });
       
-      // Filter based on type if needed (simulated here)
-      const filteredByType = type === 'school' 
-        ? fetchedExams 
-        : fetchedExams.filter(e => e.type === 'quiz'); // Just an example filter for private
+      const filteredByType = type === 'school'
+        ? fetchedExams
+        : fetchedExams.filter((exam) => exam.type === 'quiz');
         
       setExams(filteredByType);
       setLoading(false);
@@ -146,6 +155,7 @@ export default function StudentExams({ type }: StudentExamsProps) {
 
                 <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
                   <button
+                    onClick={() => exam.status === 'ongoing' && navigate(`/student/exams/${exam.id}`)}
                     disabled={exam.status !== 'ongoing'}
                     className={`w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors ${
                       exam.status === 'ongoing'

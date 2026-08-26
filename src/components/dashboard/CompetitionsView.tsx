@@ -16,6 +16,9 @@ interface Competition {
   status?: 'upcoming' | 'ongoing' | 'completed';
   school?: string;
   schoolId?: string;
+  targetAudience?: 'school' | 'grade' | 'class';
+  gradeKey?: string;
+  classId?: string;
 }
 
 export default function CompetitionsView() {
@@ -30,7 +33,14 @@ export default function CompetitionsView() {
       ? query(competitionsRef, where('schoolId', '==', user.schoolId))
       : query(competitionsRef, where('school', '==', user.school || ''));
     const unsubscribe = onSnapshot(competitionsQuery, (snapshot) => {
-      setCompetitions(snapshot.docs.map((item) => ({ id: item.id, ...item.data() } as Competition)));
+      const currentUser = user as unknown as { gradeKey?: string; grade?: string; classId?: string };
+      const currentGrade = currentUser.gradeKey || currentUser.grade || '';
+      const next = snapshot.docs.map((item) => ({ id: item.id, ...item.data() } as Competition));
+      setCompetitions(next.filter((competition) => {
+        if (competition.targetAudience === 'grade') return !competition.gradeKey || competition.gradeKey === 'all' || competition.gradeKey === currentGrade;
+        if (competition.targetAudience === 'class') return Boolean(currentUser.classId && competition.classId === currentUser.classId);
+        return true;
+      }));
       setLoading(false);
     }, (error) => {
       console.error('Error fetching competitions:', error);

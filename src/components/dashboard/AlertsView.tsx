@@ -1,121 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import { useStore } from '../../lib/store';
-import { collection, query, where, onSnapshot } from 'firebase/firestore';
-import { db } from '../../lib/firebase';
-import { Bell, AlertTriangle, Info, CheckCircle } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { AlertTriangle, Bell, CheckCircle, Info, Loader2 } from 'lucide-react';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 import { toast } from 'sonner';
+import { useStore } from '../../lib/store';
+import { db } from '../../lib/firebase';
+import { enableDeviceNotifications, PushConfigurationError } from '../../lib/pushNotifications';
 
-interface Alert {
-  id: string;
-  title: string;
-  message: string;
-  type: 'info' | 'warning' | 'success' | 'error';
-  targetAudience: 'all' | 'teachers' | 'students' | 'parents';
-  createdAt: any;
-}
+type NotificationEntry = { id: string; title: string; body: string; type?: 'info' | 'warning' | 'success' | 'error'; audience?: string; createdAt?: { toDate?: () => Date } };
 
 export default function AlertsView() {
   const { user, language } = useStore();
-  const [alerts, setAlerts] = useState<Alert[]>([]);
+  const [alerts, setAlerts] = useState<NotificationEntry[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const [enablingPush, setEnablingPush] = useState(false);
   useEffect(() => {
-    if (!user?.school || !user?.role) return;
-
-    // Filter alerts for 'all' or specific role
-    const q = query(
-      collection(db, 'alerts'),
-      where('school', '==', user.school),
-      where('targetAudience', 'in', ['all', user.role + 's']) // e.g., 'teachers', 'students'
-    );
-
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const fetched: Alert[] = [];
-      snapshot.forEach((doc) => {
-        fetched.push({ id: doc.id, ...doc.data() } as Alert);
-      });
-      // Sort by createdAt descending
-      fetched.sort((a, b) => (b.createdAt?.toMillis() || 0) - (a.createdAt?.toMillis() || 0));
-      setAlerts(fetched);
-      setLoading(false);
-    }, (error) => {
-      console.error('Error fetching alerts:', error);
-      toast.error(language === 'en' ? 'Failed to load alerts' : 'فشل في تحميل التنبيهات');
-      setLoading(false);
-    });
-
+    if (!user?.schoolId || !user.role) { setLoading(false); return; }
+    const allowed = new Set(['school', 'all', `${user.role}s`]);
+    const unsubscribe = onSnapshot(query(collection(db, 'notifications'), where('schoolId', '==', user.schoolId)), (snapshot) => {
+      const next = snapshot.docs.map((item) => ({ id: item.id, ...item.data() } as NotificationEntry)).filter((item) => !item.audience || allowed.has(item.audience));
+      next.sort((a, b) => (b.createdAt?.toDate?.()?.getTime() || 0) - (a.createdAt?.toDate?.()?.getTime() || 0)); setAlerts(next); setLoading(false);
+    }, (error) => { console.error(error); toast.error(language === 'ar' ? 'فشل تحميل الإشعارات.' : 'Failed to load notifications.'); setLoading(false); });
     return () => unsubscribe();
-  }, [user, language]);
-
-  const getTypeIcon = (type: string) => {
-    switch (type) {
-      case 'warning': return <AlertTriangle className="w-6 h-6 text-yellow-600" />;
-      case 'error': return <AlertTriangle className="w-6 h-6 text-red-600" />;
-      case 'success': return <CheckCircle className="w-6 h-6 text-green-600" />;
-      default: return <Info className="w-6 h-6 text-blue-600" />;
+  }, [user?.schoolId, user?.role, language]);
+  const icon = (type?: string) => type === 'warning' || type === 'error' ? <AlertTriangle className={`h-6 w-6 ${type === 'error' ? 'text-red-600' : 'text-amber-600'}`} /> : type === 'success' ? <CheckCircle className="h-6 w-6 text-emerald-600" /> : <Info className="h-6 w-6 text-blue-600" />;
+  const handleEnablePush = async () => {
+    if (enablingPush) return;
+    setEnablingPush(true);
+    try {
+      await enableDeviceNotifications();
+      toast.success(language === 'ar' ? 'تم تفعيل إشعارات الجهاز.' : 'Device notifications enabled.');
+    } catch (error) {
+      const message = error instanceof PushConfigurationError && error.message === 'PUSH_CONFIGURATION_MISSING'
+        ? (language === 'ar' ? 'يلزم إعداد مفتاح VAPID في Firebase قبل تفعيل إشعارات الجهاز.' : 'A Firebase VAPID key is required before enabling device notifications.')
+        : error instanceof Error && error.message === 'NOTIFICATION_DENIED'
+          ? (language === 'ar' ? 'تم رفض صلاحية الإشعارات من المتصفح.' : 'Notification permission was denied by the browser.')
+          : (language === 'ar' ? 'تعذر تفعيل إشعارات الجهاز، وما زالت إشعارات التطبيق متاحة.' : 'Could not enable device notifications; in-app notifications remain available.');
+      toast.error(message);
+    } finally {
+      setEnablingPush(false);
     }
   };
-
-  const getTypeColor = (type: string) => {
-    switch (type) {
-      case 'warning': return 'bg-yellow-50 border-yellow-200 dark:bg-yellow-900/10 dark:border-yellow-900/30';
-      case 'error': return 'bg-red-50 border-red-200 dark:bg-red-900/10 dark:border-red-900/30';
-      case 'success': return 'bg-green-50 border-green-200 dark:bg-green-900/10 dark:border-green-900/30';
-      default: return 'bg-blue-50 border-blue-200 dark:bg-blue-900/10 dark:border-blue-900/30';
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-            <Bell className="w-6 h-6 text-blue-600" />
-            {language === 'en' ? 'Alerts & Notifications' : 'التنبيهات والإشعارات'}
-          </h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">
-            {language === 'en' ? 'View important school announcements' : 'عرض إعلانات المدرسة الهامة'}
-          </p>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        {loading ? (
-          <div className="text-center py-8 text-gray-500">
-            {language === 'en' ? 'Loading alerts...' : 'جاري تحميل التنبيهات...'}
-          </div>
-        ) : alerts.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 bg-white dark:bg-gray-800 rounded-xl border border-gray-100 dark:border-gray-700">
-            <Bell className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-            <p>{language === 'en' ? 'No alerts found.' : 'لم يتم العثور على تنبيهات.'}</p>
-          </div>
-        ) : (
-          alerts.map((alert) => (
-            <div key={alert.id} className={`p-5 rounded-xl border ${getTypeColor(alert.type)} flex flex-col sm:flex-row gap-4`}>
-              <div className="flex-shrink-0 mt-1">
-                {getTypeIcon(alert.type)}
-              </div>
-              <div className="flex-1">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                      {alert.title}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="text-xs text-gray-500 dark:text-gray-400">
-                        {alert.createdAt?.toDate().toLocaleString(language === 'en' ? 'en-US' : 'ar-SA')}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <p className="text-gray-700 dark:text-gray-300 mt-3 whitespace-pre-wrap">
-                  {alert.message}
-                </p>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
+  return <div className="space-y-6"><header className="flex flex-col gap-4 rounded-3xl border border-blue-100 bg-blue-50/70 p-5 dark:border-blue-900/40 dark:bg-blue-950/20 sm:flex-row sm:items-center sm:justify-between"><div><h1 className="flex items-center gap-2 text-2xl font-bold text-slate-900 dark:text-white"><Bell className="h-6 w-6 text-blue-600" />{language === 'en' ? 'Alerts & notifications' : 'التنبيهات والإشعارات'}</h1><p className="mt-1 text-sm text-slate-600 dark:text-slate-300">{language === 'en' ? 'Important messages from your school.' : 'الرسائل المهمة من مدرستك.'}</p></div><button type="button" onClick={() => void handleEnablePush()} disabled={enablingPush} className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:cursor-wait disabled:opacity-60">{enablingPush ? (language === 'ar' ? 'جاري التفعيل...' : 'Enabling...') : (language === 'ar' ? 'تفعيل إشعارات الجهاز' : 'Enable device notifications')}</button></header>{loading ? <div className="flex h-48 items-center justify-center text-slate-500"><Loader2 className="me-2 h-5 w-5 animate-spin" />{language === 'ar' ? 'جاري التحميل...' : 'Loading...'}</div> : !alerts.length ? <div className="rounded-3xl border border-dashed border-slate-300 p-12 text-center text-slate-500"><Bell className="mx-auto h-12 w-12 text-slate-400" /><p className="mt-3">{language === 'ar' ? 'لا توجد إشعارات موجهة إليك.' : 'No notifications for you.'}</p></div> : <div className="space-y-4">{alerts.map((alert) => <article key={alert.id} className="flex gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800"><div className="mt-1 shrink-0">{icon(alert.type)}</div><div><h2 className="font-bold text-slate-900 dark:text-white">{alert.title}</h2><p className="mt-1 text-xs text-slate-400">{alert.createdAt?.toDate?.()?.toLocaleString(language === 'ar' ? 'ar-YE' : 'en-US') || '—'}</p><p className="mt-3 whitespace-pre-wrap text-sm leading-6 text-slate-700 dark:text-slate-300">{alert.body}</p></div></article>)}</div>}</div>;
 }

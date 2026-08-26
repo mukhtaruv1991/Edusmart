@@ -11,19 +11,19 @@ import firebaseConfig from '../../firebase-applet-config.json';
 
 // Initialize Firebase SDK with the project's canonical authDomain.
 // The browser origin must still be added separately in Firebase Authorized Domains.
-const app = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(firebaseConfig);
 
 // Initialize Firestore with auto-detect long polling and persistent local caching
 // Explicitly using 'default' database ID as verified in the project settings
-export const db = initializeFirestore(app, {
+export const db = initializeFirestore(firebaseApp, {
   experimentalAutoDetectLongPolling: true,
   localCache: persistentLocalCache({
     tabManager: persistentMultipleTabManager()
   })
 }, 'default');
 
-export const auth = getAuth(app);
-export const storage = getStorage(app);
+export const auth = getAuth(firebaseApp);
+export const storage = getStorage(firebaseApp);
 
 // Set log level to avoid repetitive timeout warnings in sandboxed network environments
 setLogLevel('error');

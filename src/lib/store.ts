@@ -20,6 +20,10 @@ export interface UserProfile {
   schoolStatus?: 'pending' | 'active' | 'rejected' | 'none';
   nameKey?: string;
   studentRegistrationKey?: string;
+  studentIdentifier?: string;
+  parentId?: string;
+  classId?: string;
+  linkedAt?: string;
   governorateId?: string;
   governorate?: string;
   districtId?: string;
@@ -35,8 +39,11 @@ export interface UserProfile {
 interface AppState {
   user: UserProfile | null;
   setUser: (user: UserProfile | null) => void;
+  clearSession: () => void;
   previewOwnerMode: boolean;
   setPreviewOwnerMode: (enabled: boolean) => void;
+  previewUserMode: boolean;
+  setPreviewUserMode: (enabled: boolean) => void;
   language: 'en' | 'ar';
   setLanguage: (lang: 'en' | 'ar') => void;
   isAuthReady: boolean;
@@ -48,8 +55,11 @@ export const useStore = create<AppState>()(
     (set) => ({
       user: null,
       setUser: (user) => set({ user }),
+      clearSession: () => set({ user: null, previewOwnerMode: false, previewUserMode: false, isAuthReady: true }),
       previewOwnerMode: false,
       setPreviewOwnerMode: (previewOwnerMode) => set({ previewOwnerMode }),
+      previewUserMode: false,
+      setPreviewUserMode: (previewUserMode) => set({ previewUserMode }),
       language: 'ar',
       setLanguage: (language) => {
         document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
@@ -61,7 +71,7 @@ export const useStore = create<AppState>()(
     }),
     {
       name: 'edusmart-storage',
-      partialize: (state) => ({ language: state.language, user: state.user, previewOwnerMode: state.previewOwnerMode }),
+      partialize: (state) => ({ language: state.language, user: state.user, previewOwnerMode: state.previewOwnerMode, previewUserMode: state.previewUserMode }),
     }
   )
 );

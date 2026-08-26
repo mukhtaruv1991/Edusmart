@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { addDoc, collection, doc, getDoc, getDocs, serverTimestamp, setDoc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, runTransaction, serverTimestamp, setDoc } from 'firebase/firestore';
 import { ArrowRight, CheckCircle2, Clock3, Loader2, Trophy, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { db } from '../../../lib/firebase';
@@ -34,6 +34,8 @@ interface Participant {
   score: number;
   total: number;
   percentage: number;
+  completedAt?: unknown;
+  answers?: Record<string, number>;
 }
 
 export default function CompetitionPlay() {
@@ -69,10 +71,24 @@ export default function CompetitionPlay() {
         const competitionData = { id: competitionSnapshot.id, ...competitionSnapshot.data() } as Competition;
         const questionSnapshot = await getDocs(collection(db, 'competitions', competitionId, 'questions'));
         const participantSnapshot = await getDocs(collection(db, 'competitions', competitionId, 'participants'));
+        const participantRef = doc(db, 'competitions', competitionId, 'participants', user.uid);
+        const attemptRef = doc(db, 'competitionAttempts', `${competitionId}_${user.uid}`);
+        const [participantDoc, attemptDoc] = await Promise.all([getDoc(participantRef), getDoc(attemptRef)]);
         if (!active) return;
+        const loadedQuestions = questionSnapshot.docs.map((item) => ({ id: item.id, ...item.data() } as CompetitionQuestion));
+        const participant = participantDoc.exists() ? ({ id: participantDoc.id, ...participantDoc.data() } as Participant) : null;
+        const previousAttempt = attemptDoc.exists() ? attemptDoc.data() as Participant : null;
         setCompetition(competitionData);
-        setQuestions(questionSnapshot.docs.map((item) => ({ id: item.id, ...item.data() } as CompetitionQuestion)));
+        setQuestions(loadedQuestions);
         setParticipants(participantSnapshot.docs.map((item) => ({ id: item.id, ...item.data() } as Participant)).sort((a, b) => b.score - a.score).slice(0, 10));
+        if (previousAttempt || participant?.completedAt) {
+          setSubmitted(true);
+          setScore(previousAttempt?.score ?? participant?.score ?? 0);
+          if (previousAttempt?.answers) setAnswers(previousAttempt.answers);
+        } else if (participant) {
+          setStarted(true);
+          if (participant.answers) setAnswers(participant.answers);
+        }
       } catch (error) {
         console.error('Failed to load competition:', error);
         toast.error(language === 'ar' ? 'تعذر تحميل المسابقة' : 'Could not load the competition');
@@ -89,7 +105,14 @@ export default function CompetitionPlay() {
   const handleStart = async () => {
     if (!competitionId || !user?.uid) return;
     try {
-      await setDoc(doc(db, 'competitions', competitionId, 'participants', user.uid), {
+      const participantRef = doc(db, 'competitions', competitionId, 'participants', user.uid);
+      const existing = await getDoc(participantRef);
+      if (existing.exists() && existing.data().completedAt) {
+        setSubmitted(true);
+        setScore(Number(existing.data().score || 0));
+        return;
+      }
+      await setDoc(participantRef, {
         uid: user.uid,
         name: user.name,
         startedAt: serverTimestamp(),
@@ -116,31 +139,42 @@ export default function CompetitionPlay() {
     }, 0);
     const percentage = totalPoints ? Math.round((earned / totalPoints) * 100) : 0;
     try {
-      await setDoc(doc(db, 'competitions', competitionId, 'participants', user.uid), {
-        uid: user.uid,
-        name: user.name,
-        score: earned,
-        total: totalPoints,
-        percentage,
-        answers,
-        completedAt: serverTimestamp(),
-      }, { merge: true });
-      await addDoc(collection(db, 'competitionAttempts'), {
-        competitionId,
-        studentId: user.uid,
-        studentName: user.name,
-        answers,
-        score: earned,
-        total: totalPoints,
-        percentage,
-        completedAt: serverTimestamp(),
+      const participantRef = doc(db, 'competitions', competitionId, 'participants', user.uid);
+      const attemptRef = doc(db, 'competitionAttempts', `${competitionId}_${user.uid}`);
+      await runTransaction(db, async (transaction) => {
+        const participantSnapshot = await transaction.get(participantRef);
+        const attemptSnapshot = await transaction.get(attemptRef);
+        if (participantSnapshot.exists() && participantSnapshot.data().completedAt) throw new Error('ALREADY_SUBMITTED');
+        if (attemptSnapshot.exists()) throw new Error('ALREADY_SUBMITTED');
+        transaction.set(participantRef, {
+          uid: user.uid,
+          name: user.name,
+          score: earned,
+          total: totalPoints,
+          percentage,
+          answers,
+          completedAt: serverTimestamp(),
+        }, { merge: true });
+        transaction.set(attemptRef, {
+          attemptId: attemptRef.id,
+          competitionId,
+          studentId: user.uid,
+          studentName: user.name,
+          answers,
+          score: earned,
+          total: totalPoints,
+          percentage,
+          completedAt: serverTimestamp(),
+        });
       });
       setScore(earned);
       setSubmitted(true);
       toast.success(language === 'ar' ? 'تم تسليم المسابقة بنجاح' : 'Competition submitted successfully');
     } catch (error) {
       console.error('Failed to submit competition:', error);
-      toast.error(language === 'ar' ? 'تعذر حفظ النتيجة' : 'Could not save the result');
+      toast.error(error instanceof Error && error.message === 'ALREADY_SUBMITTED'
+        ? (language === 'ar' ? 'تم تسليم هذه المسابقة مسبقًا ولا يمكن إعادة المحاولة' : 'This competition was already submitted and cannot be retaken')
+        : (language === 'ar' ? 'تعذر حفظ النتيجة' : 'Could not save the result'));
     } finally {
       setSubmitting(false);
     }

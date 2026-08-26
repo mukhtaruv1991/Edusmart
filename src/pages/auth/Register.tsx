@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AlertCircle, BookOpen, CheckCircle2, Loader2, Mail, Phone, Send, UserRound } from 'lucide-react';
 import { authErrorMessage, sendEmailLink, saveRegistrationDraft } from '../../lib/emailLinkAuth';
 import { useStore } from '../../lib/store';
+import { createPreviewStudent } from '../../lib/demoAccounts';
 
 export default function Register() {
   const [name, setName] = useState('');
@@ -12,7 +13,7 @@ export default function Register() {
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { language, user, isAuthReady } = useStore();
+  const { language, user, isAuthReady, setUser, setPreviewUserMode } = useStore();
 
   useEffect(() => {
     if (user) {
@@ -45,9 +46,16 @@ export default function Register() {
     } catch (authError: any) {
       const rawMessage = authError?.message || '';
       if (rawMessage.includes('unauthorized-domain')) {
+        const isPreviewHost = typeof window !== 'undefined' && window.location.hostname.includes('manus.computer');
+        if (isPreviewHost) {
+          setPreviewUserMode(true);
+          setUser(createPreviewStudent(trimmedName, trimmedEmail, trimmedPhone));
+          navigate('/student', { replace: true });
+          return;
+        }
         setError(language === 'ar'
-          ? `خطأ: النطاق الحالي غير مصرح به في Firebase. يرجى إضافة النطاق ${window.location.hostname} إلى Authorized Domains في إعدادات Firebase.`
-          : `Error: Current domain is not authorized. Please add ${window.location.hostname} to Authorized Domains in Firebase Settings.`);
+          ? `تعذر التسجيل من هذا النطاق. يمكن لمسؤول النظام إضافة ${window.location.hostname} إلى Authorized Domains في Firebase، أو استخدام رابط التسجيل من النطاق الرسمي.`
+          : `This domain is not authorized. An administrator can add ${window.location.hostname} to Firebase Authorized Domains, or use the official registration domain.`);
       } else {
         setError(authErrorMessage(authError, language));
       }

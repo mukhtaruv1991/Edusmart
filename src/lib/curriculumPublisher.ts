@@ -1,5 +1,5 @@
 import { collection, deleteDoc, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { deleteObject, getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { db, storage } from './firebase';
 import { CurriculumBook, CurriculumPage } from '../types/curriculum';
 import { getGradeLabelAr, YemenGradeKey } from './gradeCatalog';
@@ -41,21 +41,33 @@ function buildUnits(totalPageCount: number) {
   }];
 }
 
-async function parseManifest(file: File): Promise<CurriculumPage[]> {
+async function parseManifest(file: File): Promise<{ pages: CurriculumPage[]; units?: CurriculumBook['units'] }> {
   const payload = JSON.parse(await file.text());
   const rows = Array.isArray(payload) ? payload : payload.pages || payload.data || [];
-  return rows
+  const seen = new Set<number>();
+  const pages = rows
     .map((row: any, index: number) => ({
       pageNumber: Number(row.pageNumber ?? row.page ?? row.number ?? index + 1),
       text: String(row.text ?? row.content ?? '').trim(),
     }))
-    .filter((page: CurriculumPage) => page.text.length > 0);
+    .filter((page: CurriculumPage) => page.text.length > 0 && Number.isInteger(page.pageNumber) && page.pageNumber > 0)
+    .filter((page: CurriculumPage) => {
+      if (seen.has(page.pageNumber)) return false;
+      seen.add(page.pageNumber);
+      return true;
+    })
+    .sort((a: CurriculumPage, b: CurriculumPage) => a.pageNumber - b.pageNumber);
+  const units = Array.isArray(payload?.units) ? payload.units : undefined;
+  return { pages, units };
 }
 
 export async function publishCurriculumBook(input: PublishCurriculumInput): Promise<CurriculumBook> {
   if (!input.pdfFile || !input.manifestFile) throw new Error('يجب اختيار PDF وملف JSON المعالج معاً');
-  const pages = await parseManifest(input.manifestFile);
+  const parsedManifest = await parseManifest(input.manifestFile);
+  const pages = parsedManifest.pages;
   if (pages.length === 0) throw new Error('ملف JSON لا يحتوي صفحات نصية قابلة للفهرسة');
+  if (input.pdfFile.type !== 'application/pdf' || input.manifestFile.type !== 'application/json') throw new Error('الملفات المسموحة هي PDF وJSON فقط');
+  if (input.pdfFile.size > 250 * 1024 * 1024 || input.manifestFile.size > 250 * 1024 * 1024) throw new Error('حجم أي ملف يجب ألا يتجاوز 250 ميجابايت');
 
   const bookRef = doc(collection(db, 'curriculumBooks'));
   const root = `curriculum/${input.gradeKey}/${bookRef.id}`;
@@ -92,7 +104,7 @@ export async function publishCurriculumBook(input: PublishCurriculumInput): Prom
     isOfficial: !input.schoolId,
     isActive: true,
     contentVersion: new Date().toISOString(),
-    units: buildUnits(Math.max(...pages.map((page) => page.pageNumber))),
+    units: parsedManifest.units?.length ? parsedManifest.units : buildUnits(Math.max(...pages.map((page) => page.pageNumber))),
   };
 
   await setDoc(bookRef, {
@@ -112,6 +124,13 @@ export async function listSchoolCurriculumBooks(schoolId?: string, schoolName?: 
   return snapshot.docs.map((bookDoc) => ({ id: bookDoc.id, ...bookDoc.data() } as CurriculumBook));
 }
 
-export async function deleteCurriculumBook(bookId: string): Promise<void> {
+export async function deleteCurriculumBook(book: Pick<CurriculumBook, 'id' | 'storagePath' | 'manifestStoragePath'> | string): Promise<void> {
+  const bookId = typeof book === 'string' ? book : book.id;
+  const storagePaths = typeof book === 'string' ? [] : [book.storagePath, book.manifestStoragePath].filter(Boolean) as string[];
   await deleteDoc(doc(db, 'curriculumBooks', bookId));
+  await Promise.all(storagePaths.map(async (storagePath) => {
+    try { await deleteObject(ref(storage, storagePath)); } catch (error: any) {
+      if (error?.code !== 'storage/object-not-found') throw error;
+    }
+  }));
 }

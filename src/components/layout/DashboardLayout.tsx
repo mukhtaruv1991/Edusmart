@@ -4,25 +4,24 @@ import { useStore } from '../../lib/store';
 import { auth } from '../../lib/firebase';
 import { signOut } from 'firebase/auth';
 import { 
-  BookOpen, Users, FileText, Settings, LogOut, Globe, LayoutDashboard, 
+  Activity, BookOpen, Users, FileText, Settings, LogOut, Globe, LayoutDashboard, UserCheck, 
   Menu, X, MessageSquare, Trophy, User, Calendar, Bell, MapPin, 
-  DollarSign, CreditCard, GraduationCap, UsersRound, BookMarked, Building2, ShieldCheck
+  DollarSign, CreditCard, GraduationCap, UsersRound, BookMarked, Building2, ShieldCheck, Link2
 } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 export default function DashboardLayout() {
-  const { user, isAuthReady, language, setLanguage, previewOwnerMode, setPreviewOwnerMode, setUser } = useStore();
+  const { user, isAuthReady, language, setLanguage, previewOwnerMode, previewUserMode, clearSession } = useStore();
   const location = useLocation();
   const navigate = useNavigate();
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   if (!isAuthReady) return <div className="flex h-screen items-center justify-center">Loading...</div>;
   if (!user) return <Navigate to="/login" replace />;
-  if (user.needsOnboarding && !previewOwnerMode && user.email !== 'amtiaz1991@gmail.com') return <Navigate to="/onboarding" replace />;
+  if (user.needsOnboarding && !previewOwnerMode && !previewUserMode && user.email !== 'amtiaz1991@gmail.com') return <Navigate to="/onboarding" replace />;
 
   const handleLogout = async () => {
-    setPreviewOwnerMode(false);
-    setUser(null);
+    clearSession();
     await signOut(auth);
     navigate('/login', { replace: true });
   };
@@ -44,6 +43,8 @@ export default function DashboardLayout() {
           { name: language === 'en' ? 'School Exams' : 'الاختبارات المدرسية', path: '/student/school-exams', icon: FileText },
           { name: language === 'en' ? 'Competitions' : 'المسابقات', path: '/student/competitions', icon: Trophy },
           { name: language === 'en' ? 'My Profile' : 'صفحتي الشخصية', path: '/student/profile', icon: User },
+          { name: language === 'en' ? 'Link school / ID' : 'ربط المدرسة والمعرف', path: '/student/link-school', icon: Link2 },
+          { name: language === 'en' ? 'Timetable' : 'جدول الحصص', path: '/student/timetable', icon: Calendar },
           { name: language === 'en' ? 'Chats' : 'المحادثات', path: '/student/chats', icon: MessageSquare }
         );
         break;
@@ -55,11 +56,16 @@ export default function DashboardLayout() {
           { name: language === 'en' ? 'Classes/Departments' : 'الصفوف والأقسام', path: '/principal/classes', icon: GraduationCap },
           { name: language === 'en' ? 'Teachers' : 'المعلمين', path: '/principal/teachers', icon: Users },
           { name: language === 'en' ? 'Calendar' : 'التقويم', path: '/principal/calendar', icon: Calendar },
+          { name: language === 'en' ? 'Timetable' : 'جدول الحصص', path: '/principal/timetable', icon: Calendar },
           { name: language === 'en' ? 'Chats' : 'المحادثات', path: '/principal/chats', icon: MessageSquare },
           { name: language === 'en' ? 'Alerts' : 'التنبيهات', path: '/principal/alerts', icon: Bell },
           { name: language === 'en' ? 'Parents' : 'أولياء الأمور', path: '/principal/parents', icon: UsersRound },
           { name: language === 'en' ? 'Notifications' : 'الإشعارات', path: '/principal/notifications', icon: Bell },
-          { name: language === 'en' ? 'Tracking' : 'تتبع', path: '/principal/tracking', icon: MapPin },
+          { name: language === 'en' ? 'Tracking' : 'المتابعة', path: '/principal/tracking', icon: Activity },
+          { name: language === 'en' ? 'Student link requests' : 'طلبات ربط الطلاب', path: '/principal/link-requests', icon: Link2 },
+          { name: language === 'en' ? 'Student attendance' : 'حضور الطلاب', path: '/principal/attendance', icon: UserCheck },
+          { name: language === 'en' ? 'Teacher attendance' : 'حضور المعلمين', path: '/principal/teacher-attendance', icon: UserCheck },
+          { name: language === 'en' ? 'Grades' : 'الدرجات', path: '/principal/grades', icon: GraduationCap },
           { name: language === 'en' ? 'Settings' : 'الضبط', path: '/principal/settings', icon: Settings },
           { name: language === 'en' ? 'Financials' : 'الرواتب والإيرادات', path: '/principal/financials', icon: DollarSign },
           { name: language === 'en' ? 'Expenses' : 'المصروفات', path: '/principal/expenses', icon: CreditCard }
@@ -67,13 +73,16 @@ export default function DashboardLayout() {
         break;
       case 'teacher':
         items.push(
-          { name: language === 'en' ? 'Classes' : 'الصفوف', path: '/teacher/classes', icon: GraduationCap },
+          { name: language === 'en' ? 'Classes' : 'الفصول', path: '/teacher/classes', icon: BookOpen },
+          { name: language === 'en' ? 'Attendance' : 'الحضور', path: '/teacher/attendance', icon: UserCheck },
+          { name: language === 'en' ? 'Grades' : 'الدرجات', path: '/teacher/grades', icon: GraduationCap },
           { name: language === 'en' ? 'Students' : 'الطلاب', path: '/teacher/students', icon: Users },
           { name: language === 'en' ? 'Competitions' : 'المسابقات', path: '/teacher/competitions', icon: Trophy },
           { name: language === 'en' ? 'Exams' : 'الاختبارات', path: '/teacher/exams', icon: FileText },
           { name: language === 'en' ? 'Alerts' : 'التنبيهات', path: '/teacher/alerts', icon: Bell },
-          { name: language === 'en' ? 'Notifications' : 'الإشعارات', path: '/teacher/notifications', icon: Bell },
+          { name: language === 'en' ? 'Send to students' : 'إشعار للطلاب', path: '/teacher/notifications', icon: Bell },
           { name: language === 'en' ? 'Calendar' : 'التقويم', path: '/teacher/calendar', icon: Calendar },
+          { name: language === 'en' ? 'Timetable' : 'جدول الحصص', path: '/teacher/timetable', icon: Calendar },
           { name: language === 'en' ? 'Chats' : 'المحادثات', path: '/teacher/chats', icon: MessageSquare }
         );
         break;
@@ -82,7 +91,8 @@ export default function DashboardLayout() {
           { name: language === 'en' ? 'Children' : 'الأبناء والبنات', path: '/parent/children', icon: Users },
           { name: language === 'en' ? 'Chats' : 'المحادثات', path: '/parent/chats', icon: MessageSquare },
           { name: language === 'en' ? 'Notifications' : 'الإشعارات', path: '/parent/notifications', icon: Bell },
-          { name: language === 'en' ? 'Tracking' : 'تتبع', path: '/parent/tracking', icon: MapPin }
+          { name: language === 'en' ? 'Tracking' : 'تتبع', path: '/parent/tracking', icon: MapPin },
+          { name: language === 'en' ? 'Timetable' : 'جدول الحصص', path: '/parent/timetable', icon: Calendar }
         );
         break;
       case 'admin':
@@ -90,6 +100,8 @@ export default function DashboardLayout() {
           { name: language === 'en' ? 'Control Center' : 'مركز التحكم', path: '/admin/control-center', icon: ShieldCheck },
           { name: language === 'en' ? 'Schools' : 'المدارس', path: '/admin/schools', icon: Building2 },
           { name: language === 'en' ? 'Users' : 'المستخدمين', path: '/admin/users', icon: Users },
+          { name: language === 'en' ? 'Student link requests' : 'طلبات ربط الطلاب', path: '/admin/link-requests', icon: Link2 },
+          { name: language === 'en' ? 'Audit log' : 'سجل التدقيق', path: '/admin/audit-logs', icon: Activity },
           { name: language === 'en' ? 'Settings' : 'الضبط', path: '/admin/settings', icon: Settings }
         );
         break;

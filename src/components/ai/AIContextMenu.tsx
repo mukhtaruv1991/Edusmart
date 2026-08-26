@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useStore } from '../../lib/store';
 import { getGeminiAI } from '../../lib/gemini';
-import { Languages, Volume2, HelpCircle, Brain, Loader2, X, BookmarkCheck, Sparkles, Send } from 'lucide-react';
+import { Languages, Volume2, HelpCircle, Brain, Loader2, X, Bookmark, BookmarkCheck, Sparkles, Send } from 'lucide-react';
 import { toast } from 'sonner';
-import { saveStudyAIItem } from '../../lib/studyStorage';
+import { savePageAnnotation, saveStudyAIItem } from '../../lib/studyStorage';
 import { StudyAIItem } from '../../types/curriculum';
 
 
@@ -41,6 +41,7 @@ export default function AIContextMenu({
   const [customQuestion, setCustomQuestion] = useState('');
   const [showCustomInput, setShowCustomInput] = useState(false);
   const [savedSuccess, setSavedSuccess] = useState(false);
+  const [annotationSaved, setAnnotationSaved] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -113,6 +114,24 @@ export default function AIContextMenu({
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSaveAnnotation = async () => {
+    if (!user?.uid || !selectedText.trim() || !curriculumId || !pageNumber) {
+      toast.error(language === 'en' ? 'Sign in to save a page note.' : 'سجّل الدخول لحفظ ملاحظة الصفحة.');
+      return;
+    }
+    await savePageAnnotation({
+      id: `annotation-${user.uid}-${curriculumId}-${pageNumber}-${Date.now()}`,
+      userId: user.uid,
+      bookId: curriculumId,
+      pageNumber,
+      text: selectedText.trim(),
+      color: '#FDE68A',
+      createdAt: new Date().toISOString(),
+    });
+    setAnnotationSaved(true);
+    toast.success(language === 'en' ? 'Selection saved to your notes.' : 'تم حفظ التحديد في ملاحظاتك.');
   };
 
   const handleTTS = () => {
@@ -195,6 +214,14 @@ export default function AIContextMenu({
           >
             <Languages className="w-4 h-4 text-amber-600 shrink-0" />
             <span>{language === 'en' ? 'Translate' : 'ترجمة فورية'}</span>
+          </button>
+
+          <button
+            onClick={handleSaveAnnotation}
+            className="flex items-center gap-2.5 p-2.5 rounded-xl hover:bg-yellow-50 dark:hover:bg-yellow-950/30 text-yellow-700 dark:text-yellow-300 border border-yellow-100 dark:border-yellow-900/40 transition-all text-right font-medium text-xs shadow-sm hover:shadow"
+          >
+            {annotationSaved ? <BookmarkCheck className="w-4 h-4 text-yellow-600 shrink-0" /> : <Bookmark className="w-4 h-4 text-yellow-600 shrink-0" />}
+            <span>{annotationSaved ? (language === 'en' ? 'Saved' : 'تم الحفظ') : (language === 'en' ? 'Save selection' : 'حفظ التحديد')}</span>
           </button>
 
           <button

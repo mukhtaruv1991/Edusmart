@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
 import { collection, query, where, onSnapshot, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
-import { UsersRound, Search, Edit2, Trash2, CheckCircle, XCircle } from 'lucide-react';
+import { UsersRound, Search, Edit2, Trash2, CheckCircle, XCircle, Link2 } from 'lucide-react';
+import { linkParentToStudent } from '../../../lib/parentLinkage';
 import { toast } from 'sonner';
 
 interface Parent {
@@ -19,6 +20,8 @@ export default function ParentsList() {
   const [parents, setParents] = useState<Parent[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(true);
+  const [linkingParentId, setLinkingParentId] = useState<string | null>(null);
+  const [studentIdentifier, setStudentIdentifier] = useState('');
 
   useEffect(() => {
     if (!user?.school) return;
@@ -57,6 +60,28 @@ export default function ParentsList() {
     } catch (error) {
       console.error('Error updating status:', error);
       toast.error(language === 'en' ? 'Failed to update status' : 'فشل في تحديث الحالة');
+    }
+  };
+
+  const handleLinkStudent = async (event: React.FormEvent, parentId: string) => {
+    event.preventDefault();
+    if (!studentIdentifier.trim()) return;
+    try {
+      await linkParentToStudent({ parentId, studentIdentifier, actorId: user?.uid });
+      toast.success(language === 'en' ? 'Student linked to parent successfully' : 'تم ربط الطالب بولي الأمر بنجاح');
+      setStudentIdentifier('');
+      setLinkingParentId(null);
+    } catch (error) {
+      console.error('Error linking student to parent:', error);
+      const code = error instanceof Error ? error.message : '';
+      const messages: Record<string, string> = {
+        INVALID_STUDENT_IDENTIFIER: 'معرف الطالب غير موجود',
+        STUDENT_NOT_LINKED: 'المعرف غير مرتبط بملف طالب بعد',
+        STUDENT_ALREADY_LINKED: 'الطالب مرتبط بولي أمر آخر',
+        SCHOOL_MISMATCH: 'الطالب وولي الأمر ليسا في المدرسة نفسها',
+        TARGET_IS_NOT_PARENT: 'الحساب المحدد ليس حساب ولي أمر',
+      };
+      toast.error(language === 'ar' ? messages[code] || 'تعذر ربط الطالب' : 'Could not link the student');
     }
   };
 
@@ -179,12 +204,32 @@ export default function ParentsList() {
                             <XCircle className="w-5 h-5" />
                           </button>
                         )}
-                        <button 
+                        <button
+                          onClick={() => { setLinkingParentId(linkingParentId === parent.uid ? null : parent.uid); setStudentIdentifier(''); }}
                           className="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors"
-                          title={language === 'en' ? 'Edit' : 'تعديل'}
+                          title={language === 'en' ? 'Link a student' : 'ربط طالب'}
+                        >
+                          <Link2 className="w-5 h-5" />
+                        </button>
+                        <button
+                          className="p-1.5 text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-900/20 rounded-lg transition-colors"
+                          title={language === 'en' ? 'Editing is available from the user profile' : 'التعديل متاح من ملف المستخدم'}
+                          type="button"
                         >
                           <Edit2 className="w-5 h-5" />
                         </button>
+                        {linkingParentId === parent.uid ? (
+                          <form onSubmit={(event) => void handleLinkStudent(event, parent.uid)} className="absolute z-20 mt-28 flex w-64 gap-2 rounded-xl border border-blue-100 bg-white p-2 shadow-xl dark:border-blue-900/40 dark:bg-gray-800">
+                            <input
+                              value={studentIdentifier}
+                              onChange={(event) => setStudentIdentifier(event.target.value.toUpperCase())}
+                              placeholder={language === 'en' ? 'Student ID' : 'معرف الطالب'}
+                              className="min-w-0 flex-1 rounded-lg border border-gray-200 bg-gray-50 px-2 py-1.5 text-xs outline-none focus:border-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                              autoFocus
+                            />
+                            <button type="submit" className="rounded-lg bg-blue-600 px-2 py-1.5 text-xs font-semibold text-white hover:bg-blue-700">{language === 'en' ? 'Link' : 'ربط'}</button>
+                          </form>
+                        ) : null}
                         <button 
                           onClick={() => handleDelete(parent.uid)}
                           className="p-1.5 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"

@@ -1,6 +1,7 @@
 import { StudyAIItem, StudyQuiz, CurriculumUnit } from '../types/curriculum';
 import { db } from './firebase';
-import { collection, doc, setDoc, getDocs, query, where, deleteDoc } from 'firebase/firestore';
+import { collection, doc, setDoc, getDoc, getDocs, query, where, deleteDoc, serverTimestamp } from 'firebase/firestore';
+import { auth } from './firebase';
 
 const STORAGE_KEYS = {
   AI_ITEMS: 'edusmart_study_ai_items',
@@ -172,9 +173,11 @@ export function saveCustomUnits(curriculumId: string, units: CurriculumUnit[]): 
 export interface LastReadProgress {
   curriculumId: string;
   studentId?: string;
+  schoolId?: string;
   unitId?: string;
   lessonId?: string;
   pageNumber: number;
+  progressPercent?: number;
   lastReadAt: string;
 }
 
@@ -188,8 +191,34 @@ export function saveLastReadProgress(progress: LastReadProgress): void {
     const map = raw ? JSON.parse(raw) : {};
     map[progressStorageKey(progress)] = progress;
     localStorage.setItem(STORAGE_KEYS.STUDY_PROGRESS, JSON.stringify(map));
+    if (navigator.onLine && db && progress.studentId && auth.currentUser?.uid === progress.studentId) {
+      void setDoc(doc(db, 'learningProgress', `${progress.studentId}_${progress.curriculumId}`), {
+        userId: progress.studentId,
+        bookId: progress.curriculumId,
+        schoolId: progress.schoolId,
+        unitId: progress.unitId,
+        lessonId: progress.lessonId,
+        pageNumber: progress.pageNumber,
+        progressPercent: progress.progressPercent,
+        lastReadAt: progress.lastReadAt,
+        updatedAt: serverTimestamp(),
+      }, { merge: true }).catch((error) => console.warn('Progress cloud sync deferred:', error));
+    }
   } catch (e) {
     console.error('Failed to save progress:', e);
+  }
+}
+
+export async function getRemoteLastReadProgress(curriculumId: string, studentId?: string): Promise<LastReadProgress | null> {
+  if (!studentId || !db || !auth.currentUser || auth.currentUser.uid !== studentId) return null;
+  try {
+    const snapshot = await getDoc(doc(db, 'learningProgress', `${studentId}_${curriculumId}`));
+    if (!snapshot.exists()) return null;
+    const data = snapshot.data();
+    return { curriculumId, studentId, schoolId: data.schoolId, unitId: data.unitId, lessonId: data.lessonId, pageNumber: Number(data.pageNumber || 1), progressPercent: Number(data.progressPercent || 0), lastReadAt: data.lastReadAt || new Date().toISOString() };
+  } catch (error) {
+    console.warn('Remote progress unavailable; using local progress:', error);
+    return null;
   }
 }
 
@@ -219,6 +248,41 @@ const DEFAULT_READER_PREFERENCES: ReaderPreferences = {
   nightMode: false,
   zoom: 100,
 };
+
+export interface PageAnnotation {
+  id: string;
+  userId: string;
+  bookId: string;
+  pageNumber: number;
+  text: string;
+  color?: string;
+  createdAt: string;
+}
+
+export function getLocalPageAnnotations(userId: string, bookId?: string, pageNumber?: number): PageAnnotation[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEYS.HIGHLIGHTS);
+    const all: PageAnnotation[] = raw ? JSON.parse(raw) : [];
+    return all.filter((item) => item.userId === userId && (!bookId || item.bookId === bookId) && (!pageNumber || item.pageNumber === pageNumber));
+  } catch (error) {
+    console.warn('Failed to read page annotations:', error);
+    return [];
+  }
+}
+
+export async function savePageAnnotation(annotation: PageAnnotation): Promise<PageAnnotation> {
+  try {
+    const all = getLocalPageAnnotations(annotation.userId);
+    const next = [annotation, ...all.filter((item) => item.id !== annotation.id)];
+    localStorage.setItem(STORAGE_KEYS.HIGHLIGHTS, JSON.stringify(next));
+    if (navigator.onLine && db && auth.currentUser?.uid === annotation.userId) {
+      await setDoc(doc(db, 'studentPageAnnotations', annotation.id), { ...annotation, updatedAt: serverTimestamp() }, { merge: true });
+    }
+  } catch (error) {
+    console.warn('Page annotation saved locally; cloud sync deferred:', error);
+  }
+  return annotation;
+}
 
 export function getReaderPreferences(scope: string): ReaderPreferences {
   try {

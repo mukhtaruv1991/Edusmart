@@ -21,17 +21,21 @@ export default function CalendarView() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user?.school) return;
+    const schoolId = user?.schoolId || user?.school;
+    if (!schoolId) {
+      setLoading(false);
+      return;
+    }
 
-    const q = query(
-      collection(db, 'events'),
-      where('school', '==', user.school)
-    );
+    const q = query(collection(db, 'academicCalendar'));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetched: Event[] = [];
-      snapshot.forEach((doc) => {
-        fetched.push({ id: doc.id, ...doc.data() } as Event);
+      snapshot.forEach((calendarDoc) => {
+        const data = calendarDoc.data();
+        if (data.scope === 'national' || (data.scope === 'school' && data.schoolId === schoolId)) {
+          fetched.push({ id: calendarDoc.id, ...data } as Event);
+        }
       });
       // Sort by date and time
       fetched.sort((a, b) => new Date(`${a.date}T${a.time}`).getTime() - new Date(`${b.date}T${b.time}`).getTime());
@@ -44,7 +48,7 @@ export default function CalendarView() {
     });
 
     return () => unsubscribe();
-  }, [user, language]);
+  }, [user?.schoolId, user?.school, language]);
 
   const getTypeColor = (type: string) => {
     switch (type) {

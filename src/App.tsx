@@ -5,6 +5,7 @@ import { doc, onSnapshot } from 'firebase/firestore';
 import { auth, db } from './lib/firebase';
 import { useStore, UserProfile, Role } from './lib/store';
 import { isOwnerEmail } from './lib/ownerAuth';
+import { canonicalizeUserProfile, profileFromAuthUser } from './lib/profile';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
 import EmailLinkHandler from './pages/auth/EmailLinkHandler';
@@ -15,7 +16,9 @@ import TeacherDashboard from './pages/dashboard/TeacherDashboard';
 import StudentDashboard from './pages/dashboard/StudentDashboard';
 import StudentCurriculums from './pages/dashboard/student/StudentCurriculums';
 import StudentProfile from './pages/dashboard/student/StudentProfile';
+import StudentLinkSchool from './pages/dashboard/student/StudentLinkSchool';
 import StudentExams from './pages/dashboard/student/StudentExams';
+import StudentExamAttempt from './pages/dashboard/student/StudentExamAttempt';
 import CompetitionPlay from './pages/dashboard/student/CompetitionPlay';
 import ChatInterface from './components/chat/ChatInterface';
 import TeachersList from './pages/dashboard/principal/TeachersList';
@@ -35,6 +38,12 @@ import AdminDashboard from './pages/dashboard/AdminDashboard';
 import AdminControlCenter from './pages/dashboard/AdminControlCenter';
 import SchoolManagement from './components/dashboard/SchoolManagement';
 import UsersManagement from './pages/dashboard/admin/UsersManagement';
+import StudentLinkRequests from './pages/dashboard/admin/StudentLinkRequests';
+import AuditLogs from './pages/dashboard/admin/AuditLogs';
+import AttendanceManagement from './pages/dashboard/AttendanceManagement';
+import GradesManagement from './pages/dashboard/GradesManagement';
+import TeacherAttendanceManagement from './pages/dashboard/TeacherAttendanceManagement';
+import TimetableManagement from './pages/dashboard/TimetableManagement';
 import TeacherClasses from './pages/dashboard/teacher/TeacherClasses';
 import TeacherExams from './pages/dashboard/teacher/TeacherExams';
 import CompetitionsView from './components/dashboard/CompetitionsView';
@@ -76,15 +85,16 @@ export default function App() {
         // fall back to onboarding while the profile snapshot is starting.
         const cachedProfile = useStore.getState().user;
         const owner = isOwnerEmail(firebaseUser.email);
-        setUser({
-          ...(cachedProfile?.uid === firebaseUser.uid ? cachedProfile : {}),
-          uid: firebaseUser.uid,
-          email: firebaseUser.email || cachedProfile?.email || '',
-          name: firebaseUser.displayName || cachedProfile?.name || (owner ? 'المالك والمشرف العام' : ''),
-          role: owner ? 'admin' : cachedProfile?.role,
-          needsOnboarding: owner ? false : (cachedProfile?.uid === firebaseUser.uid ? cachedProfile.needsOnboarding : true),
-          createdAt: cachedProfile?.uid === firebaseUser.uid ? cachedProfile.createdAt : new Date().toISOString(),
-        } as any);
+        const hydratedFallback = profileFromAuthUser(firebaseUser, cachedProfile?.uid === firebaseUser.uid ? cachedProfile : {
+          role: owner ? 'admin' : 'student',
+          name: firebaseUser.displayName || (owner ? 'المالك والمشرف العام' : ''),
+          needsOnboarding: !owner,
+        });
+        setUser(canonicalizeUserProfile(firebaseUser.uid, {
+          ...hydratedFallback,
+          role: owner ? 'admin' : hydratedFallback.role,
+          needsOnboarding: owner ? false : hydratedFallback.needsOnboarding,
+        }));
 
         // Real-time listener on the user's Firestore document
         unsubscribeDoc = onSnapshot(
@@ -92,21 +102,21 @@ export default function App() {
           (userDoc) => {
             if (userDoc.exists()) {
               const data = userDoc.data();
-              if (!data.role && isOwnerEmail(firebaseUser.email)) {
-                setUser({ ...data, uid: firebaseUser.uid, email: firebaseUser.email || '', name: 'المالك والمشرف العام', role: 'admin', needsOnboarding: false } as any);
-              } else if (!data.role) {
-                setUser({ ...data, uid: firebaseUser.uid, needsOnboarding: true } as any);
-              } else {
-                setUser({ ...data, uid: firebaseUser.uid, role: isOwnerEmail(firebaseUser.email) ? 'admin' : data.role, needsOnboarding: isOwnerEmail(firebaseUser.email) ? false : data.needsOnboarding } as UserProfile);
-              }
+              const ownerProfile = isOwnerEmail(firebaseUser.email);
+              setUser(canonicalizeUserProfile(firebaseUser.uid, {
+                ...data,
+                email: firebaseUser.email || data.email || '',
+                name: ownerProfile ? 'المالك والمشرف العام' : (data.name || firebaseUser.displayName || ''),
+                role: ownerProfile ? 'admin' : data.role,
+                needsOnboarding: ownerProfile ? false : (!data.role || Boolean(data.needsOnboarding)),
+                emailVerified: firebaseUser.emailVerified,
+              }));
             } else {
-              setUser({ 
-                uid: firebaseUser.uid, 
-                email: firebaseUser.email || '', 
+              setUser(profileFromAuthUser(firebaseUser, {
+                role: isOwnerEmail(firebaseUser.email) ? 'admin' : 'student',
                 name: firebaseUser.displayName || (isOwnerEmail(firebaseUser.email) ? 'المالك والمشرف العام' : ''),
-                role: isOwnerEmail(firebaseUser.email) ? 'admin' : undefined,
-                needsOnboarding: isOwnerEmail(firebaseUser.email) ? false : true
-              } as any);
+                needsOnboarding: !isOwnerEmail(firebaseUser.email),
+              }));
             }
             setAuthReady(true);
           },
@@ -133,7 +143,7 @@ export default function App() {
         // Keep an explicit preview owner session alive when the preview host cannot
         // establish a Firebase Auth session. Real sessions are still cleared normally.
         const currentState = useStore.getState();
-        if (currentState.previewOwnerMode && isOwnerEmail(currentState.user?.email)) {
+        if (currentState.previewUserMode && currentState.user) {
           setAuthReady(true);
           return;
         }
@@ -173,6 +183,11 @@ export default function App() {
           <Route path="principal/parents" element={<RoleGuard roles={['principal']}><ParentsList /></RoleGuard>} />
           <Route path="principal/notifications" element={<RoleGuard roles={['principal']}><Navigate to="/principal/alerts" replace /></RoleGuard>} />
           <Route path="principal/tracking" element={<RoleGuard roles={['principal']}><TrackingManagement /></RoleGuard>} />
+          <Route path="principal/link-requests" element={<RoleGuard roles={['principal']}><StudentLinkRequests /></RoleGuard>} />
+          <Route path="principal/attendance" element={<RoleGuard roles={['principal']}><AttendanceManagement /></RoleGuard>} />
+          <Route path="principal/teacher-attendance" element={<RoleGuard roles={['principal']}><TeacherAttendanceManagement /></RoleGuard>} />
+          <Route path="principal/timetable" element={<RoleGuard roles={['principal']}><TimetableManagement /></RoleGuard>} />
+          <Route path="principal/grades" element={<RoleGuard roles={['principal']}><GradesManagement /></RoleGuard>} />
           <Route path="principal/settings" element={<RoleGuard roles={['principal']}><Settings /></RoleGuard>} />
           <Route path="principal/financials" element={<RoleGuard roles={['principal']}><FinancialsManagement /></RoleGuard>} />
           <Route path="principal/expenses" element={<RoleGuard roles={['principal']}><Navigate to="/principal/financials" replace /></RoleGuard>} />
@@ -180,12 +195,15 @@ export default function App() {
           {/* Teacher Routes */}
           <Route path="teacher" element={<RoleGuard roles={['teacher']}><TeacherDashboard /></RoleGuard>} />
           <Route path="teacher/classes" element={<RoleGuard roles={['teacher']}><TeacherClasses /></RoleGuard>} />
+          <Route path="teacher/attendance" element={<RoleGuard roles={['teacher']}><AttendanceManagement /></RoleGuard>} />
+          <Route path="teacher/grades" element={<RoleGuard roles={['teacher']}><GradesManagement /></RoleGuard>} />
           <Route path="teacher/students" element={<RoleGuard roles={['teacher']}><StudentsList /></RoleGuard>} />
           <Route path="teacher/competitions" element={<RoleGuard roles={['teacher']}><CompetitionsView /></RoleGuard>} />
           <Route path="teacher/exams" element={<RoleGuard roles={['teacher']}><TeacherExams /></RoleGuard>} />
           <Route path="teacher/alerts" element={<RoleGuard roles={['teacher']}><AlertsView /></RoleGuard>} />
-          <Route path="teacher/notifications" element={<RoleGuard roles={['teacher']}><Navigate to="/teacher/alerts" replace /></RoleGuard>} />
+          <Route path="teacher/notifications" element={<RoleGuard roles={['teacher']}><AlertsManagement /></RoleGuard>} />
           <Route path="teacher/calendar" element={<RoleGuard roles={['teacher']}><CalendarView /></RoleGuard>} />
+          <Route path="teacher/timetable" element={<RoleGuard roles={['teacher']}><TimetableManagement viewOnly /></RoleGuard>} />
           <Route path="teacher/chats" element={<RoleGuard roles={['teacher']}><ChatInterface /></RoleGuard>} />
 
           {/* Student Routes */}
@@ -193,10 +211,13 @@ export default function App() {
           <Route path="student/curriculums" element={<RoleGuard roles={['student']}><StudentCurriculums /></RoleGuard>} />
           <Route path="student/private-exams" element={<RoleGuard roles={['student']}><StudentExams type="private" /></RoleGuard>} />
           <Route path="student/school-exams" element={<RoleGuard roles={['student']}><StudentExams type="school" /></RoleGuard>} />
+          <Route path="student/exams/:examId" element={<RoleGuard roles={['student']}><StudentExamAttempt /></RoleGuard>} />
           <Route path="student/competitions" element={<RoleGuard roles={['student']}><CompetitionsView /></RoleGuard>} />
           <Route path="student/competitions/:competitionId" element={<RoleGuard roles={['student']}><CompetitionPlay /></RoleGuard>} />
           <Route path="student/profile" element={<RoleGuard roles={['student']}><StudentProfile /></RoleGuard>} />
+          <Route path="student/link-school" element={<RoleGuard roles={['student']}><StudentLinkSchool /></RoleGuard>} />
           <Route path="student/chats" element={<RoleGuard roles={['student']}><ChatInterface /></RoleGuard>} />
+          <Route path="student/timetable" element={<RoleGuard roles={['student']}><TimetableManagement viewOnly /></RoleGuard>} />
 
           {/* Parent Routes */}
           <Route path="parent" element={<RoleGuard roles={['parent']}><ParentDashboard /></RoleGuard>} />
@@ -205,12 +226,15 @@ export default function App() {
           <Route path="parent/alerts" element={<RoleGuard roles={['parent']}><AlertsView /></RoleGuard>} />
           <Route path="parent/notifications" element={<RoleGuard roles={['parent']}><Navigate to="/parent/alerts" replace /></RoleGuard>} />
           <Route path="parent/tracking" element={<RoleGuard roles={['parent']}><ParentTracking /></RoleGuard>} />
+          <Route path="parent/timetable" element={<RoleGuard roles={['parent']}><TimetableManagement viewOnly /></RoleGuard>} />
 
           {/* Admin Routes */}
           <Route path="admin" element={<RoleGuard roles={['admin']}><AdminDashboard /></RoleGuard>} />
           <Route path="admin/control-center" element={<RoleGuard roles={['admin']}><AdminControlCenter /></RoleGuard>} />
           <Route path="admin/schools" element={<RoleGuard roles={['admin']}><SchoolManagement /></RoleGuard>} />
           <Route path="admin/users" element={<RoleGuard roles={['admin']}><UsersManagement /></RoleGuard>} />
+          <Route path="admin/link-requests" element={<RoleGuard roles={['admin']}><StudentLinkRequests /></RoleGuard>} />
+          <Route path="admin/audit-logs" element={<RoleGuard roles={['admin']}><AuditLogs /></RoleGuard>} />
           <Route path="admin/settings" element={<RoleGuard roles={['admin']}><Settings /></RoleGuard>} />
         </Route>
       </Routes>

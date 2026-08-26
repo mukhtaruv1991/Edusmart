@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useStore } from '../../../lib/store';
-import { collection, query, where, onSnapshot, addDoc, updateDoc, deleteDoc, doc, serverTimestamp } from 'firebase/firestore';
+import { collection, query, where, onSnapshot, deleteDoc, doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { db } from '../../../lib/firebase';
 import { FileText, Plus, Search, Edit2, Trash2, Calendar, Clock, Users, CheckCircle, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
+
+interface ExamQuestion {
+  id: string;
+  prompt: string;
+  options: string[];
+  correctOption: number;
+  points: number;
+}
 
 interface Exam {
   id: string;
@@ -15,6 +23,7 @@ interface Exam {
   totalMarks: number;
   status: 'upcoming' | 'ongoing' | 'completed';
   type: 'quiz' | 'monthly' | 'midterm' | 'final';
+  questions?: ExamQuestion[];
 }
 
 export default function TeacherExams() {
@@ -33,22 +42,36 @@ export default function TeacherExams() {
   const [duration, setDuration] = useState(60);
   const [totalMarks, setTotalMarks] = useState(100);
   const [type, setType] = useState<'quiz' | 'monthly' | 'midterm' | 'final'>('quiz');
+  const [questions, setQuestions] = useState<ExamQuestion[]>([]);
+  const [questionPrompt, setQuestionPrompt] = useState('');
+  const [questionOptions, setQuestionOptions] = useState(['', '', '', '']);
+  const [correctOption, setCorrectOption] = useState(0);
+  const [questionPoints, setQuestionPoints] = useState(1);
 
   useEffect(() => {
     if (!user?.uid || (!user?.schoolId && !user?.school)) return;
 
-    const schoolField = user.schoolId ? 'schoolId' : 'school';
     const schoolValue = user.schoolId || user.school;
+    const schoolField = 'schoolId';
     const q = query(
-      collection(db, 'exams'),
-      where(schoolField, '==', schoolValue),
-      where('teacherId', '==', user.uid)
+      collection(db, 'examSchedules'),
+      where('schoolId', '==', schoolValue),
+      where('teacherIds', 'array-contains', user.uid)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const fetchedExams: Exam[] = [];
       snapshot.forEach((doc) => {
-        fetchedExams.push({ id: doc.id, ...doc.data() } as Exam);
+        const data = doc.data();
+        const scheduledAt = data.scheduledAt || data.date;
+        fetchedExams.push({
+          id: doc.id,
+          ...data,
+          subject: data.subject || data.subjectKey || '',
+          type: data.type || data.examType || 'quiz',
+          duration: data.duration || data.durationMinutes || 60,
+          date: scheduledAt,
+        } as Exam);
       });
       setExams(fetchedExams);
       setLoading(false);
@@ -66,32 +89,39 @@ export default function TeacherExams() {
     if (!user?.uid || (!user?.schoolId && !user?.school)) return;
 
     try {
+      const schoolId = user.schoolId || user.school || '';
       const examData = {
-        title,
-        subject,
+        title: title.trim(),
+        subjectKey: subject.trim(),
+        subject: subject.trim(),
         classId,
-        date: new Date(date),
+        scheduledAt: new Date(date),
+        durationMinutes: duration,
         duration,
         totalMarks,
+        examType: type,
         type,
         status: 'upcoming',
-        teacherId: user.uid,
-        school: user.school || '',
-        schoolId: user.schoolId || '',
-        questions: [],
+        teacherIds: [user.uid],
+        createdBy: user.uid,
+        schoolId,
+        school: user.school || schoolId,
+        questions: questions.map(({ correctOption: _correctOption, ...question }) => question),
         updatedAt: serverTimestamp(),
       };
 
-      if (editingExam) {
-        await updateDoc(doc(db, 'exams', editingExam.id), examData);
-        toast.success(language === 'en' ? 'Exam updated successfully' : 'تم تحديث الاختبار بنجاح');
-      } else {
-        await addDoc(collection(db, 'exams'), {
-          ...examData,
-          createdAt: serverTimestamp(),
-        });
-        toast.success(language === 'en' ? 'Exam created successfully' : 'تم إنشاء الاختبار بنجاح');
-      }
+      const scheduleRef = editingExam
+        ? doc(db, 'examSchedules', editingExam.id)
+        : doc(collection(db, 'examSchedules'));
+      await setDoc(scheduleRef, { ...examData, ...(editingExam ? {} : { createdAt: serverTimestamp() }) }, { merge: Boolean(editingExam) });
+      await setDoc(doc(db, 'examAnswerKeys', scheduleRef.id), {
+        examId: scheduleRef.id,
+        schoolId,
+        createdBy: user.uid,
+        answers: questions.map((question) => ({ questionId: question.id, correctOption: question.correctOption, points: question.points })),
+        updatedAt: serverTimestamp(),
+      }, { merge: true });
+      toast.success(editingExam ? (language === 'en' ? 'Exam updated successfully' : 'تم تحديث الاختبار بنجاح') : (language === 'en' ? 'Exam created successfully' : 'تم إنشاء الاختبار بنجاح'));
 
       setIsModalOpen(false);
       resetForm();
@@ -104,7 +134,7 @@ export default function TeacherExams() {
   const handleDelete = async (id: string) => {
     if (window.confirm(language === 'en' ? 'Are you sure you want to delete this exam?' : 'هل أنت متأكد من حذف هذا الاختبار؟')) {
       try {
-        await deleteDoc(doc(db, 'exams', id));
+        await deleteDoc(doc(db, 'examSchedules', id));
         toast.success(language === 'en' ? 'Exam deleted successfully' : 'تم حذف الاختبار بنجاح');
       } catch (error) {
         console.error('Error deleting exam:', error);
@@ -121,10 +151,15 @@ export default function TeacherExams() {
     setDuration(60);
     setTotalMarks(100);
     setType('quiz');
+    setQuestions([]);
+    setQuestionPrompt('');
+    setQuestionOptions(['', '', '', '']);
+    setCorrectOption(0);
+    setQuestionPoints(1);
     setEditingExam(null);
   };
 
-  const openEditModal = (exam: Exam) => {
+  const openEditModal = async (exam: Exam) => {
     setEditingExam(exam);
     setTitle(exam.title);
     setSubject(exam.subject);
@@ -136,7 +171,36 @@ export default function TeacherExams() {
     setDuration(exam.duration);
     setTotalMarks(exam.totalMarks);
     setType(exam.type);
+    const answerKeySnapshot = await getDoc(doc(db, 'examAnswerKeys', exam.id));
+    const answerKey = answerKeySnapshot.exists() ? (answerKeySnapshot.data().answers || []) as Array<{ questionId: string; correctOption: number; points: number }> : [];
+    const answerById = new Map(answerKey.map((answer) => [answer.questionId, answer]));
+    setQuestions((exam.questions || []).map((question, index) => ({
+      ...question,
+      correctOption: answerById.get(question.id)?.correctOption ?? index % Math.max(question.options.length, 1),
+      points: answerById.get(question.id)?.points ?? question.points ?? 1,
+    })));
     setIsModalOpen(true);
+  };
+
+  const handleAddQuestion = () => {
+    const prompt = questionPrompt.trim();
+    const options = questionOptions.map((option) => option.trim()).filter(Boolean);
+    if (!prompt || options.length < 2) {
+      toast.error(language === 'en' ? 'Add a question and at least two options.' : 'أدخل نص السؤال وخيارين على الأقل.');
+      return;
+    }
+    if (correctOption >= options.length) setCorrectOption(0);
+    setQuestions((current) => [...current, {
+      id: `q-${Date.now()}-${current.length}`,
+      prompt,
+      options,
+      correctOption: Math.min(correctOption, options.length - 1),
+      points: Math.max(1, questionPoints),
+    }]);
+    setQuestionPrompt('');
+    setQuestionOptions(['', '', '', '']);
+    setCorrectOption(0);
+    setQuestionPoints(1);
   };
 
   const filteredExams = exams.filter(exam => 
@@ -348,6 +412,35 @@ export default function TeacherExams() {
                   onChange={(e) => setDuration(Number(e.target.value))}
                   className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-gray-900 dark:text-white"
                 />
+              </div>
+
+              <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-4 dark:border-blue-900/40 dark:bg-blue-950/20">
+                <div className="mb-3 flex items-center justify-between gap-3">
+                  <div>
+                    <h3 className="font-bold text-gray-900 dark:text-white">أسئلة الاختبار</h3>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">تُحفظ الأسئلة للطالب، بينما يُحفظ مفتاح الإجابة في مجموعة محمية.</p>
+                  </div>
+                  <span className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-blue-700 dark:bg-gray-800 dark:text-blue-300">{questions.length} سؤال</span>
+                </div>
+                {questions.length > 0 && (
+                  <div className="mb-4 space-y-2">
+                    {questions.map((question, index) => (
+                      <div key={question.id} className="flex items-start justify-between gap-3 rounded-lg bg-white p-3 text-sm dark:bg-gray-800">
+                        <div><span className="font-semibold text-blue-600">{index + 1}.</span> <span className="text-gray-800 dark:text-gray-100">{question.prompt}</span><p className="mt-1 text-xs text-gray-500">{question.options.length} خيارات · {question.points} درجة</p></div>
+                        <button type="button" onClick={() => setQuestions((current) => current.filter((item) => item.id !== question.id))} className="shrink-0 rounded-lg p-1.5 text-red-500 hover:bg-red-50" aria-label="حذف السؤال"><Trash2 className="h-4 w-4" /></button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                <textarea value={questionPrompt} onChange={(event) => setQuestionPrompt(event.target.value)} rows={2} placeholder="نص السؤال" className="mb-2 w-full rounded-lg border border-gray-200 bg-white p-3 text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
+                <div className="grid gap-2 sm:grid-cols-2">
+                  {questionOptions.map((option, index) => <input key={index} value={option} onChange={(event) => setQuestionOptions((current) => current.map((item, itemIndex) => itemIndex === index ? event.target.value : item))} placeholder={`الخيار ${index + 1}`} className="rounded-lg border border-gray-200 bg-white p-2.5 text-sm outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />)}
+                </div>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  <label className="text-xs font-semibold text-gray-600 dark:text-gray-300">الإجابة الصحيحة<select value={correctOption} onChange={(event) => setCorrectOption(Number(event.target.value))} className="mt-1 w-full rounded-lg border border-gray-200 bg-white p-2.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white">{questionOptions.map((_, index) => <option key={index} value={index}>الخيار {index + 1}</option>)}</select></label>
+                  <label className="text-xs font-semibold text-gray-600 dark:text-gray-300">الدرجة<input type="number" min="1" value={questionPoints} onChange={(event) => setQuestionPoints(Number(event.target.value))} className="mt-1 w-full rounded-lg border border-gray-200 bg-white p-2.5 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white" /></label>
+                </div>
+                <button type="button" onClick={handleAddQuestion} className="mt-3 inline-flex items-center gap-2 rounded-lg border border-blue-200 px-3 py-2 text-sm font-semibold text-blue-700 hover:bg-blue-100 dark:border-blue-800 dark:text-blue-300"><Plus className="h-4 w-4" /> إضافة السؤال</button>
               </div>
 
               <div className="flex justify-end gap-3 mt-6">

@@ -3,6 +3,7 @@ import { useStore } from '../../lib/store';
 import { CurriculumBook, CurriculumUnit, CurriculumLesson, StudyAIItem } from '../../types/curriculum';
 import {
   getLastReadProgress,
+  getRemoteLastReadProgress,
   getReaderPreferences,
   saveLastReadProgress,
   saveReaderPreferences,
@@ -86,6 +87,19 @@ export default function InteractiveReader({
     saveReaderPreferences(readerScope, { nightMode, zoom });
   }, [readerScope, nightMode, zoom]);
 
+  useEffect(() => {
+    if (!user?.uid || initialPage || initialLesson) return;
+    let cancelled = false;
+    getRemoteLastReadProgress(book.id, user.uid).then((remote) => {
+      if (cancelled || !remote) return;
+      const local = getLastReadProgress(book.id, user.uid);
+      const remoteTime = Date.parse(remote.lastReadAt || '') || 0;
+      const localTime = Date.parse(local?.lastReadAt || '') || 0;
+      if (remoteTime >= localTime) setCurrentPage(clampPage(remote.pageNumber, book.totalPageCount));
+    });
+    return () => { cancelled = true; };
+  }, [book.id, book.totalPageCount, user?.uid, initialPage, initialLesson?.id]);
+
   // Fetch only the requested page from the pre-processed JSON manifest.
   useEffect(() => {
     let cancelled = false;
@@ -119,9 +133,11 @@ export default function InteractiveReader({
     saveLastReadProgress({
       curriculumId: book.id,
       studentId: user?.uid,
+      schoolId: user?.schoolId,
       unitId: currentUnit?.id,
       lessonId: currentLesson?.id,
       pageNumber: currentPage,
+      progressPercent,
       lastReadAt: new Date().toISOString(),
     });
   }, [book.id, user?.uid, currentUnit?.id, currentLesson?.id, currentPage]);

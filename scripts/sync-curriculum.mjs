@@ -1,73 +1,73 @@
 import { initializeApp, cert } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import { getStorage } from 'firebase-admin/storage';
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 
-// Note: This script requires a service account key file (serviceAccountKey.json)
-// and the curriculum_manifest.json to be present.
+const projectRoot = process.cwd();
+const catalogPath = path.resolve(process.env.CURRICULUM_CATALOG || path.join(projectRoot, 'curriculum-source/processed/catalog.json'));
+const serviceAccountPath = path.resolve(process.env.FIREBASE_SERVICE_ACCOUNT || path.join(projectRoot, 'serviceAccountKey.json'));
+const bucketName = process.env.FIREBASE_STORAGE_BUCKET || 'mukhtaruv.firebasestorage.app';
+
+function requiredFile(relativePath) {
+  const file = path.resolve(projectRoot, relativePath);
+  if (!fs.existsSync(file)) throw new Error(`الملف غير موجود: ${file}`);
+  return file;
+}
 
 async function sync() {
-  const manifestPath = path.join(process.cwd(), 'data', 'curriculum_manifest.json');
-  if (!fs.existsSync(manifestPath)) {
-    console.error('Error: curriculum_manifest.json not found in data folder.');
-    return;
-  }
-
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
-  const sourceRoot = manifest.sourceRoot || '/home/ubuntu/yemen_curriculum_processed';
-
-  console.log(`Starting sync for ${manifest.books.length} books...`);
-
-  // Initialize Firebase Admin (Assuming service account is provided or env vars set)
-  // For the user, they should place their serviceAccountKey.json in the root.
-  const serviceAccountPath = path.join(process.cwd(), 'serviceAccountKey.json');
+  if (!fs.existsSync(catalogPath)) throw new Error(`catalog غير موجود: ${catalogPath}`);
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, 'utf8'));
+  const books = catalog.books || [];
+  console.log(`Starting sync for ${books.length} processed books using Firestore database: default`);
   if (!fs.existsSync(serviceAccountPath)) {
-    console.log('--- DRY RUN MODE ---');
-    console.log('Please provide serviceAccountKey.json to perform actual upload.');
-    manifest.books.slice(0, 3).forEach(book => {
-      console.log(`[Dry Run] Would upload: ${book.title} (${book.grade})`);
-    });
+    console.log('DRY RUN: serviceAccountKey.json غير موجود؛ لم يتم رفع أي ملف.');
+    for (const book of books.slice(0, 5)) console.log(`[Dry Run] ${book.title} -> ${book.pdfPath}, ${book.pagesPath}`);
     return;
   }
 
+  const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath, 'utf8'));
   const app = initializeApp({
-    credential: cert(serviceAccountPath)
+    credential: cert(serviceAccount),
+    projectId: serviceAccount.project_id || 'mukhtaruv',
+    storageBucket: bucketName,
   });
+  const db = getFirestore(app, 'default');
+  const bucket = getStorage(app).bucket(bucketName);
 
-  let db;
-  try {
-    // Explicitly use the default database ID found in the project
-    db = getFirestore(app, 'default');
-    console.log('Using Firestore database: default');
-  } catch (e) {
-    console.error('Firestore initialization failed:', e.message);
-    console.log('--- FALLBACK: Generating SQL/JSON for manual import ---');
-  }
-
-  for (const book of manifest.books) {
+  for (const book of books) {
     try {
-      console.log(`Processing: ${book.title}...`);
-      const pdfUrl = book.sourceUrl;
-
-      if (db) {
-        await db.collection('curriculumBooks').doc(book.id).set({
-          ...book,
-          pdfUrl: pdfUrl,
-          isOfficial: true,
-          isActive: true,
-          updatedAt: new Date().toISOString()
-        }, { merge: true });
-        console.log(`Synced to Firestore: ${book.title}`);
-      } else {
-        console.log(`[Manual Import Data] ID: ${book.id}, Title: ${book.title}, URL: ${pdfUrl}`);
-      }
+      const pdfPath = requiredFile(book.pdfPath);
+      const pagesPath = requiredFile(book.pagesPath);
+      const root = `curriculum/${book.gradeKey}/${book.id}`;
+      const pdfObject = bucket.file(`${root}/book.pdf`);
+      const pagesObject = bucket.file(`${root}/pages.json`);
+      await bucket.upload(pdfPath, { destination: pdfObject.name, metadata: { contentType: 'application/pdf', metadata: { sha256: book.pdfSha256 } }, resumable: true });
+      await bucket.upload(pagesPath, { destination: pagesObject.name, metadata: { contentType: 'application/json' }, resumable: false });
+      const expires = new Date('2500-01-01T00:00:00Z');
+      const [[pdfUrl], [manifestUrl]] = await Promise.all([
+        pdfObject.getSignedUrl({ action: 'read', expires }),
+        pagesObject.getSignedUrl({ action: 'read', expires }),
+      ]);
+      await db.collection('curriculumBooks').doc(book.id).set({
+        ...book,
+        pdfUrl,
+        manifestUrl,
+        textIndexUrl: manifestUrl,
+        storagePath: pdfObject.name,
+        manifestStoragePath: pagesObject.name,
+        source: 'official',
+        isOfficial: true,
+        isActive: true,
+        approvalStatus: 'approved',
+        updatedAt: new Date().toISOString(),
+      }, { merge: true });
+      console.log(`OK\t${book.id}`);
     } catch (error) {
-      console.error(`Failed to process ${book.title}:`, error.message);
+      console.error(`FAIL\t${book.id}\t${error?.message || error}`);
     }
   }
-
   console.log('Sync completed.');
 }
 
-sync();
+sync().catch((error) => { console.error(error.message); process.exitCode = 1; });

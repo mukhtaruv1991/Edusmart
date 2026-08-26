@@ -1,0 +1,5417 @@
+{
+  "version": 1,
+  "source": "official-yemen-curriculum",
+  "books": [
+    {
+      "id": "secondary_2_scientific-al_eiman_11th",
+      "title": "الإيمان — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الإيمان",
+      "part": "combined",
+      "totalPageCount": 73,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "5fdd3c0fabcc8422a98ad1f6a0fb7e64011bef943adca89d1cb9e5db9db9e2a3",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/al_eiman_11th.pdf",
+      "pdfSha256": "5fdd3c0fabcc8422a98ad1f6a0fb7e64011bef943adca89d1cb9e5db9db9e2a3",
+      "pdfBytes": 25292983,
+      "localPdfPath": "curriculum-source/originals/grade11/al_eiman_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/al_eiman_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/al_eiman_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_eiman_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_eiman_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 73,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-73",
+              "title": "صفحات 73 - 73",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 73
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-al_hadith_fikh_part1_11th",
+      "title": "الحديث والفقه — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الحديث والفقه",
+      "part": "part_1",
+      "totalPageCount": 70,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "1cbe7850cb28a37fd3cee6374ad7bca3623c4a5a792e307d45f7a9efba0fe3d5",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/al_hadith_fikh_part1_11th.pdf",
+      "pdfSha256": "1cbe7850cb28a37fd3cee6374ad7bca3623c4a5a792e307d45f7a9efba0fe3d5",
+      "pdfBytes": 21456124,
+      "localPdfPath": "curriculum-source/originals/grade11/al_hadith_fikh_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/al_hadith_fikh_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/al_hadith_fikh_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_hadith_fikh_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_hadith_fikh_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 70,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-70",
+              "title": "صفحات 61 - 70",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 70
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-al_sira_part1_11th",
+      "title": "السيرة — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "السيرة",
+      "part": "part_1",
+      "totalPageCount": 98,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "7ad7a3b37e83a2de66d979f9001db51c2c6108f4902f372c621a7614f9428ea4",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/al_sira_part1_11th.pdf",
+      "pdfSha256": "7ad7a3b37e83a2de66d979f9001db51c2c6108f4902f372c621a7614f9428ea4",
+      "pdfBytes": 31502931,
+      "localPdfPath": "curriculum-source/originals/grade11/al_sira_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/al_sira_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/al_sira_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_sira_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-al_sira_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 98,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-98",
+              "title": "صفحات 97 - 98",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 98
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-biology_11th",
+      "title": "الأحياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الأحياء",
+      "part": "combined",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "e6ad88e64f4d471a3288c5f482fcd4c22e1860f8974caed1f3cdc8258c6a092a",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/biology_11th.pdf",
+      "pdfSha256": "e6ad88e64f4d471a3288c5f482fcd4c22e1860f8974caed1f3cdc8258c6a092a",
+      "pdfBytes": 86707720,
+      "localPdfPath": "curriculum-source/originals/grade11/biology_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/biology_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/biology_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-biology_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-biology_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-biology_actions_11th",
+      "title": "الأحياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الأحياء",
+      "part": "combined",
+      "totalPageCount": 67,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "5f86b491c71a802a5335d78e4eb2cd6d427797cae02b6235d53caf8de2ca84b9",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/biology_actions_11th.pdf",
+      "pdfSha256": "5f86b491c71a802a5335d78e4eb2cd6d427797cae02b6235d53caf8de2ca84b9",
+      "pdfBytes": 8308206,
+      "localPdfPath": "curriculum-source/originals/grade11/biology_actions_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/biology_actions_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/biology_actions_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-biology_actions_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-biology_actions_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 67,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-67",
+              "title": "صفحات 61 - 67",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 67
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-chemistry_11th",
+      "title": "الكيمياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الكيمياء",
+      "part": "combined",
+      "totalPageCount": 130,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "b4ade46d9633821e37d78e53836b7e7ab7bb07584d7b44106243921d4e5c37a2",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/chemistry_11th.pdf",
+      "pdfSha256": "b4ade46d9633821e37d78e53836b7e7ab7bb07584d7b44106243921d4e5c37a2",
+      "pdfBytes": 19272190,
+      "localPdfPath": "curriculum-source/originals/grade11/chemistry_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/chemistry_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/chemistry_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-chemistry_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-chemistry_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 130,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-130",
+              "title": "صفحات 121 - 130",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 130
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-chemistry_actions_11th",
+      "title": "الكيمياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الكيمياء",
+      "part": "combined",
+      "totalPageCount": 51,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "5d616850ab5a1d3296c894e36959dec33b207cf1ed4b0062d077f8cc45b7447a",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/chemistry_actions_11th.pdf",
+      "pdfSha256": "5d616850ab5a1d3296c894e36959dec33b207cf1ed4b0062d077f8cc45b7447a",
+      "pdfBytes": 5494634,
+      "localPdfPath": "curriculum-source/originals/grade11/chemistry_actions_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/chemistry_actions_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/chemistry_actions_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-chemistry_actions_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-chemistry_actions_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 51,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-51",
+              "title": "صفحات 49 - 51",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 51
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-computer_11th",
+      "title": "الحاسوب — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الحاسوب",
+      "part": "combined",
+      "totalPageCount": 91,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "d9ff6f59d3c45958093efa5b047034cf5faf00a4ddef84bc19ca8d4f7f2163b7",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/computer_11th.pdf",
+      "pdfSha256": "d9ff6f59d3c45958093efa5b047034cf5faf00a4ddef84bc19ca8d4f7f2163b7",
+      "pdfBytes": 6412090,
+      "localPdfPath": "curriculum-source/originals/grade11/computer_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/computer_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/computer_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-computer_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-computer_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 91,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-91",
+              "title": "صفحات 85 - 91",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 91
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-economic_11th",
+      "title": "الاقتصاد — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الاقتصاد",
+      "part": "combined",
+      "totalPageCount": 73,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "c22f89b429fc81a062fa9466c4e6d75fc99f40a4dc5b04bf5827dd62b025308d",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/economic_11th.pdf",
+      "pdfSha256": "c22f89b429fc81a062fa9466c4e6d75fc99f40a4dc5b04bf5827dd62b025308d",
+      "pdfBytes": 6698773,
+      "localPdfPath": "curriculum-source/originals/grade11/economic_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/economic_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/economic_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-economic_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-economic_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 73,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-73",
+              "title": "صفحات 73 - 73",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 73
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-english_pubils_11th",
+      "title": "اللغة الإنجليزية — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "اللغة الإنجليزية",
+      "part": "combined",
+      "totalPageCount": 72,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "39e80f0544ed718255d21a1aa51707b9e495a25e04c924cff2b4d37d1d97bf2e",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/english_pubils_11th.pdf",
+      "pdfSha256": "39e80f0544ed718255d21a1aa51707b9e495a25e04c924cff2b4d37d1d97bf2e",
+      "pdfBytes": 12321779,
+      "localPdfPath": "curriculum-source/originals/grade11/english_pubils_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/english_pubils_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/english_pubils_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-english_pubils_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-english_pubils_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 72,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-exercise_mathe_11th",
+      "title": "تمارين الرياضيات — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "تمارين الرياضيات",
+      "part": "combined",
+      "totalPageCount": 99,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "10e1de4898431915603d34f9cc858a1c73db711d2cf6c3e66dfedb32a327d586",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/exercise_mathe_11th.pdf",
+      "pdfSha256": "10e1de4898431915603d34f9cc858a1c73db711d2cf6c3e66dfedb32a327d586",
+      "pdfBytes": 6913555,
+      "localPdfPath": "curriculum-source/originals/grade11/exercise_mathe_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/exercise_mathe_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/exercise_mathe_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-exercise_mathe_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-exercise_mathe_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 99,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-99",
+              "title": "صفحات 97 - 99",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 99
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-exercise_mathematic_lit_11th",
+      "title": "تمارين الرياضيات — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "تمارين الرياضيات",
+      "part": "combined",
+      "totalPageCount": 35,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "e00af4e60f13fe698348404e3aee2bef9b7cf4977af7fe87d2932b6fb2c517b5",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/exercise_mathematic_lit_11th.pdf",
+      "pdfSha256": "e00af4e60f13fe698348404e3aee2bef9b7cf4977af7fe87d2932b6fb2c517b5",
+      "pdfBytes": 2624886,
+      "localPdfPath": "curriculum-source/originals/grade11/exercise_mathematic_lit_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/exercise_mathematic_lit_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/exercise_mathematic_lit_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-exercise_mathematic_lit_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-exercise_mathematic_lit_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 35,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-35",
+              "title": "صفحات 25 - 35",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 35
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-fikh_11th",
+      "title": "الفقه — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الفقه",
+      "part": "combined",
+      "totalPageCount": 84,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "e2e684061d779ed341e51bccda9828f23091d779f8958fb6db28c6fbcdc5be63",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/fikh_11th.pdf",
+      "pdfSha256": "e2e684061d779ed341e51bccda9828f23091d779f8958fb6db28c6fbcdc5be63",
+      "pdfBytes": 18328873,
+      "localPdfPath": "curriculum-source/originals/grade11/fikh_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/fikh_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/fikh_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-fikh_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-fikh_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 84,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-geographic_11th",
+      "title": "الجغرافيا — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الجغرافيا",
+      "part": "combined",
+      "totalPageCount": 195,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "4b28a8c356f7125327e40072fa623595a0ab8d4ead4ae7471e3adcecd2e48b44",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/geographic_11th.pdf",
+      "pdfSha256": "4b28a8c356f7125327e40072fa623595a0ab8d4ead4ae7471e3adcecd2e48b44",
+      "pdfBytes": 13348482,
+      "localPdfPath": "curriculum-source/originals/grade11/geographic_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/geographic_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/geographic_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-geographic_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-geographic_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 195,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-195",
+              "title": "صفحات 193 - 195",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 195
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-history_part1_11th",
+      "title": "التاريخ — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "التاريخ",
+      "part": "part_1",
+      "totalPageCount": 115,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "3876fc76e5aa6f04d9518a1c8c88b61bf4faf6c47059d6ebfbea85010579022e",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/history_part1_11th.pdf",
+      "pdfSha256": "3876fc76e5aa6f04d9518a1c8c88b61bf4faf6c47059d6ebfbea85010579022e",
+      "pdfBytes": 11064165,
+      "localPdfPath": "curriculum-source/originals/grade11/history_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/history_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/history_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-history_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-history_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 115,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-115",
+              "title": "صفحات 109 - 115",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 115
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-holy_quran_part1_11th",
+      "title": "القرآن الكريم — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "القرآن الكريم",
+      "part": "part_1",
+      "totalPageCount": 134,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "39b242f4e11a039e7e5fd5107c840f86e1c5e496287dc68ccdc46e5ffe71797c",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/holy_quran_part1_11th.pdf",
+      "pdfSha256": "39b242f4e11a039e7e5fd5107c840f86e1c5e496287dc68ccdc46e5ffe71797c",
+      "pdfBytes": 43964338,
+      "localPdfPath": "curriculum-source/originals/grade11/holy_quran_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/holy_quran_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/holy_quran_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-holy_quran_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-holy_quran_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 134,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-134",
+              "title": "صفحات 133 - 134",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 134
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-mathematic_lit_11th",
+      "title": "الرياضيات — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الرياضيات",
+      "part": "combined",
+      "totalPageCount": 107,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "ba57852cf5c80a5087c40764c450e0514bd95ed5ddf5c56313b98614df58f291",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/mathematic_lit_11th.pdf",
+      "pdfSha256": "ba57852cf5c80a5087c40764c450e0514bd95ed5ddf5c56313b98614df58f291",
+      "pdfBytes": 5308487,
+      "localPdfPath": "curriculum-source/originals/grade11/mathematic_lit_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/mathematic_lit_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/mathematic_lit_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-mathematic_lit_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-mathematic_lit_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 107,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-107",
+              "title": "صفحات 97 - 107",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 107
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-nosos_part1_11th",
+      "title": "النصوص — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "النصوص",
+      "part": "part_1",
+      "totalPageCount": 130,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "ad97680de5067e4a377c1e699a73697d00a25e6d552489826f7946b9e7fc33b5",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/nosos_part1_11th.pdf",
+      "pdfSha256": "ad97680de5067e4a377c1e699a73697d00a25e6d552489826f7946b9e7fc33b5",
+      "pdfBytes": 37456647,
+      "localPdfPath": "curriculum-source/originals/grade11/nosos_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/nosos_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/nosos_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-nosos_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-nosos_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 130,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-130",
+              "title": "صفحات 121 - 130",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 130
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-physical_11th",
+      "title": "الفيزياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الفيزياء",
+      "part": "combined",
+      "totalPageCount": 274,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "92b98e3d5a9257f4d9f856ddb7a9116f616dd285b956544ed1b6368bb2db027d",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/physical_11th.pdf",
+      "pdfSha256": "92b98e3d5a9257f4d9f856ddb7a9116f616dd285b956544ed1b6368bb2db027d",
+      "pdfBytes": 79982972,
+      "localPdfPath": "curriculum-source/originals/grade11/physical_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/physical_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/physical_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-physical_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-physical_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 274,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-204",
+              "title": "صفحات 193 - 204",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 204
+            },
+            {
+              "id": "lesson-pages-205-216",
+              "title": "صفحات 205 - 216",
+              "lessonNumber": 18,
+              "startPage": 205,
+              "endPage": 216
+            },
+            {
+              "id": "lesson-pages-217-228",
+              "title": "صفحات 217 - 228",
+              "lessonNumber": 19,
+              "startPage": 217,
+              "endPage": 228
+            },
+            {
+              "id": "lesson-pages-229-240",
+              "title": "صفحات 229 - 240",
+              "lessonNumber": 20,
+              "startPage": 229,
+              "endPage": 240
+            },
+            {
+              "id": "lesson-pages-241-252",
+              "title": "صفحات 241 - 252",
+              "lessonNumber": 21,
+              "startPage": 241,
+              "endPage": 252
+            },
+            {
+              "id": "lesson-pages-253-264",
+              "title": "صفحات 253 - 264",
+              "lessonNumber": 22,
+              "startPage": 253,
+              "endPage": 264
+            },
+            {
+              "id": "lesson-pages-265-274",
+              "title": "صفحات 265 - 274",
+              "lessonNumber": 23,
+              "startPage": 265,
+              "endPage": 274
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-physical_actions_11th",
+      "title": "الفيزياء — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "الفيزياء",
+      "part": "combined",
+      "totalPageCount": 61,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "9e2c2c0ae729f6b1a57655527e4ed1e5700ffc8fc60d7ce5732cb2b63a9cd21b",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/physical_actions_11th.pdf",
+      "pdfSha256": "9e2c2c0ae729f6b1a57655527e4ed1e5700ffc8fc60d7ce5732cb2b63a9cd21b",
+      "pdfBytes": 4455710,
+      "localPdfPath": "curriculum-source/originals/grade11/physical_actions_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/physical_actions_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/physical_actions_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-physical_actions_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-physical_actions_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 61,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-61",
+              "title": "صفحات 61 - 61",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 61
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-reading_part1_11th",
+      "title": "القراءة — الجزء الأول",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "القراءة",
+      "part": "part_1",
+      "totalPageCount": 58,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "7939246eb25cd50a62167b4a707fe13f599d7af3361073b59faed5122502b0a4",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/reading_part1_11th.pdf",
+      "pdfSha256": "7939246eb25cd50a62167b4a707fe13f599d7af3361073b59faed5122502b0a4",
+      "pdfBytes": 62310862,
+      "localPdfPath": "curriculum-source/originals/grade11/reading_part1_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/reading_part1_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/reading_part1_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-reading_part1_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-reading_part1_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 58,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-58",
+              "title": "صفحات 49 - 58",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 58
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "secondary_2_scientific-sociology_11th",
+      "title": "علم الاجتماع — الكتاب",
+      "grade": "الصف الثاني الثانوي (العلمي)",
+      "gradeKey": "secondary_2_scientific",
+      "subject": "علم الاجتماع",
+      "part": "combined",
+      "totalPageCount": 83,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "47ca5a354148174c774724fc752cc30256c81de2ac9ffbac03c5d683f1e3d75f",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_11/sociology_11th.pdf",
+      "pdfSha256": "47ca5a354148174c774724fc752cc30256c81de2ac9ffbac03c5d683f1e3d75f",
+      "pdfBytes": 2516666,
+      "localPdfPath": "curriculum-source/originals/grade11/sociology_11th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade11/sociology_11th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade11/sociology_11th/full.txt",
+      "storagePath": "curriculum/secondary_2_scientific/secondary_2_scientific-sociology_11th/book.pdf",
+      "manifestStoragePath": "curriculum/secondary_2_scientific/secondary_2_scientific-sociology_11th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 83,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-83",
+              "title": "صفحات 73 - 83",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 83
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_7-arabic_part1_7th_",
+      "title": "Arabic 7th  — الجزء الأول",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "Arabic 7th ",
+      "part": "part_1",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "faa5dce9b3bb984c320ccdf3ebba5e06cff74b0b739579e972bd0afedcb88b90",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_7/Arabic_part1_7th_.pdf",
+      "pdfSha256": "faa5dce9b3bb984c320ccdf3ebba5e06cff74b0b739579e972bd0afedcb88b90",
+      "pdfBytes": 22523770,
+      "localPdfPath": "curriculum-source/originals/grade7/Arabic_part1_7th_.pdf",
+      "localManifestPath": "curriculum-source/processed/grade7/arabic_part1_7th_/pages.json",
+      "localTextPath": "curriculum-source/processed/grade7/arabic_part1_7th_/full.txt",
+      "storagePath": "curriculum/grade_7/grade_7-arabic_part1_7th_/book.pdf",
+      "manifestStoragePath": "curriculum/grade_7/grade_7-arabic_part1_7th_/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_7-arabic_part2_7th_",
+      "title": "Arabic 7th  — الجزء الثاني",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "Arabic 7th ",
+      "part": "part_2",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "8b9a7ceb2a99fa427e1ef87069b0399e3134c0b10e86584e5cc2ee16e2c87f28",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_7/Arabic_part2_7th_.pdf",
+      "pdfSha256": "8b9a7ceb2a99fa427e1ef87069b0399e3134c0b10e86584e5cc2ee16e2c87f28",
+      "pdfBytes": 48401223,
+      "localPdfPath": "curriculum-source/originals/grade7/Arabic_part2_7th_.pdf",
+      "localManifestPath": "curriculum-source/processed/grade7/arabic_part2_7th_/pages.json",
+      "localTextPath": "curriculum-source/processed/grade7/arabic_part2_7th_/full.txt",
+      "storagePath": "curriculum/grade_7/grade_7-arabic_part2_7th_/book.pdf",
+      "manifestStoragePath": "curriculum/grade_7/grade_7-arabic_part2_7th_/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_7-geographic_7th",
+      "title": "الجغرافيا — الكتاب",
+      "grade": "الصف السابع الأساسي",
+      "gradeKey": "grade_7",
+      "subject": "الجغرافيا",
+      "part": "combined",
+      "totalPageCount": 130,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "2de205112ef8ced04aee66a6d30e104dcc8160c3605684c29898ec45ac9ad132",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_7/geographic_7th.pdf",
+      "pdfSha256": "2de205112ef8ced04aee66a6d30e104dcc8160c3605684c29898ec45ac9ad132",
+      "pdfBytes": 7974827,
+      "localPdfPath": "curriculum-source/originals/grade7/geographic_7th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade7/geographic_7th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade7/geographic_7th/full.txt",
+      "storagePath": "curriculum/grade_7/grade_7-geographic_7th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_7/grade_7-geographic_7th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 130,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-130",
+              "title": "صفحات 121 - 130",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 130
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-arabic_part1_8th",
+      "title": "اللغة العربية — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة العربية",
+      "part": "part_1",
+      "totalPageCount": 193,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "909330483d8df38436a6e5366c7b529a4207619eb86628b9d8de1295a8ee1719",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/arabic_part1_8th.pdf",
+      "pdfSha256": "909330483d8df38436a6e5366c7b529a4207619eb86628b9d8de1295a8ee1719",
+      "pdfBytes": 28847088,
+      "localPdfPath": "curriculum-source/originals/grade8/arabic_part1_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/arabic_part1_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/arabic_part1_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-arabic_part1_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-arabic_part1_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 193,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-193",
+              "title": "صفحات 193 - 193",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 193
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-arabic_part2_8th",
+      "title": "اللغة العربية — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة العربية",
+      "part": "part_2",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "990d090d29ae9af0714422bdbc10a7519190d3733912468c098e275aa11c6dea",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/arabic_part2_8th.pdf",
+      "pdfSha256": "990d090d29ae9af0714422bdbc10a7519190d3733912468c098e275aa11c6dea",
+      "pdfBytes": 56334870,
+      "localPdfPath": "curriculum-source/originals/grade8/arabic_part2_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/arabic_part2_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/arabic_part2_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-arabic_part2_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-arabic_part2_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-english_pubils_8th",
+      "title": "اللغة الإنجليزية — الكتاب",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة الإنجليزية",
+      "part": "combined",
+      "totalPageCount": 82,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "fc83abe8c6293fc8617f73f68a60f0b4377f3c585846bca1c2819f1f847c04f2",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/english_pubils_8th.pdf",
+      "pdfSha256": "fc83abe8c6293fc8617f73f68a60f0b4377f3c585846bca1c2819f1f847c04f2",
+      "pdfBytes": 13007661,
+      "localPdfPath": "curriculum-source/originals/grade8/english_pubils_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/english_pubils_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/english_pubils_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-english_pubils_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-english_pubils_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 82,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-82",
+              "title": "صفحات 73 - 82",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 82
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-english_work_8th",
+      "title": "اللغة الإنجليزية — الكتاب",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "اللغة الإنجليزية",
+      "part": "combined",
+      "totalPageCount": 114,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "fd89f7aac8de490a74b3701c769ec873d1e85dec118a881a0f33e0b84c3cf9f6",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/english_work_8th.pdf",
+      "pdfSha256": "fd89f7aac8de490a74b3701c769ec873d1e85dec118a881a0f33e0b84c3cf9f6",
+      "pdfBytes": 11176904,
+      "localPdfPath": "curriculum-source/originals/grade8/english_work_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/english_work_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/english_work_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-english_work_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-english_work_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 114,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-114",
+              "title": "صفحات 109 - 114",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 114
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-geographic_8th",
+      "title": "الجغرافيا — الكتاب",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "الجغرافيا",
+      "part": "combined",
+      "totalPageCount": 114,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "a77a355619303a5699564e41a614599ff6086e03b0eafd3a92c595ad92732ae1",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/geographic_8th.pdf",
+      "pdfSha256": "a77a355619303a5699564e41a614599ff6086e03b0eafd3a92c595ad92732ae1",
+      "pdfBytes": 18267650,
+      "localPdfPath": "curriculum-source/originals/grade8/geographic_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/geographic_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/geographic_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-geographic_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-geographic_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 114,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-114",
+              "title": "صفحات 109 - 114",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 114
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-history_part1_8th",
+      "title": "التاريخ — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "التاريخ",
+      "part": "part_1",
+      "totalPageCount": 129,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "94721bc735b9249f13cec1533f77057cebcd0c75a53081ec4873db26e60cdf26",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/history_part1_8th.pdf",
+      "pdfSha256": "94721bc735b9249f13cec1533f77057cebcd0c75a53081ec4873db26e60cdf26",
+      "pdfBytes": 10032371,
+      "localPdfPath": "curriculum-source/originals/grade8/history_part1_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/history_part1_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/history_part1_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-history_part1_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-history_part1_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 129,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-129",
+              "title": "صفحات 121 - 129",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 129
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-islamic_part1_8th",
+      "title": "التربية الإسلامية — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "التربية الإسلامية",
+      "part": "part_1",
+      "totalPageCount": 161,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "d64339354ecccb15ec066a6fd314cae45955462df6145d51b91f360dcf52245f",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/islamic_part1_8th.pdf",
+      "pdfSha256": "d64339354ecccb15ec066a6fd314cae45955462df6145d51b91f360dcf52245f",
+      "pdfBytes": 34544720,
+      "localPdfPath": "curriculum-source/originals/grade8/islamic_part1_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/islamic_part1_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/islamic_part1_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-islamic_part1_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-islamic_part1_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 161,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-161",
+              "title": "صفحات 157 - 161",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 161
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-mathematics_part1_8th",
+      "title": "الرياضيات — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "الرياضيات",
+      "part": "part_1",
+      "totalPageCount": 162,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "720f571be24c3e2ae640c227866999e855ffea438ad6f0773fc317d39ffbc9c9",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/mathematics_part1_8th.pdf",
+      "pdfSha256": "720f571be24c3e2ae640c227866999e855ffea438ad6f0773fc317d39ffbc9c9",
+      "pdfBytes": 5929823,
+      "localPdfPath": "curriculum-source/originals/grade8/mathematics_part1_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/mathematics_part1_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/mathematics_part1_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-mathematics_part1_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-mathematics_part1_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 162,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-162",
+              "title": "صفحات 157 - 162",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 162
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-mathematics_part2_8th",
+      "title": "الرياضيات — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "الرياضيات",
+      "part": "part_2",
+      "totalPageCount": 138,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "fa05a54e86898cc3b390961d0090e41c2863e325e81c4850c9329e95bdf004c1",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/mathematics_part2_8th.pdf",
+      "pdfSha256": "fa05a54e86898cc3b390961d0090e41c2863e325e81c4850c9329e95bdf004c1",
+      "pdfBytes": 17544283,
+      "localPdfPath": "curriculum-source/originals/grade8/mathematics_part2_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/mathematics_part2_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/mathematics_part2_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-mathematics_part2_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-mathematics_part2_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 138,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-138",
+              "title": "صفحات 133 - 138",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 138
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-national_education_8th",
+      "title": "التربية الوطنية — الكتاب",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "التربية الوطنية",
+      "part": "combined",
+      "totalPageCount": 98,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "27c7da1154fabb10c352893b3ecc8004648f6acfd3d8e3f636ebbfca1516cfdb",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/national_education_8th.pdf",
+      "pdfSha256": "27c7da1154fabb10c352893b3ecc8004648f6acfd3d8e3f636ebbfca1516cfdb",
+      "pdfBytes": 7861375,
+      "localPdfPath": "curriculum-source/originals/grade8/national_education_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/national_education_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/national_education_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-national_education_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-national_education_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 98,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-98",
+              "title": "صفحات 97 - 98",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 98
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-quran_8th",
+      "title": "القرآن الكريم — الكتاب",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "القرآن الكريم",
+      "part": "combined",
+      "totalPageCount": 177,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "c3448994a49e1acbb43a802db549935a245288e7390b8a57c1a2df2033289d25",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/quran_8th.pdf",
+      "pdfSha256": "c3448994a49e1acbb43a802db549935a245288e7390b8a57c1a2df2033289d25",
+      "pdfBytes": 38978192,
+      "localPdfPath": "curriculum-source/originals/grade8/quran_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/quran_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/quran_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-quran_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-quran_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 177,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-177",
+              "title": "صفحات 169 - 177",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 177
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-science_part1_8th",
+      "title": "العلوم — الجزء الأول",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "العلوم",
+      "part": "part_1",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "ccaf3511d9dbdd1a1a60cd2a523d6adee10df74fe9e88a55a7a6a6f670623510",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/science_part1_8th.pdf",
+      "pdfSha256": "ccaf3511d9dbdd1a1a60cd2a523d6adee10df74fe9e88a55a7a6a6f670623510",
+      "pdfBytes": 17121249,
+      "localPdfPath": "curriculum-source/originals/grade8/science_part1_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/science_part1_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/science_part1_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-science_part1_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-science_part1_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_8-science_part2_8th",
+      "title": "العلوم — الجزء الثاني",
+      "grade": "الصف الثامن الأساسي",
+      "gradeKey": "grade_8",
+      "subject": "العلوم",
+      "part": "part_2",
+      "totalPageCount": 114,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "532277d98cde7088c5899956e1d68ac4fe11f1a479938bed985d49aff2a6781d",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_8/science_part2_8th.pdf",
+      "pdfSha256": "532277d98cde7088c5899956e1d68ac4fe11f1a479938bed985d49aff2a6781d",
+      "pdfBytes": 34323864,
+      "localPdfPath": "curriculum-source/originals/grade8/science_part2_8th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade8/science_part2_8th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade8/science_part2_8th/full.txt",
+      "storagePath": "curriculum/grade_8/grade_8-science_part2_8th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_8/grade_8-science_part2_8th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 114,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-114",
+              "title": "صفحات 109 - 114",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 114
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-arabic_part2_9th",
+      "title": "اللغة العربية — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "اللغة العربية",
+      "part": "part_2",
+      "totalPageCount": 178,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "36858540db31562baa8d0dca1eae9ddab75c24e1ef771b7d802836bcb9f9386a",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/arabic_part2_9th.pdf",
+      "pdfSha256": "36858540db31562baa8d0dca1eae9ddab75c24e1ef771b7d802836bcb9f9386a",
+      "pdfBytes": 27641466,
+      "localPdfPath": "curriculum-source/originals/grade9/arabic_part2_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/arabic_part2_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/arabic_part2_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-arabic_part2_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-arabic_part2_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 178,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-178",
+              "title": "صفحات 169 - 178",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 178
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-english_pubils_9th",
+      "title": "اللغة الإنجليزية — الكتاب",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "اللغة الإنجليزية",
+      "part": "combined",
+      "totalPageCount": 75,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "8d47d64a120433ea22c0e57966bcd037291f551e7b0be2cc3e97a7eebcda7d50",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/english_pubils_9th.pdf",
+      "pdfSha256": "8d47d64a120433ea22c0e57966bcd037291f551e7b0be2cc3e97a7eebcda7d50",
+      "pdfBytes": 8506637,
+      "localPdfPath": "curriculum-source/originals/grade9/english_pubils_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/english_pubils_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/english_pubils_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-english_pubils_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-english_pubils_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 75,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-75",
+              "title": "صفحات 73 - 75",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 75
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-history_part1_9th",
+      "title": "التاريخ — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التاريخ",
+      "part": "part_1",
+      "totalPageCount": 113,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "c9f628301aae0ea2caf9d7092ae9d171d6bcb65e6f6cee6a9b0b97bc6e83f29f",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/history_part1_9th.pdf",
+      "pdfSha256": "c9f628301aae0ea2caf9d7092ae9d171d6bcb65e6f6cee6a9b0b97bc6e83f29f",
+      "pdfBytes": 21256237,
+      "localPdfPath": "curriculum-source/originals/grade9/history_part1_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/history_part1_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/history_part1_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-history_part1_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-history_part1_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 113,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-113",
+              "title": "صفحات 109 - 113",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 113
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-history_part2_9th",
+      "title": "التاريخ — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التاريخ",
+      "part": "part_2",
+      "totalPageCount": 98,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "272166f3648798908a2580926cb166f266c5c52f4a4f332e163fd28827d08157",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/history_part2_9th.pdf",
+      "pdfSha256": "272166f3648798908a2580926cb166f266c5c52f4a4f332e163fd28827d08157",
+      "pdfBytes": 32797711,
+      "localPdfPath": "curriculum-source/originals/grade9/history_part2_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/history_part2_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/history_part2_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-history_part2_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-history_part2_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 98,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-98",
+              "title": "صفحات 97 - 98",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 98
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-islamic_part1_9th",
+      "title": "التربية الإسلامية — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التربية الإسلامية",
+      "part": "part_1",
+      "totalPageCount": 169,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "fc331a97cc73b9c116c670c4436cd0e48bb4a02842893500c20869fb6cbf42b8",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/islamic_part1_9th.pdf",
+      "pdfSha256": "fc331a97cc73b9c116c670c4436cd0e48bb4a02842893500c20869fb6cbf42b8",
+      "pdfBytes": 32200383,
+      "localPdfPath": "curriculum-source/originals/grade9/islamic_part1_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/islamic_part1_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/islamic_part1_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-islamic_part1_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-islamic_part1_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 169,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-169",
+              "title": "صفحات 169 - 169",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 169
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-mathematics_part1_9th",
+      "title": "الرياضيات — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "الرياضيات",
+      "part": "part_1",
+      "totalPageCount": 194,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "68ddc97283be1713a8001b3153733bf5440bf1e5ffd9b45866f84c8494068eca",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/mathematics_part1_9th.pdf",
+      "pdfSha256": "68ddc97283be1713a8001b3153733bf5440bf1e5ffd9b45866f84c8494068eca",
+      "pdfBytes": 10573501,
+      "localPdfPath": "curriculum-source/originals/grade9/mathematics_part1_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/mathematics_part1_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/mathematics_part1_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-mathematics_part1_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-mathematics_part1_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 194,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-180",
+              "title": "صفحات 169 - 180",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 180
+            },
+            {
+              "id": "lesson-pages-181-192",
+              "title": "صفحات 181 - 192",
+              "lessonNumber": 16,
+              "startPage": 181,
+              "endPage": 192
+            },
+            {
+              "id": "lesson-pages-193-194",
+              "title": "صفحات 193 - 194",
+              "lessonNumber": 17,
+              "startPage": 193,
+              "endPage": 194
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-mathematics_part2_9th",
+      "title": "الرياضيات — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "الرياضيات",
+      "part": "part_2",
+      "totalPageCount": 147,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "c5e6a343b629b0585f1ee0f5470069683a67b377e41b8d951eb52b1944e0657a",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/mathematics_part2_9th.pdf",
+      "pdfSha256": "c5e6a343b629b0585f1ee0f5470069683a67b377e41b8d951eb52b1944e0657a",
+      "pdfBytes": 7216184,
+      "localPdfPath": "curriculum-source/originals/grade9/mathematics_part2_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/mathematics_part2_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/mathematics_part2_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-mathematics_part2_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-mathematics_part2_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 147,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-147",
+              "title": "صفحات 145 - 147",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 147
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-national_education_9th",
+      "title": "التربية الوطنية — الكتاب",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "التربية الوطنية",
+      "part": "combined",
+      "totalPageCount": 66,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "a77575924b31c0374f376bc8d4522c59b605b1d595527fe03d44a3c2bdc61da4",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/national_education_9th.pdf",
+      "pdfSha256": "a77575924b31c0374f376bc8d4522c59b605b1d595527fe03d44a3c2bdc61da4",
+      "pdfBytes": 5549966,
+      "localPdfPath": "curriculum-source/originals/grade9/national_education_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/national_education_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/national_education_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-national_education_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-national_education_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 66,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-66",
+              "title": "صفحات 61 - 66",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 66
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-quran_9th",
+      "title": "القرآن الكريم — الكتاب",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "القرآن الكريم",
+      "part": "combined",
+      "totalPageCount": 126,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "11555b7582d8a8d03660d33830687000324ca8c5b1a9d2c54b7d41e3ac250c19",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/quran_9th.pdf",
+      "pdfSha256": "11555b7582d8a8d03660d33830687000324ca8c5b1a9d2c54b7d41e3ac250c19",
+      "pdfBytes": 8967877,
+      "localPdfPath": "curriculum-source/originals/grade9/quran_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/quran_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/quran_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-quran_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-quran_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 126,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-126",
+              "title": "صفحات 121 - 126",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 126
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-science_part1_9th",
+      "title": "العلوم — الجزء الأول",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "العلوم",
+      "part": "part_1",
+      "totalPageCount": 170,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "184b893221e85896bdc6f5740d134526cbb3918d93b1ec2e119813b36ddd7486",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/science_part1_9th.pdf",
+      "pdfSha256": "184b893221e85896bdc6f5740d134526cbb3918d93b1ec2e119813b36ddd7486",
+      "pdfBytes": 26442222,
+      "localPdfPath": "curriculum-source/originals/grade9/science_part1_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/science_part1_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/science_part1_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-science_part1_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-science_part1_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 170,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-156",
+              "title": "صفحات 145 - 156",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 156
+            },
+            {
+              "id": "lesson-pages-157-168",
+              "title": "صفحات 157 - 168",
+              "lessonNumber": 14,
+              "startPage": 157,
+              "endPage": 168
+            },
+            {
+              "id": "lesson-pages-169-170",
+              "title": "صفحات 169 - 170",
+              "lessonNumber": 15,
+              "startPage": 169,
+              "endPage": 170
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    },
+    {
+      "id": "grade_9-science_part2_9th",
+      "title": "العلوم — الجزء الثاني",
+      "grade": "الصف التاسع الأساسي",
+      "gradeKey": "grade_9",
+      "subject": "العلوم",
+      "part": "part_2",
+      "totalPageCount": 154,
+      "source": "official",
+      "publisher": "الإدارة العامة للمناهج - وزارة التربية والتعليم والبحث العلمي - الجمهورية اليمنية",
+      "isOfficial": true,
+      "isActive": true,
+      "approvalStatus": "approved",
+      "contentVersion": "e6fb2a6f09af2839c0b6b061fdd821deac5f4f2af6e673cfd8ff979b2e183498",
+      "sourceUrl": "http://e-learning-moe.edu.ye/adel/android_1/book_9/science_part2_9th.pdf",
+      "pdfSha256": "e6fb2a6f09af2839c0b6b061fdd821deac5f4f2af6e673cfd8ff979b2e183498",
+      "pdfBytes": 53627829,
+      "localPdfPath": "curriculum-source/originals/grade9/science_part2_9th.pdf",
+      "localManifestPath": "curriculum-source/processed/grade9/science_part2_9th/pages.json",
+      "localTextPath": "curriculum-source/processed/grade9/science_part2_9th/full.txt",
+      "storagePath": "curriculum/grade_9/grade_9-science_part2_9th/book.pdf",
+      "manifestStoragePath": "curriculum/grade_9/grade_9-science_part2_9th/pages.json",
+      "units": [
+        {
+          "id": "unit-book-pages",
+          "title": "فهرس الصفحات",
+          "unitNumber": 1,
+          "startPage": 1,
+          "endPage": 154,
+          "lessons": [
+            {
+              "id": "lesson-pages-1-12",
+              "title": "صفحات 1 - 12",
+              "lessonNumber": 1,
+              "startPage": 1,
+              "endPage": 12
+            },
+            {
+              "id": "lesson-pages-13-24",
+              "title": "صفحات 13 - 24",
+              "lessonNumber": 2,
+              "startPage": 13,
+              "endPage": 24
+            },
+            {
+              "id": "lesson-pages-25-36",
+              "title": "صفحات 25 - 36",
+              "lessonNumber": 3,
+              "startPage": 25,
+              "endPage": 36
+            },
+            {
+              "id": "lesson-pages-37-48",
+              "title": "صفحات 37 - 48",
+              "lessonNumber": 4,
+              "startPage": 37,
+              "endPage": 48
+            },
+            {
+              "id": "lesson-pages-49-60",
+              "title": "صفحات 49 - 60",
+              "lessonNumber": 5,
+              "startPage": 49,
+              "endPage": 60
+            },
+            {
+              "id": "lesson-pages-61-72",
+              "title": "صفحات 61 - 72",
+              "lessonNumber": 6,
+              "startPage": 61,
+              "endPage": 72
+            },
+            {
+              "id": "lesson-pages-73-84",
+              "title": "صفحات 73 - 84",
+              "lessonNumber": 7,
+              "startPage": 73,
+              "endPage": 84
+            },
+            {
+              "id": "lesson-pages-85-96",
+              "title": "صفحات 85 - 96",
+              "lessonNumber": 8,
+              "startPage": 85,
+              "endPage": 96
+            },
+            {
+              "id": "lesson-pages-97-108",
+              "title": "صفحات 97 - 108",
+              "lessonNumber": 9,
+              "startPage": 97,
+              "endPage": 108
+            },
+            {
+              "id": "lesson-pages-109-120",
+              "title": "صفحات 109 - 120",
+              "lessonNumber": 10,
+              "startPage": 109,
+              "endPage": 120
+            },
+            {
+              "id": "lesson-pages-121-132",
+              "title": "صفحات 121 - 132",
+              "lessonNumber": 11,
+              "startPage": 121,
+              "endPage": 132
+            },
+            {
+              "id": "lesson-pages-133-144",
+              "title": "صفحات 133 - 144",
+              "lessonNumber": 12,
+              "startPage": 133,
+              "endPage": 144
+            },
+            {
+              "id": "lesson-pages-145-154",
+              "title": "صفحات 145 - 154",
+              "lessonNumber": 13,
+              "startPage": 145,
+              "endPage": 154
+            }
+          ]
+        }
+      ],
+      "notes": "مصدر رسمي؛ ارفع book.pdf وpages.json إلى مسارات Storage المذكورة ثم احفظ pdfUrl وmanifestUrl."
+    }
+  ]
+}

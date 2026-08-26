@@ -24,13 +24,12 @@ export default function TrackingManagement() {
   const [filterType, setFilterType] = useState<'all' | 'bus' | 'student'>('all');
 
   useEffect(() => {
-    if (!user?.school) return;
-
-    // In a real app, this would query a 'tracking' collection
-    // For now, we'll simulate some data based on the school
+    const schoolValue = user?.schoolId || user?.school;
+    if (!schoolValue) { setLoading(false); return; }
+    const schoolField = user.schoolId ? 'schoolId' : 'school';
     const q = query(
       collection(db, 'tracking'),
-      where('school', '==', user.school)
+      where(schoolField, '==', schoolValue)
     );
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
@@ -38,15 +37,6 @@ export default function TrackingManagement() {
       snapshot.forEach((doc) => {
         fetched.push({ id: doc.id, ...doc.data() } as TrackingData);
       });
-      
-      // Add some dummy data if empty for demonstration
-      if (fetched.length === 0) {
-        fetched.push(
-          { id: '1', type: 'bus', name: 'Bus A', status: 'active', lastLocation: 'Main St & 1st Ave', lastUpdated: new Date(), driverName: 'Ahmed Ali', route: 'North Route' },
-          { id: '2', type: 'bus', name: 'Bus B', status: 'delayed', lastLocation: 'School Gate', lastUpdated: new Date(), driverName: 'Mohammed Saleh', route: 'South Route' },
-          { id: '3', type: 'student', name: 'Omar Khalid', status: 'active', lastLocation: 'Classroom 3B', lastUpdated: new Date() }
-        );
-      }
 
       setTrackingData(fetched);
       setLoading(false);
@@ -57,7 +47,7 @@ export default function TrackingManagement() {
     });
 
     return () => unsubscribe();
-  }, [user, language]);
+  }, [language, user?.school, user?.schoolId]);
 
   const filteredData = trackingData.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
