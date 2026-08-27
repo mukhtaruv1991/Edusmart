@@ -1,6 +1,8 @@
 import {
   collection,
+  doc,
   getDocs,
+  orderBy,
   onSnapshot,
   query,
   where,
@@ -69,7 +71,10 @@ export function normalizeCurriculumBook(id: string, data: DocumentData): Curricu
     subjectKey: data.subjectKey ? String(data.subjectKey) : undefined,
     totalPageCount,
     pdfUrl: data.pdfUrl ? String(data.pdfUrl) : undefined,
+    sourceUrl: data.sourceUrl ? String(data.sourceUrl) : (data.pdfUrl ? String(data.pdfUrl) : undefined),
     manifestUrl: data.manifestUrl ? String(data.manifestUrl) : undefined,
+    contentMode: data.contentMode ? String(data.contentMode) : undefined,
+    contentChunkCount: data.contentChunkCount ? asNumber(data.contentChunkCount, 0) : undefined,
     textIndexUrl: data.textIndexUrl ? String(data.textIndexUrl) : undefined,
     storagePath: data.storagePath ? String(data.storagePath) : undefined,
     manifestStoragePath: data.manifestStoragePath ? String(data.manifestStoragePath) : undefined,
@@ -223,11 +228,23 @@ function normalizePages(payload: any): CurriculumPage[] {
 
 export async function loadBookPages(book: CurriculumBook): Promise<CurriculumPage[]> {
   const sourceUrl = book.manifestUrl || book.textIndexUrl;
-  if (!sourceUrl) return [];
-  const cached = pageCache.get(sourceUrl);
+  const firestoreSource = `${book.id}:firestore_chunks`;
+  if (!sourceUrl && book.contentMode !== 'firestore_chunks') return [];
+  const cacheKey = sourceUrl || firestoreSource;
+  const cached = pageCache.get(cacheKey);
   if (cached) return cached;
 
   const request = (async () => {
+    if (!sourceUrl && book.contentMode === 'firestore_chunks') {
+      const chunksSnapshot = await getDocs(query(
+        collection(doc(db, CURRICULUM_COLLECTION, book.id), 'contentChunks'),
+        orderBy('chunkIndex', 'asc'),
+      ));
+      const pages = chunksSnapshot.docs.flatMap((chunkDoc) => normalizePages(chunkDoc.data()?.pages));
+      if (!pages.length) throw new Error('لا يوجد محتوى صفحات محفوظ لهذا الكتاب');
+      return pages.sort((a, b) => a.pageNumber - b.pageNumber);
+    }
+
     const cache = typeof window !== 'undefined' && 'caches' in window
       ? await window.caches.open(CURRICULUM_CACHE_NAME)
       : null;
@@ -244,7 +261,7 @@ export async function loadBookPages(book: CurriculumBook): Promise<CurriculumPag
     }
     return normalizePages(await response.json());
   })();
-  pageCache.set(sourceUrl, request);
+  pageCache.set(cacheKey, request);
   return request;
 }
 
@@ -260,6 +277,10 @@ export async function loadBookPage(book: CurriculumBook, pageNumber: number): Pr
  */
 export async function cacheBookOffline(book: CurriculumBook): Promise<boolean> {
   const sourceUrl = book.manifestUrl || book.textIndexUrl;
+  if (book.contentMode === 'firestore_chunks' && !sourceUrl) {
+    const pages = await loadBookPages(book);
+    return pages.length > 0;
+  }
   if (!sourceUrl || typeof window === 'undefined' || !('caches' in window)) return false;
 
   await loadBookPages(book);
@@ -273,6 +294,7 @@ export async function cacheBookOffline(book: CurriculumBook): Promise<boolean> {
 
 export async function isBookCachedOffline(book: CurriculumBook): Promise<boolean> {
   const sourceUrl = book.manifestUrl || book.textIndexUrl;
+  if (book.contentMode === 'firestore_chunks' && !sourceUrl) return pageCache.has(`${book.id}:firestore_chunks`);
   if (!sourceUrl || typeof window === 'undefined' || !('caches' in window)) return false;
   try {
     const cache = await window.caches.open(CURRICULUM_CACHE_NAME);

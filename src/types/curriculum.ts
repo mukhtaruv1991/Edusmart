@@ -50,7 +50,10 @@ export interface CurriculumBook {
   subjectKey?: string;
   totalPageCount: number;
   pdfUrl?: string;
+  sourceUrl?: string;
   manifestUrl?: string;
+  contentMode?: 'manifest' | 'firestore_chunks' | string;
+  contentChunkCount?: number;
   textIndexUrl?: string;
   storagePath?: string;
   manifestStoragePath?: string;

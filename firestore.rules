@@ -190,9 +190,11 @@ service cloud.firestore {
              data.subject is string && data.subject.size() > 0 && data.subject.size() < 100 &&
              data.gradeKey is string && data.gradeKey.size() > 0 &&
              data.totalPageCount is number && data.totalPageCount > 0 &&
-             data.manifestUrl is string && data.manifestUrl.size() > 0 &&
              data.pdfUrl is string && data.pdfUrl.size() > 0 &&
-             data.units is list && data.isActive is bool;
+             data.units is list && data.isActive is bool &&
+             ((data.manifestUrl is string && data.manifestUrl.size() > 0) ||
+              (('contentMode' in data && data.contentMode == 'firestore_chunks') &&
+               ('contentChunkCount' in data && data.contentChunkCount is number && data.contentChunkCount > 0)));
     }
 
     function isValidExam(data) {
@@ -306,7 +308,7 @@ service cloud.firestore {
     }
 
     match /curriculumBooks/{bookId} {
-      // The catalog contains metadata and signed Storage URLs; the application still filters school-scoped books by schoolId.
+      // The catalog may use Storage manifests or Firestore content chunks when billing is unavailable.
       allow read: if isAuthenticated();
       allow create: if (isPrincipal() || isAdmin()) &&
         isValidCurriculumBook(request.resource.data) &&
@@ -314,6 +316,13 @@ service cloud.firestore {
       allow update: if (isAdmin() || (isPrincipal() && resource.data.createdBy == request.auth.uid)) &&
         isValidCurriculumBook(request.resource.data);
       allow delete: if isAdmin() || (isPrincipal() && resource.data.createdBy == request.auth.uid);
+
+      match /contentChunks/{chunkId} {
+        allow read: if isAuthenticated() &&
+          get(/databases/$(database)/documents/curriculumBooks/$(bookId)).data.isActive == true &&
+          get(/databases/$(database)/documents/curriculumBooks/$(bookId)).data.approvalStatus == 'approved';
+        allow write: if false;
+      }
     }
 
     match /books/{bookId} {
